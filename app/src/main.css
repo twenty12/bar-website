@@ -1,0 +1,84 @@
+.hover-text {
+    cursor: pointer;
+    color: #474141;
+  }
+  .hover-gallery-row-item {
+    filter: brightness(1) drop-shadow(5px 5px 5px rgba(50, 50, 50, 0.2));
+    -webkit-transition: filter 0.5s ease;
+    -moz-transition: filter 0.5s ease;
+    -o-transition: filter 0.5s ease;
+    transition: filter 0.5s ease;
+  }
+  
+  .hover-gallery-row-item:hover {
+    filter: brightness(1.2) drop-shadow(7px 7px 7px rgba(50, 50, 50, 0.5));
+  }
+  
+  /* START PITCH */
+  @font-face {
+    font-family: "CustomFont";
+    src: url("./fonts/Test Pitch Collection/Test Pitch Sans/TestPitchSans-Regular.otf")
+      format("opentype");
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "CustomFont";
+    src: url("./fonts/Test Pitch Collection/Test Pitch Sans/TestPitchSans-Bold.otf")
+      format("opentype");
+    font-weight: bold;
+    font-weight: 700;
+    font-style: bold;
+  }
+  
+  @font-face {
+    font-family: "CustomFont";
+    src: url("./fonts/Test Pitch Collection/Test Pitch Sans/TestPitchSans-Semibold.otf")
+      format("opentype");
+    font-weight: bold;
+    font-weight: 600;
+    font-style: bold;
+  }
+
+  /* START KARON */
+  @font-face {
+    font-family: "CustomFont";
+    src: url("./fonts/Test Karbon Collection/Test Karbon/TestKarbon-Regular.otf")
+      format("opentype");
+    font-weight: normal;
+    font-style: normal;
+  }
+    @font-face {
+        font-family: "CustomFont";
+        src: url("./fonts/Test Karbon Collection/Test Karbon/TestKarbon-Bold.otf")
+        format("opentype");
+        font-weight: bold;
+        font-weight: 700;
+        font-style: bold;
+    }
+    @font-face {
+        font-family: "CustomFont";
+        src: url("./fonts/Test Karbon Collection/Test Karbon/TestKarbon-Semibold.otf")
+        format("opentype");
+        font-weight: bold;
+        font-weight: 600;
+        font-style: bold;
+    }
+  
+  @keyframes scrollGraphPaper {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: 0 -100%;
+    }
+  }
+  
+  .layout {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Crect width='20' height='20' stroke='%23cccccc' fill='%23c4e0f2' stroke-opacity='0.5' fill-opacity='0.05' stroke-width='0.5'/%3E%3C/svg%3E");
+    background-color: #ffffff; /* White base for the graph paper */
+    background-size: 5px 5px; /* Size of the grid squares */
+    background-repeat: repeat; /* Ensures the grid tiles */
+    animation: scrollGraphPaper 5s linear infinite; /* Animates the background */
+  }
+  

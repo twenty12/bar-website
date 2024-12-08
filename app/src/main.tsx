@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ConfigProvider } from "antd";
 import App from "./App";
 
+import './main.css';
 // import { ArtProvider } from "./context/ArtContext";
 // import { ScreenSizeProvider } from "./context/ScreenSizeContext";
 // import { ModalProvider } from "./context/ModalContext";
