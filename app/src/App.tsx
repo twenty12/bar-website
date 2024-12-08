@@ -7,6 +7,7 @@ import { Layout, ConfigProvider, Grid } from "antd";
 // import Event from "./pages/Event";
 import theme from "./theme.json";
 import About from "./pages/About";
+import Calendar from "./pages/Calendar";
 // import ContentDetails from "./components/contentDetail";
 import AppMenu from "./components/appMenu";
 
@@ -82,6 +83,7 @@ const App: React.FC = () => {
             />
             <Route path="/art/:id" element={<Detail />} /> */}
             <Route path="/about" element={<About />} />
+            <Route path="/calendar" element={<Calendar />} />
             {/* <Route path="/party" element={<Event />} /> */}
           </Routes>
         </Content>
