@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { List, Spin, Typography } from "antd";
+import { Col, List, Row, Spin, Typography } from "antd";
+import { Event } from "../types";
+import EventCard from "../components/eventCard";
 
 const { Title } = Typography;
 
-interface Event {
-  id: string;
-  title: string;
-  date: string | null;
-}
-
-const CalendarList: React.FC = () => {
+const Calendar: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -35,18 +31,12 @@ const CalendarList: React.FC = () => {
 
   return (
     <div style={{ padding: "20px" }}>
-      <Title level={2}>Upcoming Events</Title>
-      <List
-        bordered
-        dataSource={events}
-        renderItem={(item) => (
-          <List.Item>
-            <strong>{item.title}</strong> - {item.date ? new Date(item.date).toLocaleDateString() : "No date"}
-          </List.Item>
-        )}
-      />
+      <Title level={2}>Upcoming</Title>
+        {events.map((event) => (
+            <EventCard event={event} />
+        ))}
     </div>
   );
 };
 
-export default CalendarList;
+export default Calendar;

@@ -1,7 +1,5 @@
 import React from "react";
 import { Row, Col, Image, Grid } from "antd";
-// import { useCopyTextContext } from "../context/CopyTextContext";
-// import { markdownToHtml } from "../utils/stringUtils";
 
 const { useBreakpoint } = Grid;
 

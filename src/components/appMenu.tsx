@@ -64,7 +64,7 @@ const AppMenu = () => {
             <Link to="/menu">Menu</Link>
           </Menu.Item>
           <Menu.Item key="bookings" style={{ fontSize: "16px" }}>
-            <Link to="/bookinsg">Bookings</Link>
+            <Link to="/bookinsg">Private Events</Link>
           </Menu.Item>
         </Menu>
       )}

@@ -5,6 +5,7 @@ import { Layout, ConfigProvider, Grid } from "antd";
 // import Gallery from "./pages/Gallery";
 // import Detail from "./pages/Detail";
 // import Event from "./pages/Event";
+import sign from "./assets/images/sign.png";
 import theme from "./theme.json";
 import About from "./pages/About";
 import Calendar from "./pages/Calendar";
@@ -59,7 +60,7 @@ const App: React.FC = () => {
                 letterSpacing: "2px",
               }}
             >
-              <Link to="/">Honey's</Link>
+              <Link to="/"><img src={sign} style={{height: '30px'}} /></Link>
             </div>
 
             <AppMenu />
@@ -75,16 +76,9 @@ const App: React.FC = () => {
           }}
         >
           <Routes>
-            {/* <Route path="/" element={<Gallery />} />
-            <Route path="/:contentType" element={<Gallery />} />
-            <Route
-              path="/contentDetails/:contentType/:name"
-              element={<ContentDetails />}
-            />
-            <Route path="/art/:id" element={<Detail />} /> */}
+            <Route path="/calander" element={<Calendar />} />
             <Route path="/about" element={<About />} />
-            <Route path="/calendar" element={<Calendar />} />
-            {/* <Route path="/party" element={<Event />} /> */}
+
           </Routes>
         </Content>
         <Footer
@@ -93,7 +87,6 @@ const App: React.FC = () => {
             backgroundColor: theme.token.headerColor,
           }}
         >
-          Daniel Gladstone © 2024
         </Footer>
       </Layout>
     </ConfigProvider>
