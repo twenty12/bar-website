@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Col, List, Row, Spin, Typography } from "antd";
+import { Row, Typography } from "antd";
 import { Event } from "../types";
 import EventCard from "../components/eventCard";
-import { Header } from "antd/es/layout/layout";
 import StayAdvisedForm from "../components/stayAdvised";
 import FullPageSpin from "../components/fullPageSpin";
 
-const { Title } = Typography;
 
 const Calendar: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
@@ -34,17 +32,17 @@ const Calendar: React.FC = () => {
 
   return (
     <>
-    <Row style={{display: 'flex', justifyContent: 'space-between', marginBottom: '30px'}}>
-        <Typography.Title level={1} style={{ margin: "20px", fontSize: '50px'}}>
+      <Row style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '30px' }}>
+        <Typography.Title level={1} style={{ margin: "20px", fontSize: '50px' }}>
           Calender
         </Typography.Title>
-    <StayAdvisedForm />
-    </Row>
-    <div>
+        <StayAdvisedForm />
+      </Row>
+      <div>
         {events.map((event) => (
-            <EventCard event={event} />
+          <EventCard event={event} />
         ))}
-    </div>
+      </div>
     </>
   );
 };

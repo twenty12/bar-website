@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Input, Button, Typography } from "antd";
-import { AlertOutlined, ArrowRightOutlined, MailOutlined, PhoneOutlined } from "@ant-design/icons";
+import { AlertOutlined, MailOutlined, PhoneOutlined } from "@ant-design/icons";
 
 const StayAdvisedForm: React.FC = () => {
   return (
