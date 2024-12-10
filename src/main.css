@@ -2,6 +2,11 @@
     cursor: pointer;
     color: #474141;
   }
+a {
+  cursor: pointer !important;
+  text-decoration: none;
+
+  }
   .hover-gallery-row-item {
     filter: brightness(1) drop-shadow(5px 5px 5px rgba(50, 50, 50, 0.2));
     -webkit-transition: filter 0.5s ease;
@@ -14,31 +19,11 @@
     filter: brightness(1.2) drop-shadow(7px 7px 7px rgba(50, 50, 50, 0.5));
   }
   
-  /* START PITCH */
-  @font-face {
-    font-family: "CustomFont";
-    src: url("./fonts/Test Pitch Collection/Test Pitch Sans/TestPitchSans-Regular.otf")
-      format("opentype");
-    font-weight: normal;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: "CustomFont";
-    src: url("./fonts/Test Pitch Collection/Test Pitch Sans/TestPitchSans-Bold.otf")
-      format("opentype");
-    font-weight: bold;
-    font-weight: 700;
-    font-style: bold;
-  }
+button {
+  box-shadow: none;
+  cursor: pointer;
   
-  @font-face {
-    font-family: "CustomFont";
-    src: url("./fonts/Test Pitch Collection/Test Pitch Sans/TestPitchSans-Semibold.otf")
-      format("opentype");
-    font-weight: bold;
-    font-weight: 600;
-    font-style: bold;
-  }
+}
 
   /* START KARON */
   @font-face {
@@ -48,6 +33,7 @@
     font-weight: normal;
     font-style: normal;
   }
+
     @font-face {
         font-family: "CustomFont";
         src: url("./fonts/Test Karbon Collection/Test Karbon/TestKarbon-Bold.otf")
@@ -81,4 +67,34 @@
     background-repeat: repeat; /* Ensures the grid tiles */
     animation: scrollGraphPaper 5s linear infinite; /* Animates the background */
   }
+  .event-card {
+    background: #fafafa;
+    transition: all 0.3s ease;
+    border: 2px solid white;
+    border-radius: 2px;
+  }
+
+  .event-row img {
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(0, 0, 0, 0.9);
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    overflow: hidden;
+    margin: 15px;
+  }
+
+  .event-card:hover {
+    background: white;
+    filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.05));
+  }
+  .event-card:hover img{
+    border-radius: 2%;
+  }
   
+  input::placeholder {
+    font-size: 16px; /* Adjust size */
+    font-weight: bold; /* Optional: make it bold */
+    color: rgba(0, 0, 0, 0.9); /* Optional: change color */
+  }

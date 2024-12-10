@@ -50,7 +50,7 @@ const AppMenu = () => {
             justifyContent: "space-between",
             alignItems: "center",
             minWidth: "250px",
-            backgroundColor: theme.token.headerColor,
+            backgroundColor: "rgb(255, 255, 255, .01)",
             borderBottom: `1px ${theme.token.colorPrimary} solid`,
           }}
           mode="horizontal"

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import { Layout, ConfigProvider, Grid } from "antd";
 
@@ -11,6 +11,7 @@ import About from "./pages/About";
 import Calendar from "./pages/Calendar";
 // import ContentDetails from "./components/contentDetail";
 import AppMenu from "./components/appMenu";
+import Home from "./pages/Home";
 
 const { useBreakpoint } = Grid;
 
@@ -18,7 +19,19 @@ const App: React.FC = () => {
   const { Header, Content, Footer } = Layout;
   const screens = useBreakpoint();
   const isBelowMd = !screens.md;
+  const [isScrolled, setIsScrolled] = useState(false);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0); // Detect scroll position
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   return (
     <ConfigProvider
       theme={{
@@ -36,51 +49,59 @@ const App: React.FC = () => {
           backgroundColor: "white",
         }}
       >
-<Header
-  style={{
-    borderBottom: `1px ${theme.token.colorPrimary} solid`,
-    backgroundColor: theme.token.headerColor,
-    zIndex: 1,
-    width: "100%",
-    marginBottom: "30px",
-  }}
->
-  <div
-    style={{
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-between",
-      height: "64px", // Ensures consistent height for header
-    }}
-  >
-    <div
-      style={{
-        marginRight: "auto",
-        display: "flex", // Added
-        alignItems: "center", // Ensures logo inside is vertically centered
-        fontSize: "20px",
-        fontWeight: 600,
-        letterSpacing: "2px",
-      }}
-    >
-      <Link to="/">
-        <img 
-          src={logo_black} 
+        <Header
           style={{
-            filter: "grayscale(100%) drop-shadow(1px 1px 2px rgba(0, 0, 0, .05))",
-            height: "50px",
-            display: "block", // Prevents default inline spacing issues
-          }} 
-        />
-      </Link>
-    </div>
-    <AppMenu />
-  </div>
-</Header>
+            position: "fixed", // Makes the header fixed at the top
+            top: 0, // Positions the header at the very top
+            left: 0, // Aligns it with the left edge
+            right: 0, // Aligns it with the right edge
+            zIndex: 1000, // Ensures it stays above other content
+            borderBottom: isScrolled
+              ? "1px solid rgb(0, 0, 0, .1)" // Border disappears when scrolled
+              : `1px ${theme.token.colorPrimary} solid`, // Border visible at the top
+            backgroundColor: "rgb(255, 255, 255, .2)",
+            height: "64px", // Fixed height for consistent layout
+            display: "flex",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between", // Ensures items are spread between left and right
+              height: "100%", // Matches header height
+              width: "100%", // Ensures proper spacing
+            }}
+          >
+            <div
+              style={{
+                marginRight: "auto",
+                display: "flex", // Added
+                alignItems: "center", // Ensures logo inside is vertically centered
+                fontSize: "20px",
+                fontWeight: 600,
+                letterSpacing: "2px",
+              }}
+            >
+              <Link to="/">
+                <img
+                  src={logo_black}
+                  style={{
+                    filter: "grayscale(100%) drop-shadow(1px 1px 2px rgba(0, 0, 0, .05))",
+                    height: "50px",
+                    display: "block", // Prevents default inline spacing issues
+                  }}
+                />
+              </Link>
+            </div>
+            <AppMenu />
+          </div>
+        </Header>
         <Content
           style={{
-            padding: "0 15px",
-            marginTop: "20px",
+            padding: "64px 30px",
             width: "100%",
             maxWidth: isBelowMd ? "100%" : "1600px",
             margin: "auto",
@@ -89,6 +110,7 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/calander" element={<Calendar />} />
             <Route path="/about" element={<About />} />
+            <Route path="/" element={<Home />} />
 
           </Routes>
         </Content>

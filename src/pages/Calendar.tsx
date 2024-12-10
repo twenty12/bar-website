@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Col, List, Row, Spin, Typography } from "antd";
 import { Event } from "../types";
 import EventCard from "../components/eventCard";
+import { Header } from "antd/es/layout/layout";
+import StayAdvisedForm from "../components/stayAdvised";
+import FullPageSpin from "../components/fullPageSpin";
 
 const { Title } = Typography;
 
@@ -26,16 +29,23 @@ const Calendar: React.FC = () => {
   }, []);
 
   if (loading) {
-    return <Spin tip="Loading calendar..." />;
+    return <FullPageSpin />;
   }
 
   return (
-    <div style={{ padding: "20px" }}>
-      <Title level={2}>Upcoming</Title>
+    <>
+    <Row style={{display: 'flex', justifyContent: 'space-between', marginBottom: '30px'}}>
+        <Typography.Title level={1} style={{ margin: "20px", fontSize: '50px'}}>
+          Calender
+        </Typography.Title>
+    <StayAdvisedForm />
+    </Row>
+    <div>
         {events.map((event) => (
             <EventCard event={event} />
         ))}
     </div>
+    </>
   );
 };
 
