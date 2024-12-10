@@ -24,14 +24,14 @@ const StayAdvisedForm: React.FC = () => {
         justifyContent: "space-between", // Pushes content and icon to opposite sides
         alignItems: "center", // Ensures vertical alignment
       }}>
-        Stay advised <AlertOutlined style={{ color: 'black', marginRight: '3px'}} />
+        Tune In <AlertOutlined style={{ color: 'black', marginRight: '3px'}} />
       </Typography.Title>
 
       {/* Email Form */}
       <Form
         layout="inline"
         style={{
-          marginBottom: "20px",
+          marginBottom: "7.5px",
           display: "flex",
           justifyContent: "space-between",
         }}
@@ -51,12 +51,13 @@ const StayAdvisedForm: React.FC = () => {
 
         </Form.Item>
       </Form>
-
+      <small>or</small>
       {/* Phone Form */}
       <Form
         layout="inline"
         style={{
           display: "flex",
+          marginTop: "7.5px",
           justifyContent: "space-between",
         }}
       >

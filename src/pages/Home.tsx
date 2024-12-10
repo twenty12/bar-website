@@ -19,9 +19,10 @@ const Home: React.FC = () => {
         loop
         muted
         playsInline
-        poster="https://image.mux.com/tyNbIWNKPwZvDmiWmMncp9xBnL01hYQoT/thumbnail.jpg"
+        poster=""
         preload="none"
-        src="https://brooklynstorehouse.com/app/uploads/2024/05/brooklyn-storehouse-dusk-16x9-02.mp4"
+        // src="https://brooklynstorehouse.com/app/uploads/2024/05/brooklyn-storehouse-dusk-16x9-02.mp4"
+        src="https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/splash_vid_1.mp4"
         style={{
           position: "absolute",
           top: "50%",
@@ -52,7 +53,7 @@ const Home: React.FC = () => {
           paddingLeft: "15px",
           textAlign: "center",
         }}>
-          <Typography.Title level={1} style={{ fontSize: '50px', color: "white", margin: "15px", borderBottom: "1px solid white" }}>Let Them Cook</Typography.Title>
+          <Typography.Title level={1} style={{ fontSize: '50px', color: "white", margin: "15px", borderBottom: "1px solid white" }}>Cultivating NY</Typography.Title>
           <Typography.Title level={1} style={{ fontWeight: 300, color: "white", margin: "15px" }}>99 Scott St</Typography.Title>
         </div>
       </div>

@@ -44,5 +44,10 @@ export default async (req:any, res:any) => {
       description: event.properties.Description.rich_text[0]?.plain_text || null,
       performers: event.properties.Performers?.relation.map((performer: any) => performersMap[performer.id]) || [],
     }));
+    events.sort((a, b) => {
+      if (!a.date || !b.date) return 0; // Handle null dates
+      return new Date(a.date).getTime() - new Date(b.date).getTime();
+    });
+  
     res.status(200).json(events);
 };
