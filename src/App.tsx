@@ -7,10 +7,10 @@ import { Layout, ConfigProvider, Grid } from "antd";
 // import Event from "./pages/Event";
 import logo_black from "./assets/images/logo_black.png";
 import theme from "./theme.json";
-import About from "./pages/About";
+// import About from "./pages/About";
 import Calendar from "./pages/Calendar";
 // import ContentDetails from "./components/contentDetail";
-import AppMenu from "./components/appMenu";
+// import AppMenu from "./components/appMenu";
 import Home from "./pages/Home";
 import Events from "./pages/Events";
 

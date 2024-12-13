@@ -3,7 +3,6 @@ import { Drawer, Menu, Button, Grid } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
-import theme from "../theme.json";
 
 const { useBreakpoint } = Grid;
 
