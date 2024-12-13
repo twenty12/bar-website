@@ -1,13 +1,18 @@
-import { Typography } from "antd";
+import { Grid, Typography } from "antd";
 import React from "react";
+const { useBreakpoint } = Grid;
+
 
 const Home: React.FC = () => {
+  const screens = useBreakpoint();
+  const isBelowMd = !screens.md;
+
   return (
     <div
       style={{
         position: "fixed",
         width: "calc(100vw + 60px)",
-        left: "-60px",
+        left: isBelowMd? "0" : "-60px",
         top: "-60px",
         height: "calc(100vh + 60px)",
         overflow: "hidden",
@@ -53,9 +58,22 @@ const Home: React.FC = () => {
           paddingLeft: "15px",
           textAlign: "center",
         }}>
-          <Typography.Title level={1} style={{ fontSize: '50px', color: "white", margin: "15px", borderBottom: "1px solid white" }}>Cultivating NY</Typography.Title>
-          <Typography.Title level={1} style={{ fontWeight: 300, color: "white", margin: "15px" }}></Typography.Title>
+          <Typography.Title level={1} style={{ fontSize: '50px', color: "white", margin: "15px", borderBottom: "1px solid white" }}>For a sweet time</Typography.Title>
+          <Typography.Title level={1} style={{ fontWeight: 300, color: "white", margin: "15px" }}>93 Scott Ave<br/>Brooklyn NY 11237</Typography.Title>
         </div>
+      </div>
+      <div
+        style={{
+          position: "absolute",
+          marginLeft: '90px',
+          bottom: "60px",
+          width: "100%",
+          color: "white",
+          fontSize: "24px",
+          fontWeight: "bold",
+        }}
+      >
+        New Website Coming Soon
       </div>
     </div>
   );

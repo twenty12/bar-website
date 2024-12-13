@@ -98,7 +98,7 @@ const App: React.FC = () => {
                 />
               </Link>
             </div>
-            <AppMenu />
+            {/* <AppMenu /> */}
           </div>
         </Header>
         <Content
