@@ -17,7 +17,6 @@ async function fetchPerformers(): Promise<Record<string, Performer>> {
   
   response.data.results.forEach((performer: any) => {
     const id = performer.id;
-    console.log(performer.properties)
     performers[id] = {
       id: id,
       name: performer.properties.Name?.title[0]?.text?.content,
@@ -35,7 +34,6 @@ export default async (req:any, res:any) => {
     }
     const performersMap = await fetchPerformers();
     const response = await notionApi.post(`/databases/${eventsDatabaseId}/query`);
-    console.log(response.data.results[0].properties.Description.rich_text[0]?.plain_text)
     const events: Event[] = response.data.results.map((event: any) => ({
       id: event.id,
       thumbnail: event.properties.Poster?.files[0]?.file?.url || null,

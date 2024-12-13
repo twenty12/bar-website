@@ -50,21 +50,20 @@ const AppMenu = () => {
             justifyContent: "space-between",
             alignItems: "center",
             minWidth: "250px",
-            backgroundColor: "rgb(255, 255, 255, .01)",
-            borderBottom: `1px ${theme.token.colorPrimary} solid`,
+            backgroundColor: "rgb(255, 255, 255, 0)",
           }}
           mode="horizontal"
           defaultSelectedKeys={["1"]}
           className="desktop-menu"
         >
-          <Menu.Item key="calander" style={{ fontSize: "16px" }}>
+          <Menu.Item key="calander" style={{ fontSize: "18px" }}>
             <Link to="/calander">Calender</Link>
           </Menu.Item>
-          <Menu.Item key="menu" style={{ fontSize: "16px" }}>
+          <Menu.Item key="menu" style={{ fontSize: "18px" }}>
             <Link to="/menu">Menu</Link>
           </Menu.Item>
-          <Menu.Item key="bookings" style={{ fontSize: "16px" }}>
-            <Link to="/bookinsg">Private Events</Link>
+          <Menu.Item key="events" style={{ fontSize: "18px" }}>
+            <Link to="/events">Private Events</Link>
           </Menu.Item>
         </Menu>
       )}

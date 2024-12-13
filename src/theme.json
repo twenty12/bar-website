@@ -12,6 +12,7 @@
       "buttonBoxShadowFocus": "none",
       "headerColor": "white",
       "borderBottom": "1px solid rgba(5, 5, 5, 0.06)",
+      "appMenuBackgroundColor": "rgb(255, 255, 255, .3)",
       "menuItemStyle:": {
         "fontSize": 16,
         "fontWeight": 700

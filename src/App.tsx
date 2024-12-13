@@ -12,6 +12,7 @@ import Calendar from "./pages/Calendar";
 // import ContentDetails from "./components/contentDetail";
 import AppMenu from "./components/appMenu";
 import Home from "./pages/Home";
+import Events from "./pages/Events";
 
 const { useBreakpoint } = Grid;
 
@@ -59,7 +60,8 @@ const App: React.FC = () => {
             borderBottom: isScrolled
               ? "1px solid rgb(0, 0, 0, .1)" // Border disappears when scrolled
               : `1px ${theme.token.colorPrimary} solid`, // Border visible at the top
-            backgroundColor: "rgb(255, 255, 255, .2)",
+            backgroundColor: theme.token.appMenuBackgroundColor,
+
             height: "64px", // Fixed height for consistent layout
             display: "flex",
             alignItems: "center",
@@ -109,7 +111,7 @@ const App: React.FC = () => {
         >
           <Routes>
             <Route path="/calander" element={<Calendar />} />
-            <Route path="/about" element={<About />} />
+            <Route path="/events" element={<Events />} />
             <Route path="/" element={<Home />} />
 
           </Routes>
