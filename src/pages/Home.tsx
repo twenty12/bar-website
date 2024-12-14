@@ -58,8 +58,8 @@ const Home: React.FC = () => {
           paddingLeft: "15px",
           textAlign: "center",
         }}>
-          <Typography.Title level={1} style={{ fontSize: '50px', color: "white", margin: "15px", borderBottom: "1px solid white" }}>For a sweet time</Typography.Title>
-          <Typography.Title level={1} style={{ fontWeight: 300, color: "white", margin: "15px" }}>93 Scott Ave<br/>Brooklyn NY 11237</Typography.Title>
+          <Typography.Title level={1} style={{ fontSize: '40px', color: "white", margin: "15px", borderBottom: "1px solid white" }}>For a sweet time</Typography.Title>
+          <Typography.Title level={1} style={{ fontSize: '30px', fontWeight: 300, color: "white", margin: "15px" }}>93 Scott Ave<br/>Brooklyn NY 11237</Typography.Title>
         </div>
       </div>
       <div
