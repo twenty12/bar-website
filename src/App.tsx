@@ -13,6 +13,7 @@ import Calendar from "./pages/Calendar";
 import AppMenu from "./components/appMenu";
 import Home from "./pages/Home";
 import Events from "./pages/Events";
+import AppFooter from "./components/appFooter";
 
 const { useBreakpoint } = Grid;
 
@@ -115,13 +116,7 @@ const App: React.FC = () => {
 
           </Routes>
         </Content>
-        <Footer
-          style={{
-            marginTop: "30px",
-            backgroundColor: theme.token.headerColor,
-          }}
-        >
-        </Footer>
+          <AppFooter />
       </Layout>
     </ConfigProvider>
   );
