@@ -34,18 +34,20 @@ export default async (req:any, res:any) => {
     }
     const performersMap = await fetchPerformers();
     const response = await notionApi.post(`/databases/${eventsDatabaseId}/query`);
+    console.log(response.data.results)
     const events: Event[] = response.data.results.map((event: any) => ({
       id: event.id,
       thumbnail: event.properties.Poster?.files[0]?.file?.url || null,
       title: event.properties.Name?.title[0]?.text?.content || "Untitled",
       date: event.properties.Date?.date?.start || null,
       description: event.properties.Description.rich_text[0]?.plain_text || null,
+      visible: event.properties['Display on Website']?.checkbox || false,
+      visisble: false,
       performers: event.properties.Performers?.relation.map((performer: any) => performersMap[performer.id]) || [],
     }));
-    events.sort((a, b) => {
+    const visibleEvents: Event[] = events.sort((a, b) => {
       if (!a.date || !b.date) return 0; // Handle null dates
       return new Date(a.date).getTime() - new Date(b.date).getTime();
-    });
-  
-    res.status(200).json(events);
+    }).filter(event => event.visible)
+    res.status(200).json(visibleEvents);
 };

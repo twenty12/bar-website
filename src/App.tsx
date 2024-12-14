@@ -104,13 +104,12 @@ const App: React.FC = () => {
         <Content
           style={{
             padding: "64px 30px",
-            width: "100%",
             maxWidth: isBelowMd ? "100%" : "1600px",
             margin: "auto",
           }}
         >
           <Routes>
-            <Route path="/calander" element={<Calendar />} />
+            <Route path="/calendar" element={<Calendar />} />
             <Route path="/events" element={<Events />} />
             <Route path="/" element={<Home />} />
 
