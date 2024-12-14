@@ -4,10 +4,8 @@ import { Layout, ConfigProvider, Grid } from "antd";
 
 // import Gallery from "./pages/Gallery";
 // import Detail from "./pages/Detail";
-// import Event from "./pages/Event";
 import logo_black from "./assets/images/logo_black.png";
 import theme from "./theme.json";
-import About from "./pages/About";
 import Calendar from "./pages/Calendar";
 // import ContentDetails from "./components/contentDetail";
 import AppMenu from "./components/appMenu";
@@ -104,7 +102,6 @@ const App: React.FC = () => {
         </Header>
         <Content
           style={{
-            padding: "64px 30px",
             maxWidth: isBelowMd ? "100%" : "1600px",
             margin: "auto",
           }}

@@ -12,8 +12,8 @@ const AppFooter: React.FC = () => {
             style={{
                 borderTop: '2px solid black',
                 backgroundColor: "white",
-                padding: "20px 50px",
                 textAlign: "center",
+                
             }}
         >
             {/* Top Row */}
