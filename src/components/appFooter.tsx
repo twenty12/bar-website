@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Row, Col, Typography } from "antd";
+import { Layout, Row, Col, Typography, Divider } from "antd";
 import logo_black from "../assets/images/logo_black.png";
 import { RotatedArrow } from "./rotatedArrow";
 
@@ -13,7 +13,7 @@ const AppFooter: React.FC = () => {
                 borderTop: '2px solid black',
                 backgroundColor: "white",
                 textAlign: "center",
-                
+
             }}
         >
             {/* Top Row */}
@@ -24,13 +24,16 @@ const AppFooter: React.FC = () => {
                         <br />
                         Brooklyn, NY 11237 <RotatedArrow />
                     </a>
+                        <Divider style={{ width: '160px', minWidth: '160px'}} />
+                        Tuesday - Sundday <br />
+                        5pm - late
                     </Title>
                 </Col>
                 <Col xs={24} md={12} style={{ textAlign: 'right' }}>
                     <Title level={3} style={{ marginBottom: '5px' }}>Follow</Title>
                     <Title level={4} style={{ fontWeight: 300, marginTop: 0 }}>
                         <a
-                            href="https://instagram.com/honeys.nyc"
+                            href="https://instagram.com/honeysbrooklyn"
                             target="_blank"
                             rel="noopener noreferrer"
                             style={{ textDecoration: "none", color: "inherit" }} // Optional: style link
@@ -38,9 +41,9 @@ const AppFooter: React.FC = () => {
                             Instagram <RotatedArrow />
                         </a>
                         <br />
-                        <a href="https://spotify.com" target="_blank" rel="noopener noreferrer">
+                        {/* <a href="https://spotify.com" target="_blank" rel="noopener noreferrer">
                             Spotify <RotatedArrow />
-                        </a>
+                        </a> */}
                     </Title>
                 </Col>
                 <Col md={10}></Col>

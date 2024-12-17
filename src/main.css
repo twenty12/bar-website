@@ -1,104 +1,135 @@
-.hover-text {
-    cursor: pointer;
-    color: #474141;
+@keyframes gradientShift {
+  0% {
+    background-position: 50% 0%;
   }
+  100% {
+    background-position: 50% 100%;
+  }
+}
+
+
+.hover-text {
+  cursor: pointer;
+  color: #474141;
+}
 
 a {
   cursor: pointer !important;
   text-decoration: none;
 
-  }
-  .hover-gallery-row-item {
-    filter: brightness(1) drop-shadow(5px 5px 5px rgba(50, 50, 50, 0.2));
-    -webkit-transition: filter 0.5s ease;
-    -moz-transition: filter 0.5s ease;
-    -o-transition: filter 0.5s ease;
-    transition: filter 0.5s ease;
-  }
-  
+}
+
+.hover-gallery-row-item {
+  filter: brightness(1) drop-shadow(5px 5px 5px rgba(50, 50, 50, 0.2));
+  -webkit-transition: filter 0.5s ease;
+  -moz-transition: filter 0.5s ease;
+  -o-transition: filter 0.5s ease;
+  transition: filter 0.5s ease;
+}
+
 .hover-gallery-row-item:hover {
-    filter: brightness(1.2) drop-shadow(7px 7px 7px rgba(50, 50, 50, 0.5));
-  }
-  
+  filter: brightness(1.2) drop-shadow(7px 7px 7px rgba(50, 50, 50, 0.5));
+}
+
 button {
   box-shadow: none;
   cursor: pointer;
-  
+
 }
 
-  /* START KARON */
-  @font-face {
-    font-family: "CustomFont";
-    src: url("./fonts/Test Karbon Collection/Test Karbon/TestKarbon-Regular.otf")
-      format("opentype");
-    font-weight: normal;
-    font-style: normal;
+/* START KARON */
+@font-face {
+  font-family: "CustomFont";
+  src: url("./fonts/Test Karbon Collection/Test Karbon/TestKarbon-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "CustomFont";
+  src: url("./fonts/Test Karbon Collection/Test Karbon/TestKarbon-Bold.otf") format("opentype");
+  font-weight: bold;
+  font-weight: 700;
+  font-style: bold;
+}
+
+@font-face {
+  font-family: "CustomFont";
+  src: url("./fonts/Test Karbon Collection/Test Karbon/TestKarbon-Semibold.otf") format("opentype");
+  font-weight: bold;
+  font-weight: 600;
+  font-style: bold;
+}
+
+@keyframes scrollGraphPaper {
+  from {
+    background-position: 0 0;
   }
 
-    @font-face {
-        font-family: "CustomFont";
-        src: url("./fonts/Test Karbon Collection/Test Karbon/TestKarbon-Bold.otf")
-        format("opentype");
-        font-weight: bold;
-        font-weight: 700;
-        font-style: bold;
-    }
-    @font-face {
-        font-family: "CustomFont";
-        src: url("./fonts/Test Karbon Collection/Test Karbon/TestKarbon-Semibold.otf")
-        format("opentype");
-        font-weight: bold;
-        font-weight: 600;
-        font-style: bold;
-    }
-  
-  @keyframes scrollGraphPaper {
-    from {
-      background-position: 0 0;
-    }
-    to {
-      background-position: 0 -100%;
-    }
+  to {
+    background-position: 0 -100%;
   }
-  
-  .layout {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Crect width='20' height='20' stroke='%23cccccc' fill='%23c4e0f2' stroke-opacity='0.5' fill-opacity='0.05' stroke-width='0.5'/%3E%3C/svg%3E");
-    background-color: #ffffff; /* White base for the graph paper */
-    background-size: 5px 5px; /* Size of the grid squares */
-    background-repeat: repeat; /* Ensures the grid tiles */
-    animation: scrollGraphPaper 5s linear infinite; /* Animates the background */
-  }
-  .event-card {
-    background: #fafafa;
-    transition: all 0.3s ease;
-    border: 2px solid white;
-    border-radius: 2px;
-  }
-  .event-card img {
-    border: 2px solid rgba(0, 0, 0, 0.9);
-  }
-  
-  .event-thumbnail-desktop {
-    transition: all 0.3s ease;
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-    overflow: hidden;
-    margin: 15px;
-    border-radius: 50%;
-  }
-  
-  .event-card:hover {
-    background: white;
-    filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.05));
-  }
-  
-  .event-card:hover .event-thumbnail-desktop {
-    border-radius: 2%;
-  }
-  
-  input::placeholder {
-    font-size: 16px; /* Adjust size */
-    font-weight: bold; /* Optional: make it bold */
-    color: rgba(0, 0, 0, 0.9); /* Optional: change color */
-  }
+}
+
+.layout {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Crect width='20' height='20' stroke='%23cccccc' fill='%23c4e0f2' stroke-opacity='0.5' fill-opacity='0.05' stroke-width='0.5'/%3E%3C/svg%3E");
+  background-color: #ffffff;
+  /* White base for the graph paper */
+  background-size: 5px 5px;
+  /* Size of the grid squares */
+  background-repeat: repeat;
+  /* Ensures the grid tiles */
+  animation: scrollGraphPaper 5s linear infinite;
+  /* Animates the background */
+}
+
+.event-card {
+  background: #fafafa;
+  transition: all 0.3s ease;
+  border: 2px solid white;
+  border-radius: 2px;
+}
+
+.event-card img {
+  border: 2px solid rgba(0, 0, 0, 0.9);
+}
+
+.event-thumbnail-desktop {
+  transition: all 0.3s ease;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  overflow: hidden;
+  margin: 15px;
+  border-radius: 50%;
+}
+
+.event-card:hover {
+  background: white;
+  filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.05));
+}
+
+.event-card:hover .event-thumbnail-desktop {
+  border-radius: 2%;
+}
+
+input::placeholder {
+  font-size: 16px;
+  /* Adjust size */
+  font-weight: bold;
+  /* Optional: make it bold */
+  color: rgba(0, 0, 0, 0.9);
+  /* Optional: change color */
+}
+.shifting-gradient {
+  background: 
+    linear-gradient(1deg, 
+      rgb(255, 204, 203) 0%, /* Warm pink */
+      rgb(255, 182, 177) 25%, /* Light reddish pink */
+      rgb(255, 162, 161) 50%, /* Deeper pinkish red */
+      rgb(255, 142, 140) 75%, /* Soft red */
+      rgb(255, 122, 120) 100% /* Warm reddish tone */
+    );
+  background-size: 400% 400%;
+  animation: gradientShift 30s ease infinite;
+}

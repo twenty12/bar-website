@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, useLocation, Link } from "react-router-dom";
 import { Layout, ConfigProvider, Grid } from "antd";
-
-// import Gallery from "./pages/Gallery";
-// import Detail from "./pages/Detail";
-import logo_black from "./assets/images/logo_black.png";
+import logo from "./assets/images/logo.svg";
 import theme from "./theme.json";
 import Calendar from "./pages/Calendar";
-// import ContentDetails from "./components/contentDetail";
 import AppMenu from "./components/appMenu";
 import Home from "./pages/Home";
 import Events from "./pages/Events";
 import AppFooter from "./components/appFooter";
+import Links from "./pages/Links";
 
 const { useBreakpoint } = Grid;
 
@@ -20,6 +17,7 @@ const App: React.FC = () => {
   const screens = useBreakpoint();
   const isBelowMd = !screens.md;
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,6 +30,13 @@ const App: React.FC = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  // Define routes that skip header/footer
+  const routesWithoutHeaderFooter = ["/links"];
+
+  // Check if current route requires a full layout
+  const isFullLayout = !routesWithoutHeaderFooter.includes(location.pathname);
+
   return (
     <ConfigProvider
       theme={{
@@ -39,7 +44,7 @@ const App: React.FC = () => {
       }}
     >
       <Layout
-        className="layout shifting-gradient"
+        className="layout"
         style={{
           minHeight: "100vh",
           display: "flex",
@@ -49,71 +54,73 @@ const App: React.FC = () => {
           backgroundColor: "white",
         }}
       >
-        <Header
-          style={{
-            position: "fixed", // Makes the header fixed at the top
-            top: 0, // Positions the header at the very top
-            left: 0, // Aligns it with the left edge
-            right: 0, // Aligns it with the right edge
-            zIndex: 1000, // Ensures it stays above other content
-            borderBottom: isScrolled
-              ? "1px solid rgb(0, 0, 0, .1)" // Border disappears when scrolled
-              : `1px ${theme.token.colorPrimary} solid`, // Border visible at the top
-            backgroundColor: theme.token.appMenuBackgroundColor,
-
-            height: "64px", // Fixed height for consistent layout
-            display: "flex",
-            alignItems: "center",
-            width: "100%",
-          }}
-        >
-          <div
+        {isFullLayout && (
+          <Header
             style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              right: 0,
+              zIndex: 1000,
+              borderBottom: isScrolled
+                ? "1px solid rgb(0, 0, 0, .1)"
+                : `1px ${theme.token.colorPrimary} solid`,
+              backgroundColor: theme.token.appMenuBackgroundColor,
+              height: "64px",
               display: "flex",
               alignItems: "center",
-              justifyContent: "space-between", // Ensures items are spread between left and right
-              height: "100%", // Matches header height
-              width: "100%", // Ensures proper spacing
+              width: "100%",
             }}
           >
             <div
               style={{
-                marginRight: "auto",
-                display: "flex", // Added
-                alignItems: "center", // Ensures logo inside is vertically centered
-                fontSize: "20px",
-                fontWeight: 600,
-                letterSpacing: "2px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                height: "100%",
+                width: "100%",
               }}
             >
-              <Link to="/">
-                <img
-                  src={logo_black}
-                  style={{
-                    filter: "grayscale(100%) drop-shadow(1px 1px 2px rgba(0, 0, 0, .05))",
-                    height: "50px",
-                    display: "block", // Prevents default inline spacing issues
-                  }}
-                />
-              </Link>
+              <div
+                style={{
+                  marginRight: "auto",
+                  display: "flex",
+                  alignItems: "center",
+                  fontSize: "20px",
+                  fontWeight: 600,
+                  letterSpacing: "2px",
+                }}
+              >
+                <Link to="/">
+                  <img
+                    src={logo}
+                    style={{
+                      filter: "grayscale(100%) drop-shadow(1px 1px 2px rgba(0, 0, 0, .05))",
+                      height: "50px",
+                      display: "block",
+                    }}
+                  />
+                </Link>
+              </div>
+              <AppMenu />
             </div>
-            <AppMenu />
-          </div>
-        </Header>
+          </Header>
+        )}
         <Content
           style={{
             maxWidth: isBelowMd ? "100%" : "1600px",
-            margin: "auto",
+            margin: isFullLayout ? "auto" : "0", // Remove margins for routes without layout
+            paddingTop: isFullLayout ? "64px" : "0", // Adjust padding for header
           }}
         >
           <Routes>
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/events" element={<Events />} />
+            <Route path="/links" element={<Links />} />
             <Route path="/" element={<Home />} />
-
           </Routes>
         </Content>
-          <AppFooter />
+        {isFullLayout && <AppFooter />}
       </Layout>
     </ConfigProvider>
   );
