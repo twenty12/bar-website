@@ -11,7 +11,7 @@ const EventCard: React.FC<{ event: Event }> = ({ event }) => {
     const detialStyle = { margin: '15px', color: grey[6], fontWeight: '400', marginTop: '0px', marginBottom: '0px' }
     return (
         <Row
-            className="event-card hover-text"
+            className="event-card"
             style={{ marginBottom: '30px' }}
         >
             <Col xs={24} md={4}>

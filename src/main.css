@@ -2,11 +2,33 @@
   0% {
     background-position: 50% 0%;
   }
+
   100% {
     background-position: 50% 100%;
   }
 }
 
+.full-page-video-wrapper {
+  width: 100vw;
+  height: 100vh;
+  top: -63px;
+  position: relative;
+  overflow: hidden;
+}
+
+.full-page-video-wrapper video {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 90px);
+  object-fit: cover;
+}
+.full-page-video-body {
+  position: relative;
+  max-width: 1600px;
+  margin-left: 30px;
+  margin-right: 30px;
+}
 
 .hover-text {
   cursor: pointer;
@@ -98,6 +120,8 @@ button {
   transition: all 0.3s ease;
   width: 200px;
   height: 200px;
+  min-width: 200px;
+  min-height: 200px;
   object-fit: cover;
   overflow: hidden;
   margin: 15px;
@@ -121,14 +145,20 @@ input::placeholder {
   color: rgba(0, 0, 0, 0.9);
   /* Optional: change color */
 }
+
 .shifting-gradient {
-  background: 
-    linear-gradient(1deg, 
-      rgb(255, 204, 203) 0%, /* Warm pink */
-      rgb(255, 182, 177) 25%, /* Light reddish pink */
-      rgb(255, 162, 161) 50%, /* Deeper pinkish red */
-      rgb(255, 142, 140) 75%, /* Soft red */
-      rgb(255, 122, 120) 100% /* Warm reddish tone */
+  background:
+    linear-gradient(1deg,
+      rgb(255, 204, 203) 0%,
+      /* Warm pink */
+      rgb(255, 182, 177) 25%,
+      /* Light reddish pink */
+      rgb(255, 162, 161) 50%,
+      /* Deeper pinkish red */
+      rgb(255, 142, 140) 75%,
+      /* Soft red */
+      rgb(255, 122, 120) 100%
+      /* Warm reddish tone */
     );
   background-size: 400% 400%;
   animation: gradientShift 30s ease infinite;

@@ -31,8 +31,8 @@ const Calendar: React.FC = () => {
   }
 
   return (
-    <>
-      <Row style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '30px' }}>
+    <div style={{maxWidth: '1200px'}} >
+      <Row style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '30px'}}>
         <Typography.Title level={1} style={{ margin: "20px", fontSize: '50px' }}>
           Calender
         </Typography.Title>
@@ -43,7 +43,7 @@ const Calendar: React.FC = () => {
           <EventCard event={event} />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

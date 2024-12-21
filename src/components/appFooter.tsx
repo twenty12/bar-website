@@ -25,7 +25,7 @@ const AppFooter: React.FC = () => {
                         Brooklyn, NY 11237 <RotatedArrow />
                     </a>
                         <Divider style={{ width: '160px', minWidth: '160px'}} />
-                        Tuesday - Sundday <br />
+                        Tuesday - Sunday <br />
                         5pm - late
                     </Title>
                 </Col>

@@ -108,7 +108,6 @@ const App: React.FC = () => {
         )}
         <Content
           style={{
-            maxWidth: isBelowMd ? "100%" : "1600px",
             margin: isFullLayout ? "auto" : "0", // Remove margins for routes without layout
             paddingTop: isFullLayout ? "64px" : "0", // Adjust padding for header
           }}
