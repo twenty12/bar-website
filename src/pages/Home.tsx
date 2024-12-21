@@ -1,7 +1,12 @@
-import { Typography } from "antd";
+import { Grid, Typography } from "antd";
 import React from "react";
+const { useBreakpoint } = Grid;
+
 
 const Home: React.FC = () => {
+  const screens = useBreakpoint();
+  const isBelowMd = !screens.md;
+
   return (
     <>
       <div className="full-page-video-wrapper">
