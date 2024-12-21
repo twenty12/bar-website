@@ -1,6 +1,6 @@
 export type Event = {
     id: string;
-    thumbnail: string;
+    thumbnail?: string;
     title: string;
     date: string;
     performers?: Performer[];

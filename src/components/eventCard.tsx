@@ -49,7 +49,7 @@ const EventCard: React.FC<{ event: Event }> = ({ event }) => {
                     {isBelowMd ? null : (
                         <img
                             className="event-thumbnail-desktop"
-                            src={event.thumbnail}
+                            src={event.thumbnail ? event.thumbnail : 'https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/images/favicon_large.png'}
                             alt={event.title}
                             style={{
                             }}
