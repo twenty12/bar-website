@@ -1,7 +1,7 @@
 # Getting starting
 
 This is a TypeScript, React, and Vite app. It is deployed using Vercel. Vercel also provides a tool for running the entire app. To start the app locally run
-`vercel dev`
+`vercel dev` or `npm run dev`
 
 To deploy the app, push the to `main` branch of the repo.
 

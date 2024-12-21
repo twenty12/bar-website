@@ -7,7 +7,6 @@ const Home: React.FC = () => {
   return (
     <>
       <div className="full-page-video-wrapper">
-
         <video
           autoPlay
           loop
@@ -46,7 +45,7 @@ const Home: React.FC = () => {
       </div>
       <div className="full-page-video-body" style={{marginBottom: '60px'}}>
         <Typography.Title level={1} style={{ fontWeight: 300, margin: 0 }}>
-        Honey’s has been welcoming creative communities of all types to the corner of Scott and Ralph since 2014. We are a bar and event space that channels the city’s raw, artistic energy into thoughtful experiences for our guests. Whether it’s a poetry reading, a flower farmer’s market, or a wild dance party, there’s no single archetype for what you might find when you visit. Through the curation of flavor, sound, and movement, we want every guest feeling both energized and cared for.
+  Since 2016, Honey's has welcomed creative communities of all kinds to the corner of Scott and Randolph. We're a bar and event space that transforms the city's raw, artistic energy into thoughtful experiences for our guests. From poetry readings to floral markets to wild dance parties, a unique experience awaits with each visit. Through carefully curated flavors, sounds, and movements, we ensure every guest leaves feeling both energized and cared for.
         </Typography.Title>
           <br/>
           <br/>
