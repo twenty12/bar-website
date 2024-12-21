@@ -28,7 +28,7 @@ const Events: React.FC = () => {
         <Row>
           <Col span={24}>
             <Title level={1} style={{ fontWeight: 300, margin: 0 }}>
-              Honeys offers flexible event space that infuses the neighborhoods industrial roots with a spirit of creativy. It’s a space where flavor, sound, and movement converge, providing a unique and unforgettable setting for events of all kinds.
+            Honey’s offers flexible event space that infuses the neighborhood’s industrial roots with a spirit of creativity. It’s a place where flavor, sound, and movement converge, creating a unique and unforgettable setting for gatherings of all kinds. From private dinners and lively parties to workshops, weddings, and creative projects like photo or film shoots, Honey’s provides a versatile backdrop for your vision. Reach out to learn more about our special event options and availability.
               <br />
               <br />
             </Title>
@@ -50,9 +50,13 @@ const Events: React.FC = () => {
         <Row>
           <Col span={24}>
             <Title level={1} style={{ fontWeight: 300 }}>
-              If you are interested in renting space for your event, please get in touch through <a style={{ fontWeight: 600, textDecoration: 'underline' }} href="https://us13.list-manage.com/contact-form?u=9c795c31ffa7265aa2c83bec7&form_id=a40f2ef9819e25d70d2fdeec3afa5a30">this form</a>.
+              If you are interested in renting space for your event, please get in touch through <a style={{ fontWeight: 600, textDecoration: 'underline' }} href="https://middenhospitality.tripleseat.com/party_request/39986">this form</a>.
             </Title>
             <br />
+            <br />
+            <Title level={1} style={{ fontWeight: 300 }}>
+              For general inquries contact <a style={{}} href="mailto:manager@honeysbrooklyn.com">manager@honeysbrooklyn.com</a>.
+            </Title>
             <br />
             <br />
           </Col>

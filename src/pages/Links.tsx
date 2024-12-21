@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo_black from "../assets/images/logo_black.png";
 
-
 const Links: React.FC = () => {
   const data: any = [
     {
@@ -10,18 +9,31 @@ const Links: React.FC = () => {
       link: "/calendar",
     },
     {
-      text: "Private Events",
-      link: "/events",
+      text: "Private Rental",
+      link: "https://middenhospitality.tripleseat.com/party_request/39986",
     },
     {
       text: "Menu",
       link: "/menu",
-    }
-
+    },
   ];
 
   const navigate = useNavigate(); // React Router's navigation hook
 
+  // Define common button styles
+  const buttonStyles = (isHovered: boolean): React.CSSProperties => ({
+    width: "100%",
+    maxWidth: "400px",
+    textAlign: "center",
+    fontSize: "18px",
+    margin: "15px",
+    border: "1px solid black",
+    borderRadius: "4px",
+    padding: "18px",
+    transition: "background 0.3s ease",
+    cursor: "pointer",
+    background: isHovered ? "white" : "rgba(255, 255, 255, 0.8)",
+  });
 
   return (
     <div
@@ -50,27 +62,31 @@ const Links: React.FC = () => {
         return (
           <div
             key={item.text}
-            onClick={() => navigate(item.link)} // Navigate to the specified link
+            onClick={() => {
+              if (item.link.startsWith("http")) {
+                // Handle external links
+                window.open(item.link, "_blank");
+              } else {
+                // Handle internal navigation
+                navigate(item.link);
+              }
+            }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            style={{
-              width: "100%",
-              maxWidth: "400px",
-              textAlign: "center",
-              fontSize: "18px",
-              margin: "15px",
-              border: "1px solid black",
-              borderRadius: "4px",
-              padding: "18px",
-              transition: "background 0.3s ease",
-              cursor: "pointer",
-              background: isHovered ? "white" : "rgba(255, 255, 255, 0.8)",
-            }}
+            style={buttonStyles(isHovered)}
           >
             {item.text}
           </div>
         );
       })}
+      <div
+        onClick={() => {
+          window.location.href = "mailto:info@yourdomain.com";
+        }}
+        style={buttonStyles(false)} // No hover effect on initial render
+      >
+        Email Us
+      </div>
     </div>
   );
 };
