@@ -15,27 +15,28 @@ const EventCard: React.FC<{ event: Event }> = ({ event }) => {
             style={{ marginBottom: '30px' }}
         >
             <Col xs={24} md={4}>
-                <span style={isBelowMd ? {position: 'absolute', top:'15px', left: '15px', border: '3px solid black', background: 'white'}: {}}>
-                <Title level={2} style={{ marginLeft: '15px', marginTop: '15px', marginRight: '15px', marginBottom: 0, fontWeight: 500 }}>
-                    {formatEventDate(event.date)}
-                </Title>
-                <Title level={4} style={{ marginLeft: '15px', marginTop: '0', fontWeight: 500, color: 'gray' }}>
-                    {formatEventTime(event.date)}
-                </Title>
+                <span style={isBelowMd ? { position: 'absolute', top: '15px', left: '15px', border: '3px solid black', background: 'white' } : {}}>
+                    <Title level={2} style={{ marginLeft: '15px', marginTop: '15px', marginRight: '15px', marginBottom: 0, fontWeight: 500 }}>
+                        {formatEventDate(event.date)}
+                    </Title>
+                    <Title level={4} style={{ marginLeft: '15px', marginTop: '0', fontWeight: 500, color: 'gray' }}>
+                        {formatEventTime(event.date)}
+                    </Title>
+
                 </span>
                 {isBelowMd ? (
-                    <div style={{padding: '15px'}}>
-                    <img
-                        className="event-thumbnail-mobile"
-                        src={event.thumbnail}
-                        alt={event.title}
-                        style={{
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'cover',
-                            backgroundColor: '#f0f0f0',
-                        }}
-                    />
+                    <div style={{ padding: '15px' }}>
+                        <img
+                            className="event-thumbnail-mobile"
+                            src={event.thumbnail}
+                            alt={event.title}
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover',
+                                backgroundColor: '#f0f0f0',
+                            }}
+                        />
                     </div>
                 ) : null}
             </Col>
@@ -58,6 +59,11 @@ const EventCard: React.FC<{ event: Event }> = ({ event }) => {
                         <Title level={2} style={{ margin: '15px', fontWeight: 600 }}>
                             {event.title}
                         </Title>
+                        {event.ticketUrl ? (
+                            <a className='gradient-button' href={event.ticketUrl} style={{margin: '15px', marginTop: '5px'}} target="_blank">
+                                Get Tickets
+                            </a>
+                        ) : null}
                         {event.description ? (
                             <>
                                 <Title level={5} style={detialStyle} >{event.description}</Title>

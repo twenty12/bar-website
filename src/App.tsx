@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route, useLocation, Link } from "react-router-dom";
-import { Layout, ConfigProvider, Grid } from "antd";
+import { Layout, ConfigProvider } from "antd";
 import logo from "./assets/images/logo.svg";
 import theme from "./theme.json";
 import Calendar from "./pages/Calendar";
@@ -9,13 +9,12 @@ import Home from "./pages/Home";
 import Events from "./pages/Events";
 import AppFooter from "./components/appFooter";
 import Links from "./pages/Links";
+import Menu from "./pages/Menu";
 
-const { useBreakpoint } = Grid;
 
 const App: React.FC = () => {
-  const { Header, Content, Footer } = Layout;
-  const screens = useBreakpoint();
-  const isBelowMd = !screens.md;
+  const { Header, Content } = Layout;
+
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
@@ -39,9 +38,7 @@ const App: React.FC = () => {
 
   return (
     <ConfigProvider
-      theme={{
-        token: theme.token,
-      }}
+      theme={theme}
     >
       <Layout
         className="layout"
@@ -116,6 +113,7 @@ const App: React.FC = () => {
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/events" element={<Events />} />
             <Route path="/links" element={<Links />} />
+            <Route path="/menu" element={<Menu />} />
             <Route path="/" element={<Home />} />
           </Routes>
         </Content>

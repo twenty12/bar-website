@@ -1,16 +1,14 @@
 import React, { useState } from "react";
-import { Typography } from "antd";
 import { useNavigate } from "react-router-dom";
 import logo_black from "../assets/images/logo_black.png";
 
-const { Title } = Typography;
 
 const Links: React.FC = () => {
   const data: any = [
     {
       text: "Calendar",
       link: "/calendar",
-    }, 
+    },
     {
       text: "Private Events",
       link: "/events",
@@ -24,18 +22,6 @@ const Links: React.FC = () => {
 
   const navigate = useNavigate(); // React Router's navigation hook
 
-  const baseButtonStyle = {
-    width: "100%",
-    maxWidth: "400px",
-    textAlign: "center",
-    fontSize: "18px",
-    margin: "15px",
-    border: "1px solid black",
-    borderRadius: "4px",
-    padding: "18px",
-    background: "rgba(255, 255, 255, 0.8)",
-    transition: "background 0.3s ease",
-  };
 
   return (
     <div
@@ -68,9 +54,17 @@ const Links: React.FC = () => {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             style={{
-              ...baseButtonStyle,
+              width: "100%",
+              maxWidth: "400px",
+              textAlign: "center",
+              fontSize: "18px",
+              margin: "15px",
+              border: "1px solid black",
+              borderRadius: "4px",
+              padding: "18px",
+              transition: "background 0.3s ease",
               cursor: "pointer",
-              background: isHovered ? "white" : baseButtonStyle.background,
+              background: isHovered ? "white" : "rgba(255, 255, 255, 0.8)",
             }}
           >
             {item.text}

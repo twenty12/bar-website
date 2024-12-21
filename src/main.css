@@ -163,3 +163,29 @@ input::placeholder {
   background-size: 400% 400%;
   animation: gradientShift 30s ease infinite;
 }
+.gradient-button {
+  display: inline-block; /* Makes it behave like a button */
+  padding: 10px 20px; /* Button size */
+  font-size: 14px; /* Text size */
+  font-weight: bold; /* Text weight */
+  color: white; /* Text color */
+  background: linear-gradient(to right, #ff7e5f, #ff6b6b); /* Reddish gradient */
+  border-radius: 2px; /* Rounded corners */
+  border: 1px solid black; /* No border */
+  cursor: pointer; /* Pointer cursor */
+  text-align: center; /* Centers the text */
+  text-decoration: none; /* Removes underline from link */
+  user-select: none; /* Prevents text selection */
+  transition: background 0.3s ease, transform 0.2s ease; /* Smooth hover transitions */
+}
+
+.gradient-button:hover {
+  border: 1px solid white; /* No border */
+
+  background: linear-gradient(to right, #ff6b6b, #ff7e5f); /* Reverse gradient on hover */
+  transform: scale(1.01); /* Slightly enlarges the button */
+}
+
+.gradient-button:active {
+  transform: scale(0.99); /* Slightly shrinks when clicked */
+}

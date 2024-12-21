@@ -6,6 +6,7 @@ export type Event = {
     performers?: Performer[];
     description?: string;
     visible: boolean;
+    ticketUrl?: string;
   };
 
 export type Performer = {

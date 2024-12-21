@@ -34,7 +34,6 @@ export default async (req:any, res:any) => {
     }
     const performersMap = await fetchPerformers();
     const response = await notionApi.post(`/databases/${eventsDatabaseId}/query`);
-    console.log(response.data.results)
     const events: Event[] = response.data.results.map((event: any) => ({
       id: event.id,
       thumbnail: event.properties.Poster?.files[0]?.file?.url || null,
@@ -42,6 +41,7 @@ export default async (req:any, res:any) => {
       date: event.properties.Date?.date?.start || null,
       description: event.properties.Description.rich_text[0]?.plain_text || null,
       visible: event.properties['Display on Website']?.checkbox || false,
+      ticketUrl: event.properties['Ticket Link']?.url || null,
       visisble: false,
       performers: event.properties.Performers?.relation.map((performer: any) => performersMap[performer.id]) || [],
     }));

@@ -13,7 +13,7 @@ const Home: React.FC = () => {
           playsInline
           poster=""
           preload="none"
-          src="https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/splash_vid_1.mp4"
+          src="https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/outside_1.MOV"
           style={{
             height: "100vh",
           }}
@@ -31,7 +31,7 @@ const Home: React.FC = () => {
         >
           <div style={{
             border: "2px solid white",
-            backgroundColor: "rgba(0, 0,0, 0.1)", // Semi-transparent background
+            backgroundColor: "rgba(0, 0,0, 0.3)", // Semi-transparent background
             borderRadius: "2px",
             paddingRight: "15px",
             paddingLeft: "15px",

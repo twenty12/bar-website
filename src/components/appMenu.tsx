@@ -3,8 +3,6 @@ import { Drawer, Menu, Button, Grid } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
-import theme from "../theme.json";
-
 const { useBreakpoint } = Grid;
 
 const AppMenu = () => {
@@ -35,7 +33,7 @@ const AppMenu = () => {
                 <Link   onClick={() => setIsDrawerVisible(false)} to="/calendar">Calendar</Link>
               </Menu.Item>
               <Menu.Item key="menu">
-                <Link  onClick={() => setIsDrawerVisible(false)} to="/menu">Collections</Link>
+                <Link  onClick={() => setIsDrawerVisible(false)} to="/menu">Menu</Link>
               </Menu.Item>
             </Menu>
           </Drawer>

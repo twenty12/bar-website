@@ -1,33 +1,29 @@
 {
-    "token": {
-      "colorPrimary": "#2e1b1b",
-      "colorInfo": "#2e1b1b",
-      "colorSuccess": "#54ff00",
-      "borderRadius": 2,
-      "sizeUnit": 3,
-      "fontFamily": "'CustomFont', sans-serif", 
-      "buttonBoxShadow": "none",
-      "fontWeightStrong": 700,
-      "buttonBoxShadowHover": "none",
-      "buttonBoxShadowFocus": "none",
-      "headerColor": "white",
-      "borderBottom": "1px solid rgba(5, 5, 5, 0.06)",
-      "appMenuBackgroundColor": "rgb(255, 255, 255, .3)",
-      "menuItemStyle:": {
-        "fontSize": 16,
-        "fontWeight": 700
-      },
-      "hoverStyle": {
-        "color": "#1890ff", 
-        "cursor": "pointer"
-      },
-      "components": {
-        "Menu": {
-          "fontWeight": 700
-        },
-        "Button": {
-        }
-      }
+  "token": {
+    "colorPrimary": "#2e1b1b",
+    "colorInfo": "#2e1b1b",
+    "colorSuccess": "#54ff00",
+    "borderRadius": 2,
+    "sizeUnit": 3,
+    "fontFamily": "'CustomFont', sans-serif",
+    "buttonBoxShadow": "none",
+    "fontWeightStrong": 700,
+    "buttonBoxShadowHover": "none",
+    "buttonBoxShadowFocus": "none",
+    "headerColor": "white",
+    "borderBottom": "1px solid rgba(5, 5, 5, 0.06)",
+    "appMenuBackgroundColor": "rgb(255, 255, 255, .3)",
+    "menuItemStyle:": {
+      "fontSize": 16,
+      "fontWeight": 700
+    },
+    "hoverStyle": {
+      "color": "#1890ff",
+      "cursor": "pointer"
+    }
+  },
+  "components": {
+    "Button": {
     }
   }
-  
+}

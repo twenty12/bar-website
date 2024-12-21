@@ -15,7 +15,7 @@ const Events: React.FC = () => {
           loop
           muted
           playsInline
-          src="https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/outside_1.MOV"
+          src="https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/videos/events_2.mp4"
           style={{
 
           }}
