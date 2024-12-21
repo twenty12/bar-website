@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Row, Typography } from "antd";
 import { Event } from "../types";
 import EventCard from "../components/eventCard";
-import StayAdvisedForm from "../components/stayAdvised";
+// import StayAdvisedForm from "../components/stayAdvised";
 import FullPageSpin from "../components/fullPageSpin";
 
 
@@ -31,19 +31,19 @@ const Calendar: React.FC = () => {
   }
 
   return (
-    <>
-      <Row style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '30px' }}>
+    <div style={{maxWidth: '1200px'}} >
+      <Row style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '30px'}}>
         <Typography.Title level={1} style={{ margin: "20px", fontSize: '50px' }}>
           Calender
         </Typography.Title>
-        <StayAdvisedForm />
+        {/* <StayAdvisedForm /> */}
       </Row>
       <div>
         {events.map((event) => (
           <EventCard event={event} />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

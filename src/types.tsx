@@ -5,6 +5,8 @@ export type Event = {
     date: string;
     performers?: Performer[];
     description?: string;
+    visible: boolean;
+    ticketUrl?: string;
   };
 
 export type Performer = {

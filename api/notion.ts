@@ -40,12 +40,14 @@ export default async (req:any, res:any) => {
       title: event.properties.Name?.title[0]?.text?.content || "Untitled",
       date: event.properties.Date?.date?.start || null,
       description: event.properties.Description.rich_text[0]?.plain_text || null,
+      visible: event.properties['Display on Website']?.checkbox || false,
+      ticketUrl: event.properties['Ticket Link']?.url || null,
+      visisble: false,
       performers: event.properties.Performers?.relation.map((performer: any) => performersMap[performer.id]) || [],
     }));
-    events.sort((a, b) => {
+    const visibleEvents: Event[] = events.sort((a, b) => {
       if (!a.date || !b.date) return 0; // Handle null dates
       return new Date(a.date).getTime() - new Date(b.date).getTime();
-    });
-  
-    res.status(200).json(events);
+    }).filter(event => event.visible)
+    res.status(200).json(visibleEvents);
 };

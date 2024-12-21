@@ -26,8 +26,6 @@ const StayAdvisedForm: React.FC = () => {
       }}>
         Tune In <AlertOutlined style={{ color: 'black', marginRight: '3px'}} />
       </Typography.Title>
-
-      {/* Email Form */}
       <Form
         layout="inline"
         style={{

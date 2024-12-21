@@ -3,7 +3,6 @@ import { Drawer, Menu, Button, Grid } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
-
 const { useBreakpoint } = Grid;
 
 const AppMenu = () => {
@@ -27,17 +26,14 @@ const AppMenu = () => {
             open={isDrawerVisible}
           >
             <Menu mode="vertical" style={{ border: "none" }}>
-              <Menu.Item key="home">
-                <Link to="/">Home</Link>
+              <Menu.Item key="home" >
+                <Link onClick={() => setIsDrawerVisible(false)} to="/">Home</Link>
               </Menu.Item>
               <Menu.Item key="calander">
-                <Link to="/calendar">Calendar</Link>
+                <Link   onClick={() => setIsDrawerVisible(false)} to="/calendar">Calendar</Link>
               </Menu.Item>
-              <Menu.Item key="collections">
-                <Link to="/collections">Collections</Link>
-              </Menu.Item>
-              <Menu.Item key="about">
-                <Link to="/about">About</Link>
+              <Menu.Item key="menu">
+                <Link  onClick={() => setIsDrawerVisible(false)} to="/menu">Menu</Link>
               </Menu.Item>
             </Menu>
           </Drawer>
@@ -48,15 +44,15 @@ const AppMenu = () => {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            minWidth: "250px",
+            minWidth: "300px",
             backgroundColor: "rgb(255, 255, 255, 0)",
           }}
           mode="horizontal"
           defaultSelectedKeys={["1"]}
           className="desktop-menu"
         >
-          <Menu.Item key="calander" style={{ fontSize: "18px" }}>
-            <Link to="/calander">Calender</Link>
+          <Menu.Item key="calender" style={{ fontSize: "18px" }}>
+            <Link to="/calendar">Calender</Link>
           </Menu.Item>
           <Menu.Item key="menu" style={{ fontSize: "18px" }}>
             <Link to="/menu">Menu</Link>
