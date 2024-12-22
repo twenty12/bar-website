@@ -60,7 +60,7 @@ const EventCard: React.FC<{ event: Event }> = ({ event }) => {
                             {event.title}
                         </Title>
                         {event.ticketUrl ? (
-                            <a className='gradient-button' href={event.ticketUrl} style={{margin: '15px', marginTop: '5px'}} target="_blank">
+                            <a className='gradient-button' href={event.ticketUrl} style={{ margin: '15px', marginTop: '5px' }} target="_blank">
                                 Get Tickets
                             </a>
                         ) : null}

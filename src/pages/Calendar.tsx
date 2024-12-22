@@ -33,7 +33,7 @@ const Calendar: React.FC = () => {
   return (
     <div style={{maxWidth: '1200px'}} >
       <Row style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '30px'}}>
-        <Typography.Title level={1} style={{ margin: "20px", fontSize: '50px' }}>
+        <Typography.Title level={1} style={{ margin: "30px", marginLeft: '0', fontSize: '50px' }}>
           Calender
         </Typography.Title>
         {/* <StayAdvisedForm /> */}
