@@ -1,10 +1,9 @@
 import React from "react";
-import { Form, Input, Button, DatePicker, InputNumber, Checkbox, message, Select } from "antd";
+import { Form, Input, Button, DatePicker, InputNumber, message, Select } from "antd";
 import axios from "axios";
 import { Typography } from "antd";
 
 const Title = Typography.Title;
-const Text = Typography.Text;
 
 interface LeadFormProps {
   onSuccess: () => void;

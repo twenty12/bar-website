@@ -10,7 +10,7 @@ const Links: React.FC = () => {
     },
     {
       text: "Private Rental",
-      link: "https://middenhospitality.tripleseat.com/party_request/39986",
+      link: "/events?openModal=true",
     },
     {
       text: "Menu",
