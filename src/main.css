@@ -139,14 +139,7 @@ button {
   border-radius: 2%;
 }
 
-input::placeholder {
-  font-size: 16px;
-  /* Adjust size */
-  font-weight: bold;
-  /* Optional: make it bold */
-  color: rgba(0, 0, 0, 0.9);
-  /* Optional: change color */
-}
+
 
 .shifting-gradient {
   background:
@@ -208,4 +201,31 @@ input::placeholder {
 .gradient-button:active {
   transform: scale(0.99);
   /* Slightly shrinks when clicked */
+}
+
+/* Apply placeholder styling only within forms with the class 'no-label-form' */
+.no-label-form input::placeholder,
+.no-label-form .ant-input::placeholder,
+.no-label-form .ant-input-number-input::placeholder,
+.no-label-form .ant-picker-input input::placeholder,
+.no-label-form .ant-input-textarea::placeholder {
+  font-size: 18px;
+  color: black;
+  opacity: 1; /* Ensure the placeholder is fully visible */
+}
+
+/* Specific placeholder styling for Ant Design InputNumber within 'no-label-form' */
+.no-label-form .ant-input-number-input::placeholder {
+  color: black !important; /* Override other styles */
+}
+
+/* Specific placeholder styling for Ant Design DatePicker within 'no-label-form' */
+.no-label-form .ant-picker.ant-picker-outlined .ant-picker-input input::placeholder {
+  color: black;
+}
+/* Style the placeholder text for Ant Design Select */
+.ant-select-selection-placeholder {
+  font-size: 18px;
+  color: black !important;
+  opacity: 1; /* Ensure full visibility */
 }
