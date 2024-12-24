@@ -50,19 +50,23 @@ const Menu: React.FC = () => {
   ];
 
   return (
-    <div style={{ marginTop: '30px', marginBottom: '30px', padding: "15x", maxWidth: '800px', backgroundColor: 'rgba(255, 255, 255, 0.9)' }}>
+    <div style={{
+      marginTop: '30px', marginBottom: '30px', padding: "15x", maxWidth: '800px',
+      backgroundColor: 'rgba(255, 255, 255, 0.9)', border: '1px solid rgba(0, 0, 0, 0.1)'
+    }}>
       {menuSections.map((section, index) => (
         <div key={index} style={{ marginBottom: "40px" }}>
-          <Title level={2}>{section.title}</Title>
+          <Title style={{ marginLeft: '15px' }} level={2}>{section.title}</Title>
           <List
-            grid={{ gutter: 16, column: 2 }}
+            grid={{ column: 2 }}
             dataSource={section.items}
             renderItem={(item) => (
-              <List.Item>
-                  <Text strong>{item.name}</Text><br/>
-                  <Text>{item.description}</Text>
-                  <br />
-                  <Text strong>{item.price}</Text>
+              <List.Item
+                style={{ marginLeft: '15px' }}>
+                <Text strong>{item.name}</Text><br />
+                <Text>{item.description}</Text>
+                <br />
+                <Text strong>{item.price}</Text>
               </List.Item>
             )}
           />

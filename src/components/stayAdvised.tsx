@@ -1,8 +1,33 @@
 import React from "react";
-import { Form, Input, Button, Typography } from "antd";
+import { Form, Input, Button, Typography, message } from "antd";
 import { AlertOutlined, MailOutlined, PhoneOutlined } from "@ant-design/icons";
+import axios from "axios";
 
 const StayAdvisedForm: React.FC = () => {
+  const handleEmailSubmit = async (values: { email: string }) => {
+    try {
+      const response = await axios.post("/api/klaviyo-subscribe", {
+        email_address: values.email,
+        list_id: "Rrzm5a", // Replace with your actual Klaviyo list ID
+      });
+      message.success(response.data.message || "Subscription successful!");
+    } catch (error: any) {
+      message.error(error.response?.data?.error || "Subscription failed!");
+    }
+  };
+
+  const handlePhoneSubmit = async (values: { phone: string }) => {
+    try {
+      const response = await axios.post("/api/klaviyo-subscribe", {
+        sms_number: values.phone,
+        list_id: "WTufVZ", // Replace with your actual Klaviyo list ID
+      });
+      message.success(response.data.message || "Subscription successful!");
+    } catch (error: any) {
+      message.error(error.response?.data?.error || "Subscription failed!");
+    }
+  };
+
   return (
     <div
       style={{
@@ -18,14 +43,21 @@ const StayAdvisedForm: React.FC = () => {
         boxShadow: "1px 1px 2px rgba(0, 0, 0, 0.05)",
       }}
     >
-      <Typography.Title level={3} style={{
-        margin: 0, marginBottom: '15px', textTransform: 'uppercase',
-        display: "flex", // Enables flexbox
-        justifyContent: "space-between", // Pushes content and icon to opposite sides
-        alignItems: "center", // Ensures vertical alignment
-      }}>
-        Tune In <AlertOutlined style={{ color: 'black', marginRight: '3px'}} />
+      <Typography.Title
+        level={3}
+        style={{
+          margin: 0,
+          marginBottom: "15px",
+          textTransform: "uppercase",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        Tune In <AlertOutlined style={{ color: "black", marginRight: "3px" }} />
       </Typography.Title>
+
+      {/* Email Form */}
       <Form
         layout="inline"
         style={{
@@ -33,6 +65,7 @@ const StayAdvisedForm: React.FC = () => {
           display: "flex",
           justifyContent: "space-between",
         }}
+        onFinish={handleEmailSubmit}
       >
         <Form.Item
           name="email"
@@ -44,12 +77,12 @@ const StayAdvisedForm: React.FC = () => {
         >
           <Input placeholder="Enter your email" />
         </Form.Item>
-        <Form.Item style={{marginInlineEnd: 0}}>
+        <Form.Item style={{ marginInlineEnd: 0 }}>
           <Button type="primary" htmlType="submit" icon={<MailOutlined />} />
-
         </Form.Item>
       </Form>
       <small>or</small>
+
       {/* Phone Form */}
       <Form
         layout="inline"
@@ -58,18 +91,16 @@ const StayAdvisedForm: React.FC = () => {
           marginTop: "7.5px",
           justifyContent: "space-between",
         }}
+        onFinish={handlePhoneSubmit}
       >
         <Form.Item
           name="phone"
-          rules={[
-            { required: true, message: "Please enter your phone number!" },
-          ]}
+          rules={[{ required: true, message: "Please enter your phone number!" }]}
           style={{ flex: 1 }}
         >
           <Input placeholder="Enter your phone number" />
         </Form.Item>
-        <Form.Item style={{marginInlineEnd: 0}}>
-
+        <Form.Item style={{ marginInlineEnd: 0 }}>
           <Button type="primary" htmlType="submit" icon={<PhoneOutlined />} />
         </Form.Item>
       </Form>
