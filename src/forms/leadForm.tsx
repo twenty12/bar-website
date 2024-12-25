@@ -16,6 +16,7 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSuccess }) => {
     "Birthday Party",
     "Corporate Event",
     "Workshop",
+    "Buy Out",
     "Other",
   ];
 
@@ -46,7 +47,7 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSuccess }) => {
   return (
     <>
       <Title level={1}>
-        Event Inquery
+        Event Inquiry
       </Title>
       <Title level={4} style={{ fontWeight: 400 }}>
         Let us know a bit about the event you’re planning—we’re here to help make it happen.
@@ -136,7 +137,7 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSuccess }) => {
         </Form.Item>
         <Form.Item>
           <Button htmlType="submit">
-            Submit Inquery
+            Submit Inquiry
           </Button>
         </Form.Item>
       </Form>
