@@ -1,9 +1,8 @@
 import axios from "axios";
-import { Event, Performer } from "../src/types";
+import { Event } from "../src/types";
 
 const apiKey = "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";
 const eventsDatabaseId = "14e8ffc87fdb80419951d3dbca333c62";
-const performersDatabaseId = "1578ffc87fdb80c1850dc0747e46e6f3"
 const notionApi = axios.create({
   baseURL: "https://api.notion.com/v1",
   headers: {
@@ -18,7 +17,6 @@ export default async (req:any, res:any) => {
       return res.status(405).end
     }
     const response = await notionApi.post(`/databases/${eventsDatabaseId}/query`);
-    console.log(response.data.results)
     const events: Event[] = response.data.results.map((event: any) => ({
       id: event.id,
       thumbnail: event.properties.Poster?.files[0]?.file?.url || null,
@@ -28,7 +26,7 @@ export default async (req:any, res:any) => {
       visible: event.properties['Display on Website']?.checkbox || false,
       ticketUrl: event.properties['Ticket Link']?.url || null,
       visisble: false,
-      performers: [],
+      performers: event.properties.Performers?.relation.map((performer: any) => performer.id) || [],
     }));
     const visibleEvents: Event[] = events.sort((a, b) => {
       if (!a.date || !b.date) return 0; // Handle null dates

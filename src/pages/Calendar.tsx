@@ -7,21 +7,11 @@ import { useNotionDB } from "../providers/NotionDBProvider";
 // import StayAdvisedForm from "../components/stayAdvised";
 
 const Calendar: React.FC = () => {
-  const { events, loading, error } = useNotionDB();
+  const { events, loading } = useNotionDB();
 
   if (loading) {
     return <FullPageSpin />;
   }
-
-  // if (error) {
-  //   return (
-  //     <div>
-  //       <Typography.Title level={3} style={{ color: "red" }}>
-  //         Error: {error}
-  //       </Typography.Title>
-  //     </div>
-  //   );
-  // }
 
   return (
     <div style={{ maxWidth: "1200px" }}>

@@ -20,7 +20,7 @@ const AppFooter: React.FC = () => {
             <Row style={{ marginBottom: "20px" }}>
                 <Col xs={24} md={12} style={{ textAlign: "left" }}>
                     <Title level={3} style={{ marginBottom: '5px' }}>Find</Title>
-                    <Title level={4} style={{ fontWeight: 300, marginTop: 0 }}> <a href="https://g.co/kgs/BXQxZfZ" target="_blank" rel="noopener noreferrer">93 Scott Ave.
+                    <Title level={4} style={{ fontWeight: 300, marginTop: 0 }}> <a href="https://maps.app.goo.gl/mVQPWXFaPKv3j3wPA" target="_blank" rel="noopener noreferrer">93 Scott Ave.
                         <br />
                         Brooklyn, NY 11237 <RotatedArrow />
                     </a>
