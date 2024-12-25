@@ -23,6 +23,8 @@
   height: calc(100vh - 90px);
   object-fit: cover;
   border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  object-position: left;
+
 }
 
 .full-page-video-body {
