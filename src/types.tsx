@@ -12,5 +12,6 @@ export type Event = {
 export type Performer = {
   id: string;
   name: string;
+  imageUrl?: string;
   instagram: string;
 }

@@ -5,25 +5,20 @@ import { ConfigProvider } from "antd";
 import App from "./App";
 
 import './main.css';
-// import { ArtProvider } from "./context/ArtContext";
-// import { ScreenSizeProvider } from "./context/ScreenSizeContext";
-// import { ModalProvider } from "./context/ModalContext";
-// import { CopyTextProvider } from "./context/CopyTextContext";
+import { NotionDBProvider } from "./providers/NotionDBProvider";
+import { HelmetProvider } from "react-helmet-async";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
-      <ConfigProvider>
-        {/* <ScreenSizeProvider> */}
-          {/* <ArtProvider> */}
-            {/* <CopyTextProvider> */}
-            {/* <ModalProvider> */}
-              <App />
-            {/* </ModalProvider> */}
-            {/* </CopyTextProvider> */}
-          {/* </ArtProvider> */}
-        {/* </ScreenSizeProvider> */}
-      </ConfigProvider>
+      <NotionDBProvider>
+        <HelmetProvider>
+          <ConfigProvider>
+
+            <App />
+          </ConfigProvider>
+        </HelmetProvider>
+      </NotionDBProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

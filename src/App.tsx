@@ -10,6 +10,7 @@ import Events from "./pages/Events";
 import AppFooter from "./components/appFooter";
 import Links from "./pages/Links";
 import Menu from "./pages/Menu";
+import EventDetail from "./pages/EventDetail";
 
 
 const App: React.FC = () => {
@@ -30,18 +31,21 @@ const App: React.FC = () => {
     };
   }, []);
 
-  // Define routes that skip header/footer
-  const routesWithoutHeaderFooter = ["/links"];
+// Log the current pathname
+console.log("Current pathname:", location.pathname);
 
-  // Check if current route requires a full layout
-  const isFullLayout = !routesWithoutHeaderFooter.includes(location.pathname);
+// Check if the current route requires a full layout
+const isFullLayout = !location.pathname.includes("/links") && !location.pathname.includes("/event");
+const isEventPage = location.pathname.includes("/event");
+// Log the result
+console.log("isFullLayout:", isFullLayout);
 
   return (
     <ConfigProvider
       theme={theme}
     >
       <Layout
-        className="layout"
+        className={isEventPage ? "layout shifting-gradient-dark" : "layout"}
         style={{
           minHeight: "100vh",
           display: "flex",
@@ -110,6 +114,7 @@ const App: React.FC = () => {
           }}
         >
           <Routes>
+            <Route path="/event/:id" element={<EventDetail />} />
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/events" element={<Events />} />
             <Route path="/links" element={<Links />} />
