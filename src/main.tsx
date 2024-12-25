@@ -6,14 +6,18 @@ import App from "./App";
 
 import './main.css';
 import { NotionDBProvider } from "./providers/NotionDBProvider";
+import { HelmetProvider } from "react-helmet-async";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
       <NotionDBProvider>
-        <ConfigProvider>
-          <App />
-        </ConfigProvider>
+        <HelmetProvider>
+          <ConfigProvider>
+
+            <App />
+          </ConfigProvider>
+        </HelmetProvider>
       </NotionDBProvider>
     </BrowserRouter>
   </React.StrictMode>

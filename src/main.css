@@ -160,6 +160,29 @@ button {
   background-size: 400% 400%;
   animation: gradientShift 30s ease infinite;
 }
+.shifting-gradient-dark {
+  background-color: black;
+  background-image: 
+    linear-gradient(1deg, 
+      rgb(20, 24, 82) 0%, /* Deep indigo */
+      rgb(35, 45, 105) 28%, /* Slightly lighter indigo */
+      rgb(50, 30, 70) 44%, /* Rich purple */
+      rgb(25, 20, 60) 70%, /* Dark blue-violet */
+      rgb(5, 5, 25) 100%), /* Near-black for a deep night */
+    radial-gradient(white, rgba(255, 255, 255, 0.2) 2px, transparent 40px),
+    radial-gradient(white, rgba(255, 255, 255, 0.15) 1px, transparent 30px),
+    radial-gradient(white, rgba(255, 255, 255, 0.1) 2px, transparent 40px),
+    radial-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1) 2px, transparent 30px);
+  background-size: 400% 400%, 550px 550px, 350px 350px, 250px 250px, 150px 150px;
+  background-position: 0% 0%, 0 0, 40px 60px, 130px 270px, 70px 100px;
+  animation: gradientShift 30s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%, 0 0, 40px 60px, 130px 270px, 70px 100px; }
+  50% { background-position: 100% 50%, 0 0, 40px 60px, 130px 270px, 70px 100px; }
+  100% { background-position: 0% 50%, 0 0, 40px 60px, 130px 270px, 70px 100px; }
+}
 
 .gradient-button {
   display: inline-block;

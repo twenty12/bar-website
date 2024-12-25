@@ -3,17 +3,26 @@ import { Col, Row, Typography, Grid } from "antd";
 import { Event, Performer } from "../types";
 import { formatEventDate, formatEventTime } from "../utils/dateUtils";
 import { grey } from '@ant-design/colors';
+import { useNavigate } from "react-router-dom";
 
 const { Title } = Typography;
 const { useBreakpoint } = Grid;
 const EventCard: React.FC<{ event: Event }> = ({ event }) => {
     const isBelowMd = !useBreakpoint().md;
     const detialStyle = { margin: '15px', color: grey[6], fontWeight: '400', marginTop: '0px', marginBottom: '0px' }
+    const navigate = useNavigate(); // React Router's navigation hook
+
+    const handleClick = () => {
+        if (event.thumbnail) {
+            navigate(`/event/${event.id}`);
+        }
+    }
     const thumbnail = event.thumbnail ? event.thumbnail : 'https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/images/favicon_large.png'
     return (
         <Row
             className="event-card"
-            style={{ marginBottom: '30px' }}
+            style={{ marginBottom: '30px', cursor: event.thumbnail ? 'pointer' : 'default' }}
+            onClick={handleClick}
         >
             <Col xs={24} md={4}>
                 <span style={isBelowMd ? { position: 'absolute', top: '15px', left: '15px', border: '3px solid black', background: 'white' } : {}}>

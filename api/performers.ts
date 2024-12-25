@@ -15,11 +15,14 @@ export default async (req:any, res:any) => {
     if (req.method !== 'GET') {
       return res.status(405).end
     }
+
     const response = await notionApi.post(`/databases/${performersDatabaseId}/query`);
+    console.log(response.data.results);
     const performers: Performer[] = response.data.results.map((performer: any) => ({
       id: performer.id,
       name: performer.properties.Name?.title[0]?.text?.content,
       instagram: performer.properties.Instagram?.rich_text[0]?.plain_text,
-    }));
+      imageUrl: performer.properties.Image?.files[0]?.file?.url,
+    }))
     res.status(200).json(performers);
 };
