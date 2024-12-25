@@ -10,6 +10,7 @@ import Events from "./pages/Events";
 import AppFooter from "./components/appFooter";
 import Links from "./pages/Links";
 import Menu from "./pages/Menu";
+import EventDetail from "./pages/EventDetail";
 
 
 const App: React.FC = () => {
@@ -110,6 +111,7 @@ const App: React.FC = () => {
           }}
         >
           <Routes>
+            <Route path="/event/:id" element={<EventDetail />} />
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/events" element={<Events />} />
             <Route path="/links" element={<Links />} />

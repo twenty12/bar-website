@@ -5,25 +5,16 @@ import { ConfigProvider } from "antd";
 import App from "./App";
 
 import './main.css';
-// import { ArtProvider } from "./context/ArtContext";
-// import { ScreenSizeProvider } from "./context/ScreenSizeContext";
-// import { ModalProvider } from "./context/ModalContext";
-// import { CopyTextProvider } from "./context/CopyTextContext";
+import { NotionDBProvider } from "./providers/NotionDBProvider";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
-      <ConfigProvider>
-        {/* <ScreenSizeProvider> */}
-          {/* <ArtProvider> */}
-            {/* <CopyTextProvider> */}
-            {/* <ModalProvider> */}
-              <App />
-            {/* </ModalProvider> */}
-            {/* </CopyTextProvider> */}
-          {/* </ArtProvider> */}
-        {/* </ScreenSizeProvider> */}
-      </ConfigProvider>
+      <NotionDBProvider>
+        <ConfigProvider>
+          <App />
+        </ConfigProvider>
+      </NotionDBProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
