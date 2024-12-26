@@ -67,20 +67,20 @@ const EventDetail: React.FC = () => {
 
     return (
         <ConfigProvider theme={theme}>
-                  <Helmet>
-        {/* Open Graph Tags */}
-        <meta property="og:title" content={'Honey\'s Presents ' + event.title} />
-        <meta property="og:description" content={event.description || "Join us!"} />
-        <meta property="og:image" content={event.thumbnail} />
-        <meta property="og:url" content={window.location.href} />
-        <meta property="og:type" content="website" />
+            <Helmet>
+                {/* Open Graph Tags */}
+                <meta property="og:title" content={'Honey\'s Presents; ' + event.title} />
+                <meta property="og:description" content={event.description || "Join us!"} />
+                <meta property="og:image" content={event.thumbnail} />
+                <meta property="og:url" content={window.location.href} />
+                <meta property="og:type" content="website" />
 
-        {/* Twitter Card Tags */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={'Honey\'s Presents ' + event.title} />
-        <meta name="twitter:description" content={event.description || "Join us!"} />
-        <meta name="twitter:image" content={event.thumbnail} />
-      </Helmet>
+                {/* Twitter Card Tags */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content={'Honey\'s Presents; ' + event.title} />
+                <meta name="twitter:description" content={event.description || "Join us!"} />
+                <meta name="twitter:image" content={event.thumbnail} />
+            </Helmet>
             <div
                 style={{
                     justifyContent: "center",

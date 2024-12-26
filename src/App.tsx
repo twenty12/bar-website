@@ -11,6 +11,7 @@ import AppFooter from "./components/appFooter";
 import Links from "./pages/Links";
 import Menu from "./pages/Menu";
 import EventDetail from "./pages/EventDetail";
+import { Helmet } from "react-helmet-async";
 
 
 const App: React.FC = () => {
@@ -44,6 +45,20 @@ console.log("isFullLayout:", isFullLayout);
     <ConfigProvider
       theme={theme}
     >
+      <Helmet>
+        {/* Open Graph Tags */}
+        <meta property="og:title" content={'Honey\'s'} />
+        <meta property="og:description" content="For a sweet time"/>
+        <meta property="og:image" content='https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/images/logo_black.png' />
+        <meta property="og:url" content={window.location.href} />
+        <meta property="og:type" content="website" />
+
+        {/* Twitter Card Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={'Honey\'s'} />
+        <meta name="twitter:description" content="For a sweet time" />
+        <meta name="twitter:image" content='https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/images/logo_black.png' />
+      </Helmet>
       <Layout
         className={isEventPage ? "layout shifting-gradient-dark" : "layout"}
         style={{
