@@ -36,8 +36,8 @@ const App: React.FC = () => {
 console.log("Current pathname:", location.pathname);
 
 // Check if the current route requires a full layout
-const isFullLayout = !location.pathname.includes("/links") && !location.pathname.includes("/event");
-const isEventPage = location.pathname.includes("/event");
+const isFullLayout = !location.pathname.includes("/links") && !location.pathname.includes("/event/");
+const isEventPage = location.pathname.includes("/event/");
 // Log the result
 console.log("isFullLayout:", isFullLayout);
 
