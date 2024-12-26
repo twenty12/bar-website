@@ -18,14 +18,14 @@ const EventDetail: React.FC = () => {
     const navigate = useNavigate();
 
     // Get event ID from URL parameters
-    const { id } = useParams<{ id: string }>();
+    const { slug } = useParams<{ slug: string }>();
 
     // Fetch data from context
-    const { eventById, loading, error } = useNotionDB();
-    if (!id) {
+    const { eventBySlug, loading, error } = useNotionDB();
+    if (!slug) {
         return null;
     }
-    const event = eventById[id];
+    const event = eventBySlug[slug];
     if (loading) {
         return <FullPageSpin />;
     }

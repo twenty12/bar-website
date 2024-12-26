@@ -17,7 +17,6 @@ export default async (req:any, res:any) => {
     }
 
     const response = await notionApi.post(`/databases/${performersDatabaseId}/query`);
-    console.log(response.data.results);
     const performers: Performer[] = response.data.results.map((performer: any) => ({
       id: performer.id,
       name: performer.properties.Name?.title[0]?.text?.content,

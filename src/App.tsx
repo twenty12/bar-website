@@ -129,7 +129,7 @@ console.log("isFullLayout:", isFullLayout);
           }}
         >
           <Routes>
-            <Route path="/event/:id" element={<EventDetail />} />
+            <Route path="/event/:slug" element={<EventDetail />} />
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/events" element={<Events />} />
             <Route path="/links" element={<Links />} />

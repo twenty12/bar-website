@@ -11,6 +11,15 @@ const notionApi = axios.create({
   },
 });
 
+function slugify(string: string) {
+  return string
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/[\s_-]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+}
+
 
 export default async (req:any, res:any) => {
     if (req.method !== 'GET') {
@@ -25,6 +34,7 @@ export default async (req:any, res:any) => {
       description: event.properties.Description.rich_text[0]?.plain_text || null,
       visible: event.properties['Display on Website']?.checkbox || false,
       ticketUrl: event.properties['Ticket Link']?.url || null,
+      slug: slugify(event.properties.Name?.title[0]?.text?.content) || event.id,
       visisble: false,
       performers: event.properties.Performers?.relation.map((performer: any) => performer.id) || [],
     }));

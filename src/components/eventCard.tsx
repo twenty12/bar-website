@@ -10,11 +10,10 @@ const { useBreakpoint } = Grid;
 const EventCard: React.FC<{ event: Event }> = ({ event }) => {
     const isBelowMd = !useBreakpoint().md;
     const detialStyle = { margin: '15px', color: grey[6], fontWeight: '400', marginTop: '0px', marginBottom: '0px' }
-    const navigate = useNavigate(); // React Router's navigation hook
-
+    const navigate = useNavigate();     
     const handleClick = () => {
         if (event.thumbnail) {
-            navigate(`/event/${event.id}`);
+            navigate(`/event/${event.slug}`);
         }
     }
     const thumbnail = event.thumbnail ? event.thumbnail : 'https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/images/favicon_large.png'
