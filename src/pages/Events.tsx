@@ -50,7 +50,9 @@ const Events: React.FC = () => {
           loop
           muted
           playsInline
-          src="https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/videos/events_2.mp4"
+          poster="https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/videos/wedding_1_poster.jpg"
+          // src="https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/videos/events_2.mp4"
+          src="https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/videos/wedding_1.mp4"
           style={{
             width: "100%",
             objectFit: "cover",
@@ -58,7 +60,7 @@ const Events: React.FC = () => {
           }}
         ></video>
       </div>
-      <div className="full-page-video-body" style={{ top: "-160px" }}>
+      <div className="full-page-video-body">
         <Row
           style={rowStyle}
           gutter={[16, 16]}

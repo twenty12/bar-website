@@ -1,9 +1,10 @@
 import { Col, Row, Typography } from "antd";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 
 const Home: React.FC = () => {
-
+    const navigate = useNavigate();      
   return (
     <>
       <div className="full-page-video-wrapper">
@@ -12,9 +13,9 @@ const Home: React.FC = () => {
           loop
           muted
           playsInline
-          poster=""
-          preload="none"
-          src="https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/outside_1.MOV"
+          poster="https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/videos/outside_1_poster.jpg"
+          preload="auto"
+          src="https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/videos/outside_1.mov"
           style={{
             height: "100vh",
           }}
@@ -30,11 +31,14 @@ const Home: React.FC = () => {
 
           }}
         >
-          <div style={{
+          <div
+          className='dark-hover'
+          onClick={() => navigate('/calendar')}
+          style={{
             border: "2px solid white",
-            backgroundColor: "rgba(0, 0,0, 0.3)", // Semi-transparent background
             borderRadius: "2px",
             paddingRight: "15px",
+            cursor: "pointer",
             paddingLeft: "15px",
             textAlign: "center",
           }}>
