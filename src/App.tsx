@@ -12,6 +12,7 @@ import Links from "./pages/Links";
 import Menu from "./pages/Menu";
 import EventDetail from "./pages/EventDetail";
 import { Helmet } from "react-helmet-async";
+import GalleryModal from "./modals/imageGalleryModal";
 
 
 const App: React.FC = () => {
@@ -32,14 +33,11 @@ const App: React.FC = () => {
     };
   }, []);
 
-// Log the current pathname
-console.log("Current pathname:", location.pathname);
+  // Log the current pathname
 
-// Check if the current route requires a full layout
-const isFullLayout = !location.pathname.includes("/links") && !location.pathname.includes("/event/");
-const isEventPage = location.pathname.includes("/event/");
-// Log the result
-console.log("isFullLayout:", isFullLayout);
+  // Check if the current route requires a full layout
+  const isFullLayout = !location.pathname.includes("/links") && !location.pathname.includes("/event/");
+  const isEventPage = location.pathname.includes("/event/");
 
   return (
     <ConfigProvider
@@ -48,7 +46,7 @@ console.log("isFullLayout:", isFullLayout);
       <Helmet>
         {/* Open Graph Tags */}
         <meta property="og:title" content={'Honey\'s'} />
-        <meta property="og:description" content="For a sweet time"/>
+        <meta property="og:description" content="For a sweet time" />
         <meta property="og:image" content='https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/images/logo_black.png' />
         <meta property="og:url" content={window.location.href} />
         <meta property="og:type" content="website" />
@@ -128,6 +126,7 @@ console.log("isFullLayout:", isFullLayout);
             paddingTop: isFullLayout ? "64px" : "0", // Adjust padding for header
           }}
         >
+          <GalleryModal />
           <Routes>
             <Route path="/event/:slug" element={<EventDetail />} />
             <Route path="/calendar" element={<Calendar />} />

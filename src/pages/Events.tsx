@@ -1,7 +1,8 @@
-import { Row, Col, Typography, Divider, Button, Modal } from "antd";
+import { Row, Col, Typography, Modal } from "antd";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import LeadForm from "../forms/leadForm";
+import theme from "../theme.json";
 
 const { Title } = Typography;
 
@@ -24,7 +25,22 @@ const Events: React.FC = () => {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
-
+  // const eventButton = (
+  //   <div style={{ alignContent: "left", display: "flex", justifyContent: "left", marginTop: '15px', marginBottom: '15px' }}>
+  //     <Button size="large" className="gradient-button" onClick={showModal}>
+  //       Event Inquiry
+  //     </Button>
+  //   </div>
+  // )
+  const formTextStyle = {
+    fontWeight: 600,
+    color: theme.token.colorHighlight,
+    // background: `linear-gradient(90deg, #ff7e5f, ${theme.token.colorHighlight})`, /* Adjust gradient colors */
+    // webkitTextFillColor: 'transparent',
+    // textDecoration: 'underline',
+    cursor: 'pointer'
+  }
+  const rowStyle = { maxWidth: '990px', margin: 'auto', marginTop: '30px' }
   return (
     <>
       <div className="full-page-video-wrapper">
@@ -43,41 +59,68 @@ const Events: React.FC = () => {
         ></video>
       </div>
       <div className="full-page-video-body" style={{ top: "-160px" }}>
-        <Title level={1}>Event Rentals</Title>
-        <Row>
-          <Col span={24}>
-            <Title level={2} style={{ fontWeight: 300, margin: 0 }}>
+        <Row
+          style={rowStyle}
+          gutter={[16, 16]}
+          align={'top'}
+        >
+          <Col xs={24} md={4} style={{ textAlign: 'left' }}>
+            <Typography.Title level={3}>
+              Host with Us
+            </Typography.Title>
+          </Col>
+          <Col xs={24} md={20}>
+            <Title level={4} style={{ fontWeight: 300 }}>
               Honey’s offers flexible event space that infuses the neighborhood’s industrial roots with a spirit of
               creativity. It’s a place where flavor, sound, and movement converge, creating a unique and unforgettable
               setting for gatherings of all kinds. From private dinners and lively parties to workshops, weddings, and
               creative projects like photo or film shoots, Honey’s provides a versatile backdrop for your vision.
-              <br />
-              <br />
+
             </Title>
           </Col>
         </Row>
-        <Divider />
-        <Row>
-          <Col span={24}>
-            <Title level={2} style={{ fontWeight: 300, textAlign: "center" }}>
-              Reach out to learn more about our special event options and availability.
-            </Title>
-            <div style={{ alignContent: "center", display: "flex", justifyContent: "center" }}>
-              <Button size="large" className="gradient-button" onClick={showModal}>
-                Event Inquiry
-              </Button>
-            </div>
-            <br />
+        <Row
+          style={rowStyle}
+          gutter={[16, 16]}
+          align={'top'}
+        >
+          <Col xs={24} md={4} style={{ textAlign: 'left' }}>
+            <Typography.Title level={3}>
+              Contact
+            </Typography.Title>
           </Col>
-          <Divider />
-          <Col span={24}>
-            <br />
-            <Title level={2} style={{ fontWeight: 300 }}>
+          <Col xs={24} md={20}>
+            <Title level={4} style={{ fontWeight: 300 }}>
+              To learn more about our special event options and availability, please fillout this <span style={formTextStyle} onClick={showModal}>Event Inquiry Form</span>.
+              <br />
               For general inquiries contact{" "}
               <a href="mailto:manager@honeysbrooklyn.com">manager@honeysbrooklyn.com</a>.
             </Title>
-            <br />
-            <br />
+
+
+          </Col>
+        </Row>
+
+
+        <Row
+          style={rowStyle}
+          gutter={[16, 16]}
+          align={'top'}
+        >
+          <Col xs={24} md={4} style={{ textAlign: 'left' }}>
+            <Typography.Title level={3}>
+              Weddings
+            </Typography.Title>
+          </Col>
+          <Col xs={24} md={20}>
+
+            <Title level={4} style={{ fontWeight: 300 }}>
+              Honey’s is the perfect setting for couples seeking a wedding experience that’s creative, authentic, and unforgettable. Rooted in community and creativity, Honey’s blends warm sophistication with raw creativity, offering a space that feels both intimate and alive.
+              <br />
+              <br />
+              Whether you’re planning a cozy ceremony, a lively reception, or both, Honey’s provides a flexible, thoughtfully designed backdrop that captures the spirit of your love story.
+              {/* <span style={formTextStyle} onClick={showGalleryModal}>Gallery</span> */}
+            </Title>
           </Col>
         </Row>
       </div>

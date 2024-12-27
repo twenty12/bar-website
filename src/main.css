@@ -183,7 +183,14 @@ button {
   50% { background-position: 100% 50%, 0 0, 40px 60px, 130px 270px, 70px 100px; }
   100% { background-position: 0% 50%, 0 0, 40px 60px, 130px 270px, 70px 100px; }
 }
-
+.gradient-text {
+  background: linear-gradient(90deg, #ff7e5f, #feb47b); /* Adjust gradient colors */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.ant-modal-content{
+  background-color: black;
+}
 .gradient-button {
   display: inline-block;
   /* Makes it behave like a button */

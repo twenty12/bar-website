@@ -7,6 +7,7 @@ import App from "./App";
 import './main.css';
 import { NotionDBProvider } from "./providers/NotionDBProvider";
 import { HelmetProvider } from "react-helmet-async";
+import { GalleryProvider } from "./providers/GalleryProvider";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
@@ -14,8 +15,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <NotionDBProvider>
         <HelmetProvider>
           <ConfigProvider>
-
-            <App />
+            <GalleryProvider>
+              <App />
+            </GalleryProvider>
           </ConfigProvider>
         </HelmetProvider>
       </NotionDBProvider>
