@@ -22,7 +22,7 @@ export default async (req:any, res:any) => {
       title: imageFromDb.properties.Title?.title[0]?.text?.content,
       description: imageFromDb.properties.Description?.rich_text[0]?.plain_text,
       imageUrl: imageFromDb.properties.Image?.files[0]?.file?.url,
-      galleryType: imageFromDb.properties.GalleryType?.select?.name,
+      galleryType: imageFromDb.properties.Gallery?.select?.name,
     }))
     res.status(200).json(galleryImages);
 };

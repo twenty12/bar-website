@@ -1,13 +1,11 @@
 import React, { createContext, useState, useContext, ReactNode, useEffect } from "react";
 import { GalleryImage } from "../types";
-
+import { GalleryTypes } from "../enums";
 
 type GalleryContextType = {
   images: GalleryImage[];
   isGalleryModalVisible: boolean;
-  selectedImage?: GalleryImage;
-  setSelectedImage: (image?: GalleryImage) => void;
-  showGalleryModal: () => void;
+  showGalleryModal: (galleryType: GalleryTypes) => void;
   hideGalleryModal: () => void;
   fetchGalleryImages: () => Promise<void>;
 };
@@ -15,26 +13,36 @@ type GalleryContextType = {
 const GalleryContext = createContext<GalleryContextType | undefined>(undefined);
 
 export const GalleryProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [images, setImages] = useState<GalleryImage[]>([]);
+  const [filteredImages, setFilteredImages] = useState<GalleryImage[]>([]);
+  const [allImages, setAllImages] = useState<GalleryImage[]>([]); // To keep original data
   const [isGalleryModalVisible, setGalleryModalVisible] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<GalleryImage | undefined>();
-  const showGalleryModal = () => setGalleryModalVisible(true);
+
+  const showGalleryModal = (galleryType: GalleryTypes) => {
+    const filteredImages = allImages.filter(image => image.galleryType === galleryType);
+    setFilteredImages(filteredImages);
+    setGalleryModalVisible(true);
+  };
+
   const hideGalleryModal = () => {
     setGalleryModalVisible(false);
-    setSelectedImage(undefined);
+    setFilteredImages([]);
+
   };
+
   useEffect(() => {
     fetchGalleryImages();
   }, []);
+
   const fetchGalleryImages = async () => {
-    console.log('fetching gallery images')
+    console.log("fetching gallery images");
     try {
       const response = await fetch(`/api/gallery-images`);
       if (!response.ok) {
         throw new Error(`Error fetching gallery images: ${response.statusText}`);
       }
       const data: GalleryImage[] = await response.json();
-      setImages(data);
+      setAllImages(data); // Save all images
+      setFilteredImages(data); // Initialize current images
     } catch (error) {
       console.error("Failed to fetch gallery images:", error);
     }
@@ -43,10 +51,8 @@ export const GalleryProvider: React.FC<{ children: ReactNode }> = ({ children })
   return (
     <GalleryContext.Provider
       value={{
-        images,
+        images: filteredImages,
         isGalleryModalVisible,
-        selectedImage,
-        setSelectedImage,
         showGalleryModal,
         hideGalleryModal,
         fetchGalleryImages,
@@ -58,9 +64,9 @@ export const GalleryProvider: React.FC<{ children: ReactNode }> = ({ children })
 };
 
 export const useGallery = () => {
-    const context = useContext(GalleryContext);
-    if (!context) {
-      throw new Error("useGallery must be used within a GalleryProvider");
-    }
-    return context;
-  };
+  const context = useContext(GalleryContext);
+  if (!context) {
+    throw new Error("useGallery must be used within a GalleryProvider");
+  }
+  return context;
+};

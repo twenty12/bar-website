@@ -15,7 +15,9 @@
   position: relative;
   overflow: hidden;
 }
-
+.slick-arrow {
+  color: black !important;
+}
 .full-page-video-wrapper video {
   position: absolute;
   left: 0;

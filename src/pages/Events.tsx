@@ -3,13 +3,15 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import LeadForm from "../forms/leadForm";
 import theme from "../theme.json";
+import { useGallery } from "../providers/GalleryProvider";
+import { GalleryTypes } from "../enums";
 
 const { Title } = Typography;
 
 const Events: React.FC = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [searchParams] = useSearchParams();
-
+  const { showGalleryModal } = useGallery();
   // Check for the URL parameter `openModal` when the component mounts
   useEffect(() => {
     const openModal = searchParams.get("openModal")?.toLowerCase() === "true";
@@ -37,7 +39,7 @@ const Events: React.FC = () => {
     color: theme.token.colorHighlight,
     // background: `linear-gradient(90deg, #ff7e5f, ${theme.token.colorHighlight})`, /* Adjust gradient colors */
     // webkitTextFillColor: 'transparent',
-    // textDecoration: 'underline',
+    textDecoration: 'underline',
     cursor: 'pointer'
   }
   const rowStyle = { maxWidth: '990px', margin: 'auto', marginTop: '30px' }
@@ -51,7 +53,6 @@ const Events: React.FC = () => {
           muted
           playsInline
           poster="https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/videos/wedding_1_poster.jpg"
-          // src="https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/videos/events_2.mp4"
           src="https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/videos/wedding_1.mp4"
           style={{
             width: "100%",
@@ -102,10 +103,8 @@ const Events: React.FC = () => {
 
           </Col>
         </Row>
-
-
         <Row
-          style={rowStyle}
+          style={{ ...rowStyle}}
           gutter={[16, 16]}
           align={'top'}
         >
@@ -121,10 +120,32 @@ const Events: React.FC = () => {
               <br />
               <br />
               Whether you’re planning a cozy ceremony, a lively reception, or both, Honey’s provides a flexible, thoughtfully designed backdrop that captures the spirit of your love story.
-              {/* <span style={formTextStyle} onClick={showGalleryModal}>Gallery</span> */}
+              <br />
+              <br />
+              Check out our <span style={formTextStyle} onClick={() => showGalleryModal(GalleryTypes.Wedding)}>wedding gallery</span> and get ispired.
             </Title>
           </Col>
         </Row>
+        <Row
+          style={{ ...rowStyle, marginBottom: '60px' }}
+          gutter={[16, 16]}
+          align={'top'}
+        >
+          <Col xs={24} md={4} style={{ textAlign: 'left' }}>
+            <Typography.Title level={3}>
+              Activations
+            </Typography.Title>
+          </Col>
+          <Col xs={24} md={20}>
+
+            <Title level={4} style={{ fontWeight: 300 }}>
+              Host impactful product launches, brand activations, or PR events in a space that inspires creativity and connection.Honey’s is an authentic platform and amplifying backdrop that will set the stage for introducing your product or concept with clarity and impact.
+              Check out our <span style={formTextStyle} onClick={() => showGalleryModal(GalleryTypes.Activation)}>activation gallery</span>.
+            
+            </Title>
+          </Col>
+        </Row>
+
       </div>
       <Modal open={isModalVisible} onCancel={handleCancel} footer={null} width={600}>
         <LeadForm onSuccess={() => setIsModalVisible(false)} />

@@ -4,37 +4,33 @@ import { useGallery } from "../providers/GalleryProvider";
 
 const GalleryModal: React.FC = () => {
     const {
-        images,
+        images: filterdImages,
         isGalleryModalVisible,
-        selectedImage,
         hideGalleryModal,
     } = useGallery();
 
     // Find the index of the selected image for starting the carousel at the correct slide
-    const initialSlideIndex = images.findIndex((img) => img.id === selectedImage?.id);
 
     return (
         <div
         className="gallery-modal"
         >
             <Modal
-                title={selectedImage?.title}
                 open={isGalleryModalVisible}
                 onCancel={hideGalleryModal}
-                style={{backgroundColor: 'black'}}
-                bodyProps={{ style: { backgroundColor: 'black' } }}
+                // bodyProps={{ style: { backgroundColor: 'black' } }}
                 footer={null}
                 width={800} // Adjust the width for better visibility
                 centered // Aligns the modal itself in the center of the screen
             >
                 <Carousel
-                    initialSlide={initialSlideIndex >= 0 ? initialSlideIndex : 0}
+                    initialSlide={0}
                     dots={true}
                     dotPosition={'top'}
                     arrows
                     style={{ maxHeight: "calc(80vh - 60px)", overflow: "hidden" }} // Adjust to account for modal title height
                 >
-                    {images.map((image) => (
+                    {filterdImages.map((image) => (
                         <div
                             key={image.id}
                             style={{
