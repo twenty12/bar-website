@@ -38,9 +38,22 @@ export default async (req:any, res:any) => {
       visisble: false,
       performers: event.properties.Performers?.relation.map((performer: any) => performer.id) || [],
     }));
-    const visibleEvents: Event[] = events.sort((a, b) => {
+    const now = new Date();
+
+    const visibleEvents: Event[] = events
+    .sort((a, b) => {
       if (!a.date || !b.date) return 0; // Handle null dates
       return new Date(a.date).getTime() - new Date(b.date).getTime();
-    }).filter(event => event.visible)
+    })
+    .filter((event) => {
+      if (!event.visible || !event.date) return false;
+
+      const eventDate = new Date(event.date);
+      const cutoffTime = new Date(eventDate);
+      cutoffTime.setDate(eventDate.getDate() + 1); // Move to the next day
+      cutoffTime.setHours(4, 0, 0, 0); // Set to 4:00 AM
+
+      return now < cutoffTime;
+    });
     res.status(200).json(visibleEvents);
 };
