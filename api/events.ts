@@ -52,7 +52,7 @@ export default async (req:any, res:any) => {
       const cutoffTime = new Date(eventDate);
       cutoffTime.setDate(eventDate.getDate() + 1); // Move to the next day
       cutoffTime.setHours(4, 0, 0, 0); // Set to 4:00 AM
-
+      console.log(event.title, eventDate, cutoffTime, now, now < cutoffTime);
       return now < cutoffTime;
     });
     res.status(200).json(visibleEvents);
