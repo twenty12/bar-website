@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Event } from "../src/types";
+import moment from 'moment';
 
 const apiKey = "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";
 const eventsDatabaseId = "14e8ffc87fdb80419951d3dbca333c62";
@@ -38,22 +39,19 @@ export default async (req:any, res:any) => {
       visisble: false,
       performers: event.properties.Performers?.relation.map((performer: any) => performer.id) || [],
     }));
-    const now = new Date();
 
     const visibleEvents: Event[] = events
     .sort((a, b) => {
-      if (!a.date || !b.date) return 0; // Handle null dates
-      return new Date(a.date).getTime() - new Date(b.date).getTime();
+      if (!a.date || !b.date) return 0;
+      return moment(a.date).valueOf() - moment(b.date).valueOf();
     })
     .filter((event) => {
       if (!event.visible || !event.date) return false;
-
-      const eventDate = new Date(event.date);
-      const cutoffTime = new Date(eventDate);
-      cutoffTime.setDate(eventDate.getDate() + 1); // Move to the next day
-      cutoffTime.setHours(4, 0, 0, 0); // Set to 4:00 AM
-      console.log(event.title, eventDate, cutoffTime, now, now < cutoffTime);
-      return now < cutoffTime;
+  
+      const now = moment.utc(); // Current time in UTC
+      const eventDate = moment(event.date);
+      const cutoffTime = eventDate.clone().utc().hour(9).minute(0).second(0).millisecond(0); // 9:00 AM UTC 4AM EST
+      return now.isBefore(cutoffTime);
     });
     res.status(200).json(visibleEvents);
 };
