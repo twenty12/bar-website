@@ -9,8 +9,7 @@ const GalleryModal: React.FC = () => {
         hideGalleryModal,
     } = useGallery();
 
-    // Find the index of the selected image for starting the carousel at the correct slide
-
+    if (!isGalleryModalVisible) return null;
     return (
         <div
         className="gallery-modal"

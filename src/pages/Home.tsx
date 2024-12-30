@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 
 const Home: React.FC = () => {
-    const navigate = useNavigate();      
+  const navigate = useNavigate();
   return (
     <>
       <div className="full-page-video-wrapper">
@@ -32,16 +32,16 @@ const Home: React.FC = () => {
           }}
         >
           <div
-          className='dark-hover'
-          onClick={() => navigate('/calendar')}
-          style={{
-            border: "2px solid white",
-            borderRadius: "2px",
-            paddingRight: "15px",
-            cursor: "pointer",
-            paddingLeft: "15px",
-            textAlign: "center",
-          }}>
+            className='dark-hover'
+            onClick={() => navigate('/calendar')}
+            style={{
+              border: "2px solid white",
+              borderRadius: "2px",
+              paddingRight: "15px",
+              cursor: "pointer",
+              paddingLeft: "15px",
+              textAlign: "center",
+            }}>
             <Typography.Title level={1} style={{ fontSize: '50px', color: "white", margin: "15px", borderBottom: "1px solid white" }}>For a Sweet Time</Typography.Title>
             <Typography.Title level={1} style={{ fontWeight: 300, color: "white", margin: "15px" }}>93 Scott Ave<br />Brooklyn 11237</Typography.Title>
           </div>
@@ -53,7 +53,7 @@ const Home: React.FC = () => {
         display: 'flex'
       }}>
         <Row
-          style={{maxWidth: '990px'}}
+          style={{ maxWidth: '990px' }}
           gutter={[16, 16]}
         >
           <Col xs={24} md={4} style={{ textAlign: 'left' }}>
@@ -67,6 +67,16 @@ const Home: React.FC = () => {
               <br />
               <br />
               Through carefully curated flavors, sounds, and movements, we ensure every guest leaves feeling both energized and cared for.
+            </Typography.Title>
+          </Col>
+          <Col xs={24} md={4} style={{ textAlign: 'left' }}>
+            <Typography.Title level={3}>
+              Beverage Philosophy
+            </Typography.Title>
+          </Col>
+          <Col xs={24} md={20}>
+            <Typography.Title level={3} style={{ fontWeight: 300 }}>
+              We take a thoughtful approach to every drink we serve. Our natural wine selection highlights small producers, sustainable practices, and bold, unexpected flavors. Cocktails are crafted with seasonal ingredients and house-made infusions, thoughtfully designed to complement the spirit of Honey’s.
             </Typography.Title>
           </Col>
         </Row>

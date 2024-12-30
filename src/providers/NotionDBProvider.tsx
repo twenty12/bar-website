@@ -49,7 +49,6 @@ const transformPerformersToDict = (performers: Performer[]): Record<string, Perf
 // Provider component
 export const NotionDBProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [events, setEvents] = useState<Event[]>([]);
-  // const [eventById, setEventById] = useState<Record<string, Event>>({});
   const [eventBySlug, setEventBySlug] = useState<Record<string, Event>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -70,12 +69,6 @@ export const NotionDBProvider: React.FC<{ children: ReactNode }> = ({ children }
             ? event.performers.map((performerId: any) => performerData[performerId] || null)
             : [],
         }));
-
-        // Create the event dictionary from the mapped events list
-        // const eventDictionaryById = mappedEvents.reduce<Record<string, Event>>((acc, event) => {
-        //   acc[event.id] = event;
-        //   return acc;
-        // }, {});
         const eventDictionaryBySlug = mappedEvents.reduce<Record<string, Event>>((acc, event) => {
           acc[event.slug] = event;
           return acc;
