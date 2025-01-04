@@ -18,40 +18,49 @@ function slugify(string: string) {
     .trim()
     .replace(/[^\w\s-]/g, "")
     .replace(/[\s_-]+/g, "-")
-    .replace(/^-+|-+$/g, "")
+    .replace(/^-+|-+$/g, "");
 }
 
+export default async (req: any, res: any) => {
+  if (req.method !== "GET") {
+    return res.status(405).end();
+  }
 
-export default async (req:any, res:any) => {
-    if (req.method !== 'GET') {
-      return res.status(405).end
-    }
+  try {
     const response = await notionApi.post(`/databases/${eventsDatabaseId}/query`);
-    const events: Event[] = response.data.results.map((event: any) => ({
-      id: event.id,
-      thumbnail: event.properties.Poster?.files[0]?.file?.url || null,
-      title: event.properties.Name?.title[0]?.text?.content || "Untitled",
-      date: event.properties.Date?.date?.start || null,
-      description: event.properties.Description.rich_text[0]?.plain_text || null,
-      visible: event.properties['Display on Website']?.checkbox || false,
-      ticketUrl: event.properties['Ticket Link']?.url || null,
-      slug: slugify(event.properties.Name?.title[0]?.text?.content) || event.id,
-      visisble: false,
-      performers: event.properties.Performers?.relation.map((performer: any) => performer.id) || [],
-    }));
+    
+    // Filter visible events and map after filtering
+    const events: Event[] = response.data.results
+      .filter((event: any) => event.properties["Display on Website"]?.checkbox)
+      .map((event: any) => ({
+        id: event.id,
+        thumbnail: event.properties.Poster?.files[0]?.file?.url || null,
+        title: event.properties.Name?.title[0]?.text?.content || "Untitled",
+        date: event.properties.Date?.date?.start || null,
+        description: event.properties.Description?.rich_text[0]?.plain_text || null,
+        visible: event.properties["Display on Website"]?.checkbox || false,
+        ticketUrl: event.properties["Ticket Link"]?.url || null,
+        slug: slugify(event.properties.Name?.title[0]?.text?.content) || event.id,
+        performers: event.properties.Performers?.relation?.map((performer: any) => performer.id) || [],
+      }));
 
-    const visibleEvents: Event[] = events
-    .sort((a, b) => {
-      if (!a.date || !b.date) return 0;
-      return moment(a.date).valueOf() - moment(b.date).valueOf();
-    })
-    .filter((event) => {
-      if (!event.visible || !event.date) return false;
-  
-      const now = moment.utc(); // Current time in UTC
-      const eventDate = moment(event.date);
-      const cutoffTime = eventDate.clone().utc().hour(9).minute(0).second(0).millisecond(0); // 9:00 AM UTC 4AM EST
-      return now.isBefore(cutoffTime);
-    });
-    res.status(200).json(visibleEvents);
+    // Filter events by date
+    const currentEvents: Event[] = events
+      .filter((event) => event.date) // Ensure event has a date
+      .sort((a, b) => {
+        if (!a.date || !b.date) return 0;
+        return moment(a.date).valueOf() - moment(b.date).valueOf();
+      })
+      .filter((event) => {
+        const now = moment.utc(); // Current time in UTC
+        const eventDate = moment(event.date);
+        const cutoffTime = eventDate.clone().utc().hour(9).minute(0).second(0).millisecond(0); // 9:00 AM UTC
+        return now.isBefore(cutoffTime);
+      });
+
+    res.status(200).json(currentEvents);
+  } catch (error) {
+    console.error("Error fetching events:", error);
+    res.status(500).json({ error: "Failed to fetch events" });
+  }
 };
