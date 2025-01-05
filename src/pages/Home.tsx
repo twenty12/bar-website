@@ -58,7 +58,7 @@ const Home: React.FC = () => {
         >
           <Col xs={24} md={4} style={{ textAlign: 'left' }}>
             <Typography.Title level={3}>
-              About Us
+              About
             </Typography.Title>
           </Col>
           <Col xs={24} md={20}>
@@ -66,12 +66,12 @@ const Home: React.FC = () => {
               Since 2016, Honey's has welcomed creative communities of all kinds to the corner of Scott and Randolph. We're a bar and event space that transforms the city's raw, artistic energy into thoughtful experiences for our guests. From poetry readings to floral markets to wild dance parties, we are a space for creators of all types.
               <br />
               <br />
-              Through carefully curated flavors, sounds, and movements, we ensure every guest leaves feeling both energized and cared for.
+              Through carefully curated flavors, sounds, and movements, we strive to have every guest leave feeling cared for and energized.
             </Typography.Title>
           </Col>
           <Col xs={24} md={4} style={{ textAlign: 'left' }}>
             <Typography.Title level={3}>
-              Beverage Philosophy
+              Beverages
             </Typography.Title>
           </Col>
           <Col xs={24} md={20}>
