@@ -97,7 +97,7 @@ const Events: React.FC = () => {
               To learn more about our special event options and availability, please fillout this <span style={formTextStyle} onClick={showModal}>Event Inquiry Form</span>.
               <br />
               For general inquiries contact{" "}
-              <a href="mailto:manager@honeysbrooklyn.com">manager@honeysbrooklyn.com</a>.
+              <a href="mailto:manager@honeysbrooklyn.com" style={{textDecoration: 'underline'}}>manager@honeysbrooklyn.com</a>. <br/> For more details about our space and offerings, check out our <a href="https://storm-attention-5ca.notion.site/Honey-s-Rental-Details-1728ffc87fdb804dacc1f8cb0fe6fbad?pvs=4" style={{textDecoration: 'underline'}} target="_blank">rental details page</a>.
             </Title>
 
 
