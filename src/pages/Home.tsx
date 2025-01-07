@@ -86,7 +86,7 @@ const Home: React.FC = () => {
           </Col>
           <Col xs={24} md={20}>
             <Typography.Title level={3} style={{ fontWeight: 300 }}>
-              Parties are central to who we are - our ritual in community building. These gatherings remind us that life is best when shared, that music and movement awaken inspiration, and that spontaneity keeps things real. They ground us in the moment, bringing people together in ways that feel raw, unexpected, and deeply familiar. The energy of these nights lingers, sparking ideas, building connections, and fueling us beyond that one night.
+              Parties are central to who we are - our ritual in community building. These gatherings remind us that life is best when shared, that music and movement will stir up inspiration, and that spontaneity keeps things real. They ground us in the moment, bringing people together in ways that feel raw, unexpected, and deeply familiar. The energy of these nights lingers, sparking ideas, building connections, and fueling us beyond that one night.
             </Typography.Title>
           </Col>
           <Col xs={24} md={4} style={{ textAlign: 'left' }}>
