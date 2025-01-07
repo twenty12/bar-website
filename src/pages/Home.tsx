@@ -71,12 +71,32 @@ const Home: React.FC = () => {
           </Col>
           <Col xs={24} md={4} style={{ textAlign: 'left' }}>
             <Typography.Title level={3}>
-              Beverages
+              Menu
             </Typography.Title>
           </Col>
           <Col xs={24} md={20}>
             <Typography.Title level={3} style={{ fontWeight: 300 }}>
               We take a thoughtful approach to every drink we serve. Our natural wine selection highlights small producers, sustainable practices, and bold, unexpected flavors. Cocktails are crafted with seasonal ingredients and house-made infusions, thoughtfully designed to complement the spirit of Honey’s.
+            </Typography.Title>
+          </Col>
+          <Col xs={24} md={4} style={{ textAlign: 'left' }}>
+            <Typography.Title level={3}>
+              Parties
+            </Typography.Title>
+          </Col>
+          <Col xs={24} md={20}>
+            <Typography.Title level={3} style={{ fontWeight: 300 }}>
+              Parties are central to who we are - our ritual in community building. These gatherings remind us that life is best when shared, that music and movement awaken inspiration, and that spontaneity keeps things real. They ground us in the moment, bringing people together in ways that feel raw, unexpected, and deeply familiar. The energy of these nights lingers, sparking ideas, building connections, and fueling us beyond that one night.
+            </Typography.Title>
+          </Col>
+          <Col xs={24} md={4} style={{ textAlign: 'left' }}>
+            <Typography.Title level={3}>
+              Garden
+            </Typography.Title>
+          </Col>
+          <Col xs={24} md={20}>
+            <Typography.Title level={3} style={{ fontWeight: 300 }}>
+              The rooftop garden at Honey’s, run by herbalist and garden designer Naneh Israelyan, is a living celebration of plants, culture, and community—a space where ancient traditions of herbal medicine meet modern urban life. Conceived as a botanical library of historically significant and medicinal plants, the garden evolves with each season, reflecting Naneh’s deep knowledge and creative vision.
             </Typography.Title>
           </Col>
         </Row>
