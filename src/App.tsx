@@ -13,6 +13,7 @@ import Menu from "./pages/Menu";
 import EventDetail from "./pages/EventDetail";
 import { Helmet } from "react-helmet-async";
 import GalleryModal from "./modals/imageGalleryModal";
+import About from "./pages/About";
 
 
 const App: React.FC = () => {
@@ -46,7 +47,7 @@ const App: React.FC = () => {
       <Helmet>
         {/* Open Graph Tags */}
         <meta property="og:title" content={'Honey\'s'} />
-        <meta property="og:description" content="For a sweet time" />
+        <meta property="og:description" content="Refreshments, Dancing, and Seasonal Rooftop" />
         <meta property="og:image" content='https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/images/logo_black.png' />
         <meta property="og:url" content={window.location.href} />
         <meta property="og:type" content="website" />
@@ -54,7 +55,7 @@ const App: React.FC = () => {
         {/* Twitter Card Tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={'Honey\'s'} />
-        <meta name="twitter:description" content="For a sweet time" />
+        <meta name="twitter:description" content="Refreshments, Dancing, and Seasonal Rooftop" />
         <meta name="twitter:image" content='https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/images/logo_black.png' />
       </Helmet>
       <Layout
@@ -131,6 +132,7 @@ const App: React.FC = () => {
             <Route path="/event/:slug" element={<EventDetail />} />
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/events" element={<Events />} />
+            <Route path="/about" element={<About />} />
             <Route path="/links" element={<Links />} />
             <Route path="/menu" element={<Menu />} />
             <Route path="/" element={<Home />} />

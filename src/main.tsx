@@ -5,9 +5,10 @@ import { ConfigProvider } from "antd";
 import App from "./App";
 
 import './main.css';
-import { NotionDBProvider } from "./providers/NotionDBProvider";
+import { NotionDBProvider } from "./providers/CalendarProvider";
 import { HelmetProvider } from "react-helmet-async";
 import { GalleryProvider } from "./providers/GalleryProvider";
+import { WebsiteCopyProvider } from "./providers/websiteCopyProvider";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
@@ -16,7 +17,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <HelmetProvider>
           <ConfigProvider>
             <GalleryProvider>
-              <App />
+              <WebsiteCopyProvider>
+                <App />
+              </WebsiteCopyProvider>
             </GalleryProvider>
           </ConfigProvider>
         </HelmetProvider>

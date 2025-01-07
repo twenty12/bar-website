@@ -54,13 +54,13 @@ const AppMenu = () => {
           defaultSelectedKeys={["1"]}
           className="desktop-menu"
         >
-          <Menu.Item key="calendar" style={{ fontSize: "18px" }}>
+          <Menu.Item key="calendar" style={{ fontSize: "20px", fontWeight: 600 }}>
             <Link to="/calendar">Calendar</Link>
           </Menu.Item>
-          <Menu.Item key="menu" style={{ fontSize: "18px" }}>
+          <Menu.Item key="menu" style={{ fontSize: "20px", fontWeight: 600 }}>
             <Link to="/menu">Menu</Link>
           </Menu.Item>
-          <Menu.Item key="events" style={{ fontSize: "18px" }}>
+          <Menu.Item key="events" style={{ fontSize: "20px" , fontWeight: 600}}>
             <Link to="/events">Contact</Link>
           </Menu.Item>
         </Menu>

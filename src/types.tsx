@@ -26,3 +26,10 @@ export type GalleryImage = {
   galleryType: GalleryTypes;
   description?: string;
 }
+
+export type WebsiteCopy = {
+  id: string;
+  page: string;
+  section: string;
+  content: string;
+}

@@ -5,7 +5,7 @@ import { PushpinFilled } from "@ant-design/icons";
 import logo_pink from "../assets/images/logo_pink.png";
 
 import { useNavigate, useParams } from "react-router-dom";
-import { useNotionDB } from "../providers/NotionDBProvider";
+import { useNotionDB } from "../providers/CalendarProvider";
 import { formatEventDate, formatEventTime } from "../utils/dateUtils";
 import FullPageSpin from "../components/fullPageSpin";
 import PerformerCard from "../components/performerCard";

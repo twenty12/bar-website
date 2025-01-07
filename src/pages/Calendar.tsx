@@ -3,7 +3,7 @@ import { Row, Typography } from "antd";
 
 import EventCard from "../components/eventCard";
 import FullPageSpin from "../components/fullPageSpin";
-import { useNotionDB } from "../providers/NotionDBProvider";
+import { useNotionDB } from "../providers/CalendarProvider";
 // import StayAdvisedForm from "../components/stayAdvised";
 
 const Calendar: React.FC = () => {
