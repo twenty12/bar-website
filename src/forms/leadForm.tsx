@@ -1,7 +1,9 @@
 import React from "react";
+import ReactGA from "react-ga4";
 import { Form, Input, Button, DatePicker, InputNumber, message, Select } from "antd";
 import axios from "axios";
 import { Typography } from "antd";
+
 
 const Title = Typography.Title;
 
@@ -36,6 +38,12 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSuccess }) => {
         message.error("Failed to submit the lead. Please try again.");
       }
       message.success("Lead submitted successfully!");
+      ReactGA.event({
+        category: "Form Submission",
+        action: "Lead Submission",
+        label: values.additional_information,
+        value: values.guest_count,
+      });
       form.resetFields();
       onSuccess();
     } catch (error: any) {

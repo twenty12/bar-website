@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import ReactGA from "react-ga4";
+
 import { Routes, Route, useLocation, Link } from "react-router-dom";
 import { Layout, ConfigProvider } from "antd";
 import logo from "./assets/images/logo.svg";
@@ -14,6 +16,8 @@ import EventDetail from "./pages/EventDetail";
 import { Helmet } from "react-helmet-async";
 import GalleryModal from "./modals/imageGalleryModal";
 import About from "./pages/About";
+
+ReactGA.initialize("G-YJS7QQW8KP");
 
 
 const App: React.FC = () => {
