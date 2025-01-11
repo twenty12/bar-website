@@ -58,7 +58,7 @@ const Calendar: React.FC = () => {
           style={{ marginTop: "15px", marginBottom: "0px", fontWeight: 300 }}
         >
           We're taking advantage of the winter season to renovate our space with a major audio upgrade and new bar additions.
-          Things will be a little quieter this winter. <br/><br/>We'll be full force in spring with a stacked lineup of parties. <br />
+          Things will be a little quieter this winter. <br/><br/>Stay tuned, this spring we will be in full force with a stacked lineup of parites! <br />
         </Typography.Title>
       </div>
       <div>
