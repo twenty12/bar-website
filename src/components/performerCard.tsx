@@ -34,8 +34,10 @@ const PerformerCard: React.FC<PerformerCardProps> = ({ performer }) => {
                         src={performer.imageUrl}
                         alt={performer.name}
                         style={{
-                            width: "100%", // Ensure image fits within column
-                            height: "auto", // Maintain aspect ratio
+                            width: "100%",        // Fills the width of its container
+                            height: "100%",       // Fills the height to make it a square
+                            aspectRatio: "1 / 1", // Ensures it's always a square
+                            objectFit: "cover",   // Ensures the image fills the square without distortion
                             borderRadius: "2px",
                             border: "1px solid white",
                         }}

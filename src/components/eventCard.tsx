@@ -10,7 +10,7 @@ const { useBreakpoint } = Grid;
 const EventCard: React.FC<{ event: Event }> = ({ event }) => {
     const isBelowMd = !useBreakpoint().md;
     const detialStyle = { margin: '15px', color: grey[6], fontWeight: '400', marginTop: '0px', marginBottom: '0px' }
-    const navigate = useNavigate();     
+    const navigate = useNavigate();
     const handleClick = () => {
         if (event.thumbnail) {
             navigate(`/event/${event.slug}`);
@@ -82,8 +82,33 @@ const EventCard: React.FC<{ event: Event }> = ({ event }) => {
                         {event.performers ? (
                             event.performers.map((performer: Performer) => (
                                 <Title level={5} style={detialStyle}>
+                                    <img
+                                        src={performer.imageUrl}
+                                        alt={performer.name}
+                                        style={{
+                                            width: "24px",
+                                            height: "24px",
+                                            borderRadius: "50%",
+                                            marginRight: "8px",
+                                            objectFit: "cover",
+                                            verticalAlign: "middle",
+                                            border: "1px solid white",
+                                        }}
+                                    />
                                     {performer.name}{'  '}
-                                    {performer.instagram ? <>(<a target="_blank" href={'https://www.instagram.com/' + performer.instagram} style={{ color: grey[6] }}>@{performer.instagram}</a>)</> : <></>}
+                                    {performer.instagram ? (
+                                        <>
+                                            <a
+                                                target="_blank"
+                                                href={'https://www.instagram.com/' + performer.instagram}
+                                                style={{ color: grey[6] }}
+                                            >
+                                                @{performer.instagram}
+                                            </a>
+                                        </>
+                                    ) : (
+                                        <></>
+                                    )}
                                 </Title>
                             ))
                         ) : (
