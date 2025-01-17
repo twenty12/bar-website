@@ -60,6 +60,21 @@ const Events: React.FC = () => {
             filter: "grayscale(50%) contrast(140%) brightness(130%)",
           }}
         ></video>
+  <div
+    style={{
+      position: "absolute",
+      bottom: "10px",
+      fontSize: "14px",
+      color: "#fff",
+      textShadow: "1px 1px 4px rgba(0, 0, 0, 0.7)",
+      backgroundColor: "rgba(0, 0, 0, 0.5)",
+      padding: "5px 10px",
+      borderRadius: "4px",
+      zIndex: 1, // Ensures it's above the video
+    }}
+  >
+    Video Credit: Amanda Hamm
+  </div>
       </div>
       <div className="full-page-video-body">
         <Row
