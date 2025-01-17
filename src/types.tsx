@@ -17,6 +17,7 @@ export type Performer = {
   name: string;
   imageUrl?: string;
   instagram: string;
+  isHost: boolean;
 };
 
 export type GalleryImage = {

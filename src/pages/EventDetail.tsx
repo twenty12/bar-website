@@ -64,7 +64,7 @@ const EventDetail: React.FC = () => {
             colorTextTertiary: "#ffffff",
         },
     };
-
+    console.log(event.performers)
     return (
         <ConfigProvider theme={theme}>
             <Helmet>
@@ -90,7 +90,7 @@ const EventDetail: React.FC = () => {
                 <Row style={{ maxWidth: 1080, margin: "60px 15px" }}>
                     <Col xs={24} style={{ display: "flex", justifyContent: "center" }}>
                         <img
-                            onClick={() => navigate("/")}
+                            onClick={() => navigate("/calendar")}
                             src={logo_pink}
                             alt="Logo"
                             style={{
@@ -154,9 +154,23 @@ const EventDetail: React.FC = () => {
                                 <Typography.Title level={3} style={{ fontWeight: 600 }}>
                                     Line Up
                                 </Typography.Title>
-                                {event.performers.map((performer) => (
+                                <Typography.Title level={4} style={{ fontWeight: 600 }}>
+                                    Performers
+                                </Typography.Title>
+                                {event.performers.filter((performer) => !performer.isHost).map((performer) => (
                                     <PerformerCard performer={performer} />
                                 ))}
+                                {event.performers.filter((performer) => performer.isHost).length > 0 ?
+                                    <>
+                                        <Typography.Title level={4} style={{ fontWeight: 600 }}>
+                                            Hosts
+                                        </Typography.Title>
+                                        {event.performers.filter((performer) => performer.isHost).map((performer) => (
+                                            <PerformerCard performer={performer} />
+                                        ))}
+                                    </>
+                                    : null}
+
                             </>
                         )}
                     </Col>
