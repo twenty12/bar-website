@@ -73,7 +73,7 @@ const Events: React.FC = () => {
       zIndex: 1, // Ensures it's above the video
     }}
   >
-    Video Credit: Amanda Hamm
+    Video Credit: Amanda Hamm (IG: @amanda.hamm.events)
   </div>
       </div>
       <div className="full-page-video-body">
