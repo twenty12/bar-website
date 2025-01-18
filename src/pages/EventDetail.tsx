@@ -64,7 +64,6 @@ const EventDetail: React.FC = () => {
             colorTextTertiary: "#ffffff",
         },
     };
-    console.log(event.performers)
     return (
         <ConfigProvider theme={theme}>
             <Helmet>

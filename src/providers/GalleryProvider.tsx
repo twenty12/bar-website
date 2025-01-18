@@ -34,7 +34,6 @@ export const GalleryProvider: React.FC<{ children: ReactNode }> = ({ children })
   }, []);
 
   const fetchGalleryImages = async () => {
-    console.log("fetching gallery images");
     try {
       const response = await fetch(`/api/gallery-images`);
       if (!response.ok) {

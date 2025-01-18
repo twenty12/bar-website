@@ -16,7 +16,6 @@ export const WebsiteCopyProvider: React.FC<{ children: ReactNode }> = ({ childre
   }, []);
 
   const fetchWebsiteCopies = async () => {
-    console.log("fetching website copy");
     try {
       const response = await fetch(`/api/website-copy`);
       if (!response.ok) {

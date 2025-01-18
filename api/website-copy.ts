@@ -17,7 +17,6 @@ export default async (req:any, res:any) => {
       return res.status(405).end
     }
     const response = await notionApi.post(`/databases/${webiteCopyDB}/query`);
-    console.log(response.data.results[0].properties.Section.rich_text[0].plain_text);
     const websiteCopy: WebsiteCopy[] = response.data.results.map((copy: any) => ({
       id: copy.id,
       page: copy.properties.Page.title[0]?.plain_text,
