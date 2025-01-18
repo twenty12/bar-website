@@ -1,16 +1,14 @@
 import React from "react";
-import { Grid, Row, Typography } from "antd";
+import { Row, Typography } from "antd";
 
 import EventCard from "../components/eventCard";
 import FullPageSpin from "../components/fullPageSpin";
 import { useNotionDB } from "../providers/CalendarProvider";
 // import StayAdvisedForm from "../components/stayAdvised";
-const { useBreakpoint } = Grid;
 
 const Calendar: React.FC = () => {
   const { events, loading } = useNotionDB();
-  const screens = useBreakpoint();
-  const isBelowMd = !screens.md;
+
   if (loading) {
     return <FullPageSpin />;
   }
@@ -32,7 +30,9 @@ const Calendar: React.FC = () => {
         </Typography.Title>
         {/* <StayAdvisedForm /> */}
       </Row>
-      <div
+      {/* <StayAdvisedForm /> */}
+
+      {/* <div
         style={{
           backgroundColor: "white", // Dark background
           margin: "5px 0", // Spacing between performers
@@ -60,7 +60,7 @@ const Calendar: React.FC = () => {
           We're taking advantage of the winter season to renovate our space with a major audio upgrade and new bar additions.
           Things will be a little quieter this winter. <br/><br/>Stay tuned, this spring we will be in full force with a stacked lineup of parites! <br />
         </Typography.Title>
-      </div>
+      </div> */}
       <div>
         {events.map((event) => (
           <EventCard key={event.id} event={event} />

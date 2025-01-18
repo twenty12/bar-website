@@ -78,7 +78,7 @@ const StayAdvisedForm: React.FC = () => {
           <Input placeholder="Enter your email" />
         </Form.Item>
         <Form.Item style={{ marginInlineEnd: 0 }}>
-          <Button type="primary" htmlType="submit" icon={<MailOutlined />} />
+          <Button htmlType="submit" icon={<MailOutlined />} />
         </Form.Item>
       </Form>
       <small>or</small>
@@ -101,7 +101,7 @@ const StayAdvisedForm: React.FC = () => {
           <Input placeholder="Enter your phone number" />
         </Form.Item>
         <Form.Item style={{ marginInlineEnd: 0 }}>
-          <Button type="primary" htmlType="submit" icon={<PhoneOutlined />} />
+          <Button htmlType="submit" icon={<PhoneOutlined />} />
         </Form.Item>
       </Form>
     </div>
