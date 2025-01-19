@@ -102,12 +102,13 @@ const EventCard: React.FC<{ event: Event }> = ({ event }) => {
                                     ) : (
                                         <span
                                             style={{
-                                                width: "24px",
-                                                height: "24px",
+                                                width: "22px",
+                                                height: "22px",
                                                 position: "relative",
                                                 borderRadius: "50%",
                                                 border: `1px solid ${theme.token.colorHighlight}`,
-                                                marginRight: "8px",
+                                                marginLeft: "1px",
+                                                marginRight: "9px",
                                                 background: generateGradient(performer.instagram || performer.name),
                                                 verticalAlign: "middle",
                                                 display: "inline-block", // Ensures it behaves like the img
