@@ -1,12 +1,15 @@
 import React from "react";
+import { UserOutlined } from "@ant-design/icons";
 import { Row, Col, Typography } from "antd";
 import { Performer } from "../types";
+import { generateGradient } from "../utils/styleUtils";
 
 interface PerformerCardProps {
     performer: Performer;
 }
 
 const PerformerCard: React.FC<PerformerCardProps> = ({ performer }) => {
+    console.log(performer);
     return (
         <Row
             style={{
@@ -28,8 +31,8 @@ const PerformerCard: React.FC<PerformerCardProps> = ({ performer }) => {
             align={"top"}
             gutter={[16, 0]} // Add spacing between columns
         >
-            {performer.imageUrl ? (
-                <Col xs={4}>
+            <Col xs={4}>
+                {performer.imageUrl ? (
                     <img
                         src={performer.imageUrl}
                         alt={performer.name}
@@ -42,8 +45,29 @@ const PerformerCard: React.FC<PerformerCardProps> = ({ performer }) => {
                             border: "1px solid white",
                         }}
                     />
-                </Col>
-            ) : null}
+                ) : (
+                    <div
+                        style={{
+                            width: "100%",
+                            height: "100%",
+                            aspectRatio: "1 / 1", // Ensures the div remains square
+                            borderRadius: "2px",
+                            background: generateGradient(performer.name),
+                            border: "1px solid white",
+                            display: "flex",
+                            justifyContent: "center", // Center icon horizontally
+                            alignItems: "center",    // Center icon vertically
+                        }}
+                    >
+                        <UserOutlined
+                            style={{
+                                fontSize: "42px", // Adjust icon size for the larger square
+                                color: "white",   // Icon color for contrast
+                            }}
+                        />
+                    </div>
+                )}
+            </Col>
             <Col xs={20}>
                 <Typography.Title
                     level={4}
