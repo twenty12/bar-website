@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button, Typography, message, Input, Grid } from "antd";
+import ReactGA from "react-ga4";
 import { LoadingOutlined, MailOutlined, PhoneOutlined } from "@ant-design/icons";
 import axios from "axios";
 import "react-phone-number-input/style.css";
@@ -18,6 +19,10 @@ const StayAdvisedForm: React.FC = () => {
 
   const handleEmailSubmit = async (values: { email: string }) => {
     setLoadingEmail(true);
+    ReactGA.event({
+      category: "Form Submission",
+      action: "Email Subscription",
+    });
     try {
       const response = await axios.post("/api/klaviyo-subscribe", {
         email_address: values.email,
@@ -37,7 +42,10 @@ const StayAdvisedForm: React.FC = () => {
       message.error("Please enter a valid phone number!");
       return;
     }
-
+    ReactGA.event({
+      category: "Form Submission",
+      action: "Phone Subscription",
+    });
     setLoadingPhone(true);
     try {
       const response = await axios.post("/api/klaviyo-subscribe", {
