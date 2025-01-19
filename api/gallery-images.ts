@@ -16,7 +16,6 @@ export default async (req:any, res:any) => {
       return res.status(405).end
     }
     const response = await notionApi.post(`/databases/${imagesDatabaseId}/query`);
-    console.log(response.data.results[0].properties.Image?.files[0])
     const galleryImages: GalleryImage[] = response.data.results.map((imageFromDb: any) => ({
       id: imageFromDb.id,
       title: imageFromDb.properties.Title?.title[0]?.text?.content,

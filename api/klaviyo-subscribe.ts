@@ -1,7 +1,23 @@
 import axios from "axios";
 
 const KLAVIYO_ENDPOINT = "https://a.klaviyo.com/api/profile-subscription-bulk-create-jobs";
-const API_KEY = "pk_1d75b3a026aaf0e2be6ca07f217d62c955"; // Replace with your Klaviyo private API key
+const API_KEY = process.env.KLAVIYO_API_KEY;
+type ProfileAttributes = {
+  email?: string;
+  phone_number?: string;
+  subscriptions?: {
+    email?: {
+      marketing: {
+        consent: string;
+      };
+    };
+    sms?: {
+      marketing: {
+        consent: string;
+      };
+    };
+  };
+};
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method Not Allowed" });
@@ -15,18 +31,39 @@ export default async function handler(req, res) {
   try {
     const {
       email_address,
-      first_name,
-      last_name,
       sms_number,
-      email_consent = "SUBSCRIBED",
-      sms_consent = "SUBSCRIBED",
       list_id,
     } = req.body;
 
-    if (!email_address || !list_id) {
+    // Ensure at least one of email_address or sms_number is provided
+    if (!email_address && !sms_number) {
       return res.status(400).json({
-        error: "Missing required fields: email_address and list_id are mandatory.",
+        error: "Missing required fields: either email_address or sms_number is required.",
       });
+    }
+
+    // Build the payload based on provided fields
+    const profileAttributes: ProfileAttributes = {};
+    if (email_address) {
+      profileAttributes.email = email_address;
+      profileAttributes.subscriptions = {
+        email: {
+          marketing: {
+            consent: "SUBSCRIBED",
+          },
+        },
+      };
+    }
+    if (sms_number) {
+      profileAttributes.phone_number = sms_number;
+      profileAttributes.subscriptions = {
+        ...(profileAttributes.subscriptions || {}),
+        sms: {
+          marketing: {
+            consent: 'SUBSCRIBED',
+          },
+        },
+      };
     }
 
     const payload = {
@@ -37,25 +74,7 @@ export default async function handler(req, res) {
             data: [
               {
                 type: "profile",
-                attributes: {
-                  email: email_address,
-                  first_name,
-                  last_name,
-                  subscriptions: {
-                    email: {
-                      marketing: {
-                        consent: email_consent,
-                      },
-                    },
-                    ...(sms_number && {
-                      sms: {
-                        marketing: {
-                          consent: sms_consent,
-                        },
-                      },
-                    }),
-                  },
-                },
+                attributes: profileAttributes,
               },
             ],
           },
@@ -84,6 +103,7 @@ export default async function handler(req, res) {
     const klaviyoResponse = response.data;
 
     if (klaviyoResponse?.errors) {
+      console.error("Error subscribing user to Klaviyo:", klaviyoResponse.errors);
       return res.status(400).json({
         error: "Failed to subscribe user to Klaviyo.",
         details: klaviyoResponse.errors,

@@ -9,3 +9,10 @@ Us `yarn build` to find all type errors before deploying.
 
 # image handling
 Mostly served by app, a couple videos are uploaded to daniels personal S3.
+
+## Setting Up Environment Variables for Local Development
+
+Follow these steps to configure environment variables for local development when using `vercel dev`.
+
+1. Run the following command to add your environment variables to Vercel: `vercel env add`
+2. Then after the env has been added, run: `vercel env pull .env.local`

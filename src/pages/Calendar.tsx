@@ -4,7 +4,7 @@ import { Row, Typography } from "antd";
 import EventCard from "../components/eventCard";
 import FullPageSpin from "../components/fullPageSpin";
 import { useNotionDB } from "../providers/CalendarProvider";
-// import StayAdvisedForm from "../components/stayAdvised";
+import StayAdvisedForm from "../components/stayAdvised";
 
 const Calendar: React.FC = () => {
   const { events, loading } = useNotionDB();
@@ -28,10 +28,7 @@ const Calendar: React.FC = () => {
         >
           Calendar
         </Typography.Title>
-        {/* <StayAdvisedForm /> */}
       </Row>
-      {/* <StayAdvisedForm /> */}
-
       {/* <div
         style={{
           backgroundColor: "white", // Dark background
@@ -66,6 +63,8 @@ const Calendar: React.FC = () => {
           <EventCard key={event.id} event={event} />
         ))}
       </div>
+      <StayAdvisedForm />
+
     </div>
   );
 };

@@ -268,3 +268,34 @@ button {
   color: black !important;
   opacity: 1; /* Ensure full visibility */
 }
+
+.subscribe-form input {
+  font-size: 18px;
+  color: black;
+  opacity: 1; /* Ensure the placeholder is fully visible */
+}
+
+.subscribe-form input {
+  font-size: 18px;
+  color: black;
+  opacity: 1;
+  padding: 4px 11px; /* Match Ant Design Input padding */
+  border: 1px solid #d9d9d9; /* Match Ant Design Input border */
+  border-radius: 2px; /* Match Ant Design Input border-radius */
+  height: 32px; /* Match Ant Design Input height */
+  line-height: 32px; /* Match Ant Design Input line-height */
+}
+.subscribe-form input::placeholder,
+.subscribe-form .react-phone-number-input__input::placeholder {
+  font-family: "CustomFont", sans-serif;
+  font-size: 18px; /* Matches the input text font size */
+  color: gray; /* Placeholder text color */
+  opacity: 1; /* Fully visible placeholder text */
+  font-style: italic; /* Optional: gives placeholder text a distinct style */
+}
+
+.subscribe-form input:focus::placeholder,
+.subscribe-form .react-phone-number-input__input:focus::placeholder {
+  color: lightgray; /* Subtle color change on focus */
+  opacity: 0.8; /* Slightly dim the placeholder when focused */
+}

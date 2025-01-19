@@ -4,6 +4,7 @@
     "colorInfo": "#2e1b1b",
     "colorSuccess": "#54ff00",
     "colorHighlight": "#ea3a62",
+    "colorHighlightRGB": "234, 58, 98",
     "borderRadius": 2,
     "sizeUnit": 3,
     "fontFamily": "'CustomFont', sans-serif",
