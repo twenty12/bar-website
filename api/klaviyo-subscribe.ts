@@ -1,7 +1,9 @@
 import axios from "axios";
+import { NextApiRequest, NextApiResponse } from "next";
 
 const KLAVIYO_ENDPOINT = "https://a.klaviyo.com/api/profile-subscription-bulk-create-jobs";
 const API_KEY = process.env.KLAVIYO_API_KEY;
+
 type ProfileAttributes = {
   email?: string;
   phone_number?: string;
@@ -18,7 +20,8 @@ type ProfileAttributes = {
     };
   };
 };
-export default async function handler(req, res) {
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method Not Allowed" });
   }
@@ -29,20 +32,14 @@ export default async function handler(req, res) {
   }
 
   try {
-    const {
-      email_address,
-      sms_number,
-      list_id,
-    } = req.body;
+    const { email_address, sms_number, list_id } = req.body;
 
-    // Ensure at least one of email_address or sms_number is provided
     if (!email_address && !sms_number) {
       return res.status(400).json({
         error: "Missing required fields: either email_address or sms_number is required.",
       });
     }
 
-    // Build the payload based on provided fields
     const profileAttributes: ProfileAttributes = {};
     if (email_address) {
       profileAttributes.email = email_address;
@@ -60,7 +57,7 @@ export default async function handler(req, res) {
         ...(profileAttributes.subscriptions || {}),
         sms: {
           marketing: {
-            consent: 'SUBSCRIBED',
+            consent: "SUBSCRIBED",
           },
         },
       };
@@ -90,17 +87,18 @@ export default async function handler(req, res) {
         },
       },
     };
-
+    console.log("Klaviyo Request Body:", payload);
     const response = await axios.post(KLAVIYO_ENDPOINT, payload, {
       headers: {
         Authorization: `Klaviyo-API-Key ${API_KEY}`,
         "Content-Type": "application/vnd.api+json",
         Accept: "application/vnd.api+json",
-        Revision: "2024-10-15", // Add the required revision header
+        Revision: "2024-10-15",
       },
     });
 
     const klaviyoResponse = response.data;
+    console.log("Klaviyo Response Body:", response.data);
 
     if (klaviyoResponse?.errors) {
       console.error("Error subscribing user to Klaviyo:", klaviyoResponse.errors);
@@ -109,16 +107,32 @@ export default async function handler(req, res) {
         details: klaviyoResponse.errors,
       });
     }
-
+    if (response.status === 200) {
+      console.log("Subscriber successfully added to Klaviyo.");
+      console.log(klaviyoResponse.success_message);
+    }
     return res.status(200).json({
       message: "Subscriber successfully added to Klaviyo.",
       success_message: klaviyoResponse.success_message,
     });
   } catch (error) {
-    console.error("Error adding subscriber to Klaviyo:", error.response?.data || error.message);
-    return res.status(500).json({
-      error: "Failed to add subscriber to Klaviyo.",
-      details: error.response?.data || error.message,
-    });
+    if (axios.isAxiosError(error)) {
+      console.error("Axios error:", error.response?.data || error.message);
+      return res.status(500).json({
+        error: "Failed to add subscriber to Klaviyo.",
+        details: error.response?.data || error.message,
+      });
+    } else if (error instanceof Error) {
+      console.error("General error:", error.message);
+      return res.status(500).json({
+        error: "Failed to add subscriber to Klaviyo.",
+        details: error.message,
+      });
+    } else {
+      console.error("Unknown error:", error);
+      return res.status(500).json({
+        error: "An unknown error occurred.",
+      });
+    }
   }
 }

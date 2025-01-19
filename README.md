@@ -7,6 +7,26 @@ To deploy the app, push the to `main` branch of the repo.
 
 Us `yarn build` to find all type errors before deploying.
 
+# Weirdnes with `vercel.json`
+for some reason this is what the file needs to look like locally to work
+```
+{
+  "version": 2,
+  "rewrites": [
+  ]
+}
+```
+and when deployed it needs to look like this
+```
+{
+  "version": 2,
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/" }
+  ]
+}
+```
+So just be careful nto to commit changes in that when running locally
+
 # image handling
 Mostly served by app, a couple videos are uploaded to daniels personal S3.
 
