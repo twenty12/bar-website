@@ -5,28 +5,48 @@ import EventCard from "../components/eventCard";
 import FullPageSpin from "../components/fullPageSpin";
 import { useNotionDB } from "../providers/CalendarProvider";
 import StayAdvisedForm from "../components/stayAdvised";
+import { CalendarTypes } from "../enums";
+import { useNavigate } from "react-router-dom";
+import theme from "../theme.json";
 
-const Calendar: React.FC = () => {
+
+
+const Calendar: React.FC<{ calendarType: CalendarTypes }> = ({ calendarType }) => {
   const { events, loading } = useNotionDB();
-
+  const navigate = useNavigate();
+  const handleArchiveClick = () => {
+    navigate(`/archive`);
+  }
+  const formTextStyle = {
+    fontWeight: 600,
+    color: theme.token.colorHighlight,
+    cursor: 'pointer'
+  }
   if (loading) {
     return <FullPageSpin />;
   }
-
   return (
     <div style={{ maxWidth: "1200px" }}>
       <Row
         style={{
           display: "flex",
-          justifyContent: "space-between",
+          flexDirection: "column",
           marginBottom: "30px",
         }}
       >
         <Typography.Title
           level={1}
-          style={{ margin: "30px", marginLeft: "0", fontSize: "50px" }}
+          style={{ margin: "30px", marginLeft: "0", marginBottom: '0', fontSize: "50px" }}
         >
-          Calendar
+           {calendarType === CalendarTypes.Archive ? "Archive" : "Calendar"}
+        </Typography.Title>
+        <Typography.Title
+          level={5}
+          style={{ margin: "30px", marginLeft: "0", marginTop: '0', fontWeight: 300 }}
+        >
+          {calendarType === CalendarTypes.Active
+            ? <>Parties are central to who we are - we’re frequently updating this calendar.<br />Top-tier magic gets lives on in <span style={formTextStyle} onClick={handleArchiveClick}>our archive</span>.</>
+            : <>Some of our hardest hitting parties. <br />Check back as we work on adding more of our history.</>}
         </Typography.Title>
       </Row>
       {/* <div
@@ -59,8 +79,10 @@ const Calendar: React.FC = () => {
         </Typography.Title>
       </div> */}
       <div>
-        {events.map((event) => (
-          <EventCard key={event.id} event={event} />
+        {events.filter((event) =>
+          calendarType === CalendarTypes.Active ? !event.isInArchive : event.isInArchive
+        ).map((event) => (
+          <EventCard key={event.id} event={event} calendarType={calendarType} />
         ))}
       </div>
       <StayAdvisedForm />

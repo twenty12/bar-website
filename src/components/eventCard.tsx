@@ -2,15 +2,16 @@ import React from "react";
 import { UserOutlined } from "@ant-design/icons";
 import { Col, Row, Typography, Grid } from "antd";
 import { Event, Performer } from "../types";
-import { formatEventDate, formatEventTime } from "../utils/dateUtils";
+import { formatArchivedEventDate, formatEventDate, formatEventTime } from "../utils/dateUtils";
 import { grey } from '@ant-design/colors';
 import { useNavigate } from "react-router-dom";
 import theme from "../theme.json";
 import { generateGradient } from "../utils/styleUtils";
+import { CalendarTypes } from "../enums";
 
 const { Title } = Typography;
 const { useBreakpoint } = Grid;
-const EventCard: React.FC<{ event: Event }> = ({ event }) => {
+const EventCard: React.FC<{ event: Event, calendarType: CalendarTypes }> = ({ event, calendarType }) => {
     const isBelowMd = !useBreakpoint().md;
     const detialStyle = { margin: '15px', color: grey[6], fontWeight: '400', marginTop: '0px', marginBottom: '0px' }
     const navigate = useNavigate();
@@ -29,10 +30,10 @@ const EventCard: React.FC<{ event: Event }> = ({ event }) => {
             <Col xs={24} md={4}>
                 <span style={isBelowMd ? { position: 'absolute', top: '15px', left: '15px', border: '3px solid black', background: 'white' } : {}}>
                     <Title level={2} style={{ marginLeft: '15px', marginTop: '15px', marginRight: '15px', marginBottom: 0, fontWeight: 500 }}>
-                        {formatEventDate(event.date)}
+                        {calendarType == CalendarTypes.Active ? formatEventDate(event.date) : formatArchivedEventDate(event.date)}
                     </Title>
                     <Title level={4} style={{ marginLeft: '15px', marginTop: '0', fontWeight: 500, color: 'gray' }}>
-                        {formatEventTime(event.date)}
+                        {calendarType == CalendarTypes.Active ? formatEventTime(event.date) : null}
                     </Title>
 
                 </span>
@@ -71,7 +72,26 @@ const EventCard: React.FC<{ event: Event }> = ({ event }) => {
                         <Title level={2} style={{ margin: '15px', fontWeight: 600 }}>
                             {event.title}
                         </Title>
-                        {event.ticketUrl ? (
+                        {event.eventImages && calendarType === CalendarTypes.Archive ? (
+                            <>
+                                {event.eventImages.map((image, index) => (
+                                    <img
+                                        key={image.id} // Ensure a unique key for each image
+                                        src={image.imageUrl}
+                                        alt={image.id}
+                                        style={{
+                                            width: "80px",
+                                            border: "1px solid white",
+                                            margin: index === 0 ? "5px 5px 5px 15px" : "5px", // Add left margin for the first image
+                                            height: "80px",
+                                            aspectRatio: "1 / 1",
+                                            objectFit: "cover", // Ensures the image fills the square without distortion
+                                        }}
+                                    />
+                                ))}
+                            </>
+                        ) : null}
+                        {event.ticketUrl && calendarType == CalendarTypes.Active ? (
                             <a className='gradient-button' href={event.ticketUrl} style={{ margin: '15px', marginTop: '5px' }} target="_blank">
                                 Get Tickets
                             </a>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Event } from "../src/types";
+import { Event, EventImage } from "../src/types";
 import moment from 'moment';
 
 const apiKey = "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";
@@ -28,7 +28,15 @@ export default async (req: any, res: any) => {
 
   try {
     const response = await notionApi.post(`/databases/${eventsDatabaseId}/query`);
-    
+    // loop to check if the evnt title has the work "hmmm" in it
+    response.data.results.forEach((event: any) => {
+      if (event.properties.Name?.title[0]?.text?.content.includes("Saturday")) {
+        console.log("hmmm event found", event.properties['Photos for Archive']);
+        console.log("hmmm event found", event.properties['Photos for Archive'].files[0].file.url);
+        console.log(event)
+      }
+    }
+    );
     // Filter visible events and map after filtering
     const events: Event[] = response.data.results
       .filter((event: any) => event.properties["Display on Website"]?.checkbox)
@@ -40,25 +48,30 @@ export default async (req: any, res: any) => {
         description: event.properties.Description?.rich_text[0]?.plain_text || null,
         visible: event.properties["Display on Website"]?.checkbox || false,
         ticketUrl: event.properties["Ticket Link"]?.url || null,
+        isInArchive: event.properties["Display in Archive"]?.checkbox || false,
         slug: slugify(event.properties.Name?.title[0]?.text?.content) || event.id,
         performers: event.properties.Performers?.relation?.map((performer: any) => performer.id) || [],
+        eventImages: event.properties["Photos for Archive"]?.files?.map((file: any) => ({
+          id: file.id,
+          imageUrl: file.file.url,
+        })) || [],
       }));
 
-    // Filter events by date
-    const currentEvents: Event[] = events
+    const allEvents: Event[] = events
       .filter((event) => event.date) // Ensure event has a date
       .sort((a, b) => {
         if (!a.date || !b.date) return 0;
         return moment(a.date).valueOf() - moment(b.date).valueOf();
       })
+    const currentEvents = allEvents
       .filter((event) => {
         const now = moment.utc(); // Current time in UTC
         const eventDate = moment(event.date);
         const cutoffTime = eventDate.clone().utc().hour(9).minute(0).second(0).millisecond(0); // 9:00 AM UTC
         return now.isBefore(cutoffTime);
       });
-
-    res.status(200).json(currentEvents);
+    const archivedEvents = allEvents.filter((event) => event.isInArchive);
+    res.status(200).json([...currentEvents, ...archivedEvents]);
   } catch (error) {
     console.error("Error fetching events:", error);
     res.status(500).json({ error: "Failed to fetch events" });

@@ -1,6 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
-import { Row, Col, Typography, Grid, ConfigProvider } from "antd";
+import { Row, Col, Typography, Grid, ConfigProvider, Carousel } from "antd";
 import { PushpinFilled } from "@ant-design/icons";
 import logo_pink from "../assets/images/logo_pink.png";
 
@@ -64,6 +64,36 @@ const EventDetail: React.FC = () => {
             colorTextTertiary: "#ffffff",
         },
     };
+    const carouselElement = event.eventImages?.length ? (
+        <Carousel
+            autoplay
+            style={{ width: "100%", height: "auto", borderRadius: "4px", objectFit: "cover", border: "1px solid rgba(250, 250, 250, .8)" }}
+            dotPosition="top"
+            effect="fade"
+            autoplaySpeed={5000}
+            speed={500}
+            pauseOnHover={true}
+            draggable={true}
+            dots={true}
+            arrows={true}
+        >
+            {event.eventImages.map((image) => (
+                <div key={image.imageUrl}>
+                    <img
+                        src={image.imageUrl}
+                        alt={image.id}
+                        style={{
+                            width: "100%",
+                            height: "auto",
+                            borderRadius: "4px",
+                            objectFit: "cover",
+                        }}
+                    />
+                </div>
+            ))}
+        </Carousel>
+    ) : null;
+
     return (
         <ConfigProvider theme={theme}>
             <Helmet>
@@ -111,6 +141,7 @@ const EventDetail: React.FC = () => {
                             {thumbailElement}
                         </Col>
                     ) : null}
+
                     <Col xs={24} md={12}>
                         <Typography.Title
                             level={1}
@@ -147,7 +178,6 @@ const EventDetail: React.FC = () => {
                         ) : null}
                         {/* <ShareButton url={window.location.href} title={event.title} /> */}
                         <Typography.Paragraph>{event.description}</Typography.Paragraph>
-
                         {event.performers && event.performers.length > 0 && (
                             <>
                                 <Typography.Title level={3} style={{ fontWeight: 600 }}>
@@ -173,6 +203,7 @@ const EventDetail: React.FC = () => {
                             </>
                         )}
                     </Col>
+
                     {isBelowMd ? null : (
                         <Col
                             xs={24}
@@ -185,7 +216,15 @@ const EventDetail: React.FC = () => {
                             {thumbailElement}
                         </Col>
                     )}
+                    {carouselElement && (
+                        <Col xs={24} style={{marginTop: "30px"}}>
+                            <div style={{ maxWidth: "600px", margin: "0 auto" }}>
+                                {carouselElement}
+                            </div>
+                        </Col>
+                    )}
                 </Row>
+
             </div>
         </ConfigProvider>
     );

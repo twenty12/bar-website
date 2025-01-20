@@ -10,8 +10,14 @@ export type Event = {
   slug: string;
   visible: boolean;
   ticketUrl?: string;
+  isInArchive?: boolean;
+  eventImages?: EventImage[];
 };
 
+export type EventImage = {
+  id: string;
+  imageUrl: string;
+}
 export type Performer = {
   id: string;
   name: string;
