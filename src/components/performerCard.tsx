@@ -52,7 +52,7 @@ const PerformerCard: React.FC<PerformerCardProps> = ({ performer }) => {
                             height: "100%",
                             aspectRatio: "1 / 1", // Ensures the div remains square
                             borderRadius: "2px",
-                            background: generateGradient(performer.name),
+                            background: generateGradient(performer.name || performer.instagram),
                             border: "1px solid white",
                             display: "flex",
                             justifyContent: "center", // Center icon horizontally
