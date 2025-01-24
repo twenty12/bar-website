@@ -45,7 +45,7 @@ const Calendar: React.FC<{ calendarType: CalendarTypes }> = ({ calendarType }) =
           style={{ margin: "30px", marginLeft: "0", marginTop: '0', fontWeight: 300 }}
         >
           {calendarType === CalendarTypes.Active
-            ? <>Parties are central to who we are - we’re frequently updating this calendar.<br />Top-tier magic gets lives on in <span style={formTextStyle} onClick={handleArchiveClick}>our archive</span>.</>
+            ? <>Parties are central to who we are - we’re frequently updating this calendar.<br />Top-tier magic lives on in <span style={formTextStyle} onClick={handleArchiveClick}>our archive</span>.</>
             : <>Some of our hardest hitting parties. <br />Check back as we work on adding more of our history.</>}
         </Typography.Title>
       </Row>
