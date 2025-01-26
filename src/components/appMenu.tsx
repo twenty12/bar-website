@@ -36,7 +36,7 @@ const AppMenu = () => {
                 <Link  onClick={() => setIsDrawerVisible(false)} to="/menu">Menu</Link>
               </Menu.Item>
               <Menu.Item key="events">
-                <Link  onClick={() => setIsDrawerVisible(false)} to="/events">Contact</Link>
+                <Link  onClick={() => setIsDrawerVisible(false)} to="/events">Host</Link>
               </Menu.Item>
             </Menu>
           </Drawer>
@@ -61,7 +61,7 @@ const AppMenu = () => {
             <Link to="/menu">Menu</Link>
           </Menu.Item>
           <Menu.Item key="events" style={{ fontSize: "20px" , fontWeight: 600}}>
-            <Link to="/events">Contact</Link>
+            <Link to="/events">Host</Link>
           </Menu.Item>
         </Menu>
       )}
