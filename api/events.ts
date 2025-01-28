@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Event, EventImage } from "../src/types";
+import { Event } from "../src/types";
 import moment from 'moment';
 
 const apiKey = "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";

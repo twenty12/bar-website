@@ -128,8 +128,7 @@ const StayAdvisedForm: React.FC = () => {
 
       <br />
 
-      {/* Phone Form */}
-      <span>Get early notice about premier events</span>
+      <span>Be the first to know about cool parties</span>
       {subscribedPhone ? (
         <div style={{ opacity: 1, transition: "opacity 0.5s ease" }}>
           You've been subscribed!
