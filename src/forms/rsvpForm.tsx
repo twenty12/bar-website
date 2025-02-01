@@ -88,7 +88,7 @@ const RsvpForm: React.FC<RsvpFormProps> = ({ listId }) => {
                         flexDirection: "row",
                     }}
                 >
-                    <Form.Item name="phone" rules={[{ required: true, message: "Please enter your phone number!" }]}>
+                    <Form.Item name="phone" style={{width: isBelowMd ? '100%' : 'auto', margin:'auto'}} rules={[{ required: true, message: "Please enter your phone number!" }]}>
                         <PhoneInput
                             defaultCountry="US"
                             placeholder="Enter your phone number"
@@ -97,7 +97,7 @@ const RsvpForm: React.FC<RsvpFormProps> = ({ listId }) => {
                             style={{
                                 flex: 1,
                                 lineHeight: "42px",
-                                maxWidth: isBelowMd ? "100%" : 250,
+                                
                                 width: "100%",
                             }}
                         />
@@ -112,7 +112,9 @@ const RsvpForm: React.FC<RsvpFormProps> = ({ listId }) => {
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
-                            width: isBelowMd ? 200 : "auto",
+                            width: isBelowMd ? "100%" : "auto",
+                            margin: 'auto',
+                            maxWidth: isBelowMd ? "120px" : "auto",
                         }}
                         icon={loading ? <LoadingOutlined /> : null}
                     >
