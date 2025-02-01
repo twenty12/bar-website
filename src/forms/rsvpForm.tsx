@@ -103,7 +103,6 @@ const RsvpForm: React.FC<RsvpFormProps> = ({ listId }) => {
                         />
                     </Form.Item>
                     <Button
-                        type="primary"
                         htmlType="submit"
                         disabled={loading}
                         className="gradient-button"
