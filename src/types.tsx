@@ -12,6 +12,7 @@ export type Event = {
   ticketUrl?: string;
   isInArchive?: boolean;
   eventImages?: EventImage[];
+  smsListId?: string;
 };
 
 export type EventImage = {

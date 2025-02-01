@@ -51,6 +51,7 @@ export default async (req: any, res: any) => {
         isInArchive: event.properties["Display in Archive"]?.checkbox || false,
         slug: slugify(event.properties.Name?.title[0]?.text?.content) || event.id,
         performers: event.properties.Performers?.relation?.map((performer: any) => performer.id) || [],
+        smsListId: event.properties["SMS List ID"]?.rich_text[0]?.plain_text || null,
         eventImages: event.properties["Photos for Archive"]?.files?.map((file: any) => ({
           id: file.id,
           imageUrl: file.file.url,

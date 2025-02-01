@@ -275,6 +275,7 @@ button {
   opacity: 1; /* Ensure the placeholder is fully visible */
 }
 
+
 .subscribe-form input {
   font-size: 18px;
   color: black;
@@ -285,6 +286,11 @@ button {
   height: 32px; /* Match Ant Design Input height */
   line-height: 32px; /* Match Ant Design Input line-height */
 }
+.subscribe-form-lg input {
+  height: 42px;
+  line-height: 42px;
+}
+
 .subscribe-form input::placeholder,
 .subscribe-form .react-phone-number-input__input::placeholder {
   font-family: "CustomFont", sans-serif;

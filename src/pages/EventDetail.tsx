@@ -9,6 +9,7 @@ import { useNotionDB } from "../providers/CalendarProvider";
 import { formatEventDate, formatEventTime } from "../utils/dateUtils";
 import FullPageSpin from "../components/fullPageSpin";
 import PerformerCard from "../components/performerCard";
+import RsvpForm from "../forms/rsvpForm";
 
 const { useBreakpoint } = Grid;
 
@@ -178,11 +179,16 @@ const EventDetail: React.FC = () => {
                         ) : null}
                         {/* <ShareButton url={window.location.href} title={event.title} /> */}
                         <Typography.Paragraph>{event.description}</Typography.Paragraph>
+                        {event.smsListId ? (
+                            <RsvpForm listId={event.smsListId} />
+                        ) : null}
                         {event.performers && event.performers.length > 0 && (
                             <>
-                                <Typography.Title level={3} style={{ fontWeight: 600 }}>
-                                    Line Up
-                                </Typography.Title>
+                                {event.performers.filter((performer) => performer.isHost).length > 0 ?
+                                    <Typography.Title level={3} style={{ fontWeight: 600 }}>
+                                        Line Up
+                                    </Typography.Title>
+                                    : null}
                                 <Typography.Title level={4} style={{ fontWeight: 600 }}>
                                     Performers
                                 </Typography.Title>
@@ -217,7 +223,7 @@ const EventDetail: React.FC = () => {
                         </Col>
                     )}
                     {carouselElement && (
-                        <Col xs={24} style={{marginTop: "30px"}}>
+                        <Col xs={24} style={{ marginTop: "30px" }}>
                             <div style={{ maxWidth: "600px", margin: "0 auto" }}>
                                 {carouselElement}
                             </div>

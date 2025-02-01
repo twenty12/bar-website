@@ -87,7 +87,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
       },
     };
-    console.log("Klaviyo Request Body:", payload);
+
     const response = await axios.post(KLAVIYO_ENDPOINT, payload, {
       headers: {
         Authorization: `Klaviyo-API-Key ${API_KEY}`,
