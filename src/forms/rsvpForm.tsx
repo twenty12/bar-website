@@ -93,6 +93,7 @@ const RsvpForm: React.FC<RsvpFormProps> = ({ listId }) => {
                             defaultCountry="US"
                             placeholder="Enter your phone number"
                             disabled={loading}
+                            onChange={() => { }}
                             style={{
                                 flex: 1,
                                 lineHeight: "42px",
