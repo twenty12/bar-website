@@ -8,6 +8,7 @@ const About: React.FC = () => {
   const content = websiteCopies.filter((copy) => copy.page === 'About');
   const order = ['Arley', 'Adam', 'Daniel','Sarah', 'Story'];
   const orderedCopy = content.sort((a, b) => order.indexOf(a.section) - order.indexOf(b.section))
+  console.log(orderedCopy);
   return (
     <>
       <div style={{ height: '80vh', width: '100%', overflow: 'hidden' }}>
@@ -30,6 +31,8 @@ const About: React.FC = () => {
 
       <Row gutter={[16, 16]}
         style={{
+            marginLeft: '15px',
+            marginRight: '15px',
             maxWidth: '990px'}}>
         {orderedCopy.map((copy) => (
           <React.Fragment key={copy.section}>
@@ -40,6 +43,7 @@ const About: React.FC = () => {
             </Col>
             <Col xs={24} md={20}>
               <Typography.Title level={3} style={{ fontWeight: 300 }}>
+                <img src={copy.image} style={{ float: 'left', width: '150px', margin: '15px', marginTop: '0' , marginLeft: 0, border: '2px solid white', borderRadius: '2px'}} />
                 {copy.content}
               </Typography.Title>
             </Col>

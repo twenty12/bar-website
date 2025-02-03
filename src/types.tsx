@@ -40,4 +40,5 @@ export type WebsiteCopy = {
   page: string;
   section: string;
   content: string;
+  image?: string;
 }

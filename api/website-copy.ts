@@ -20,6 +20,7 @@ export default async (req:any, res:any) => {
     const websiteCopy: WebsiteCopy[] = response.data.results.map((copy: any) => ({
       id: copy.id,
       page: copy.properties.Page.title[0]?.plain_text,
+      image: copy.properties.Image?.files[0]?.file?.url,
       section: copy.properties.Section?.rich_text[0]?.plain_text,
       content: copy.properties.Content?.rich_text[0]?.plain_text,
     }))
