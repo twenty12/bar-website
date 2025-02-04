@@ -76,7 +76,7 @@ const Home: React.FC = () => {
           </Col>
           <Col xs={24} md={20}>
             <Typography.Title level={3} style={{ fontWeight: 300 }}>
-            As fermenters and producers ourselves, we appreciate flavors that are distinct yet grounded in the fundamentals. Our cocktails are guided by the creative vision of Arley Marks, while our ever-evolving natural wine list is curated by Harris Gilbertshper.
+            As fermenters and producers ourselves, we create and look for drinks with flavors that are distinct yet grounded. Our cocktails are guided by the creative vision of Arley Marks, while our ever-evolving natural wine list is curated by Harris Gilbertshper.
             </Typography.Title>
           </Col>
           <Col xs={24} md={4} style={{ textAlign: 'left' }}>
