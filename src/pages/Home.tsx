@@ -63,7 +63,7 @@ const Home: React.FC = () => {
           </Col>
           <Col xs={24} md={20}>
             <Typography.Title level={3} style={{ fontWeight: 300 }}>
-            Since 2016, Honey’s has been a host and home to a range of creative people and events. In both our physical space and our programming, we have a appreciation for handmade objects and original thought.
+            Since 2016, Honey’s has been host and home to a range of creative people and events. In both our physical space and our programming, we have a appreciation for handmade objects and original thought.
             <br />
             <br />
             In an average month, we co-host an array of events; gardening workshops, chef pop-ups, floral markets, weddings, birthday celebrations, and, of course, weekends filled with dancing.
