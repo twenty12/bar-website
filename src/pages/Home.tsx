@@ -63,10 +63,10 @@ const Home: React.FC = () => {
           </Col>
           <Col xs={24} md={20}>
             <Typography.Title level={3} style={{ fontWeight: 300 }}>
-              Since 2016, Honey's has welcomed creative communities of all kinds to the corner of Scott and Randolph. We're a bar and event space that transforms the city's raw, artistic energy into thoughtful experiences for our guests. From poetry readings to floral markets to wild dance parties, we are a space for creators of all types.
-              <br />
-              <br />
-              Through carefully curated flavors, sounds, and movements, we strive to have every guest leave feeling cared for and energized.
+            Since 2016, Honey’s has been a host and home to a range of creative people and events. In both our physical space and our programming, we have a appreciation for handmade objects and original thought.
+            <br />
+            <br />
+            In an average month, we co-host an array of events; gardening workshops, chef pop-ups, floral markets, weddings, birthday celebrations, and, of course, weekends filled with dancing.
             </Typography.Title>
           </Col>
           <Col xs={24} md={4} style={{ textAlign: 'left' }}>
@@ -76,7 +76,7 @@ const Home: React.FC = () => {
           </Col>
           <Col xs={24} md={20}>
             <Typography.Title level={3} style={{ fontWeight: 300 }}>
-              We take a thoughtful approach to every drink we serve. Our natural wine selection highlights small producers, sustainable practices, and bold, unexpected flavors. Cocktails are crafted with seasonal ingredients and house-made infusions, thoughtfully designed to complement the spirit of Honey’s.
+            As fermenters and producers ourselves, we appreciate flavors that are distinct yet grounded in the fundamentals. Our cocktails are guided by the creative vision of Arley Marks, while our ever-evolving natural wine list is curated by Harris Gilbertshper.
             </Typography.Title>
           </Col>
           <Col xs={24} md={4} style={{ textAlign: 'left' }}>
@@ -86,7 +86,7 @@ const Home: React.FC = () => {
           </Col>
           <Col xs={24} md={20}>
             <Typography.Title level={3} style={{ fontWeight: 300 }}>
-              Parties are central to who we are - our ritual in community building. These gatherings remind us that life is best when shared, that music and movement will stir up inspiration, and that spontaneity keeps things real. They ground us in the moment, bringing people together in ways that feel raw, unexpected, and deeply familiar. The energy of these nights lingers, sparking ideas, building connections, and fueling us beyond that one night.
+            Parties are central to who we are. There’s a joy and magic to a night of dancing and celebrating that we’re deeply fortunate to help create. Rather than focusing on a single genre, our programming is driven by our love of dancing and respect for original sounds.
             </Typography.Title>
           </Col>
           <Col xs={24} md={4} style={{ textAlign: 'left' }}>
@@ -96,7 +96,7 @@ const Home: React.FC = () => {
           </Col>
           <Col xs={24} md={20}>
             <Typography.Title level={3} style={{ fontWeight: 300 }}>
-              The rooftop garden at Honey’s, run by herbalist and garden designer Naneh Israelyan, is a living celebration of plants, culture, and community—a space where ancient traditions of herbal medicine meet modern urban life. Conceived as a botanical library of historically significant and medicinal plants, the garden evolves with each season, reflecting Naneh’s deep knowledge and creative vision.
+              The rooftop garden at Honey’s, run by herbalist and garden designer Naneh Israelyan, is a living celebration of plants, culture, and community.
             </Typography.Title>
           </Col>
         </Row>
