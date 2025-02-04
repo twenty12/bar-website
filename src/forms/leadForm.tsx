@@ -120,7 +120,7 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSuccess }) => {
           <InputNumber min={1} placeholder="Approximate number of guests*" style={{ width: "100%" }} />
         </Form.Item>
         <Form.Item
-          name="additional_information"
+          name="event_description"
           label="Event Type"
           rules={[{ required: true, message: "Please select at least one event type" }]}
         >
@@ -132,7 +132,7 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSuccess }) => {
             ))}
           </Select>
         </Form.Item>
-        <Form.Item name="event_description" label="Event Description*"
+        <Form.Item name="additional_information" label="Event Description*"
           rules={[{ required: true, message: "Please enter an event description" }]}
         >
           <Input.TextArea rows={4} placeholder="Briefly describe your event" />
