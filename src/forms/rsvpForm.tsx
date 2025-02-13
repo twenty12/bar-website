@@ -69,7 +69,7 @@ const RsvpForm: React.FC<RsvpFormProps> = ({ listId }) => {
                         Spot reserved <CheckOutlined />
                     </>
                 ) : (
-                    "RSVP to save your spot"
+                    "RSVP here"
                 )}
             </Typography.Title>
 
