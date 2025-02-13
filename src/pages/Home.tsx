@@ -63,10 +63,10 @@ const Home: React.FC = () => {
           </Col>
           <Col xs={24} md={20}>
             <Typography.Title level={3} style={{ fontWeight: 300 }}>
-            Since 2016, Honey’s has been host and home to a range of creative people and events. In both our physical space and our programming, we have a appreciation for handmade objects and original thought.
+            Since 2016, Honey’s has welcomed a wide range of experimental creatives, from chefs and producers to filmmakers and authors. We are deeply committed to creating spaces for free expression through our dynamic programming, private events, rooftop parties, and nightly bar service.
             <br />
             <br />
-            In an average month, we co-host an array of events; gardening workshops, chef pop-ups, floral markets, weddings, birthday celebrations, and, of course, weekends filled with dancing.
+            We host a wide range of public events, including gardening workshops, chef pop-ups, floral markets, weddings, birthday celebrations, and late-night dance parties in our barrel room and on our rooftop.
             </Typography.Title>
           </Col>
           <Col xs={24} md={4} style={{ textAlign: 'left' }}>
@@ -76,7 +76,7 @@ const Home: React.FC = () => {
           </Col>
           <Col xs={24} md={20}>
             <Typography.Title level={3} style={{ fontWeight: 300 }}>
-            As fermenters and producers ourselves, we create and look for drinks with flavors that are distinct yet grounded. Our cocktails are guided by the creative vision of Arley Marks, while our ever-evolving natural wine list is curated by Harris Gilbertshper.
+            Our bar menu is guided by both our bar team and the creative vision of Arley Marks, while our natural wine list is curated by Harris Gilbertshper, who is also our in-house cider maker and oversees the barrel room and in-house production facilities.
             </Typography.Title>
           </Col>
           <Col xs={24} md={4} style={{ textAlign: 'left' }}>
@@ -86,7 +86,7 @@ const Home: React.FC = () => {
           </Col>
           <Col xs={24} md={20}>
             <Typography.Title level={3} style={{ fontWeight: 300 }}>
-            Parties are central to who we are. There’s a joy and magic to a night of dancing and celebrating that we’re deeply fortunate to help create. Rather than focusing on a single genre, our programming is driven by our love of dancing and respect for original sounds.
+            Parties are central to who we are. We welcome a diverse range of DJs and performers who bring an ever-evolving, unique style and vibe. Do you have a public party you’d like to host with us? Send us a note HERE.
             </Typography.Title>
           </Col>
           <Col xs={24} md={4} style={{ textAlign: 'left' }}>
@@ -96,7 +96,7 @@ const Home: React.FC = () => {
           </Col>
           <Col xs={24} md={20}>
             <Typography.Title level={3} style={{ fontWeight: 300 }}>
-              The rooftop garden at Honey’s, run by herbalist and garden designer Naneh Israelyan, is a living celebration of plants, culture, and community.
+            The rooftop garden at Honey’s is managed by herbalist and garden designer Naneh Israelyan of Pioneer Flora. She brings the space to life each summer with her medicinal and culinary plantings, creating a vibrant backdrop for herbalism classes and wedding ceremonies alike.
             </Typography.Title>
           </Col>
         </Row>
