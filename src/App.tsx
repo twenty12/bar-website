@@ -17,6 +17,7 @@ import { Helmet } from "react-helmet-async";
 import GalleryModal from "./modals/imageGalleryModal";
 import About from "./pages/About";
 import { CalendarTypes } from "./enums";
+import CreateEvent from "./pages/createEvent";
 
 ReactGA.initialize("G-YJS7QQW8KP");
 
@@ -135,6 +136,7 @@ const App: React.FC = () => {
           <GalleryModal />
           <Routes>
             <Route path="/event/:slug" element={<EventDetail />} />
+            <Route path='/createEvent' element={<CreateEvent />} />
             <Route path="/calendar" element={<Calendar calendarType={CalendarTypes.Active}/>} />
             <Route path="/archive" element={<Calendar calendarType={CalendarTypes.Archive}/>} />
             <Route path="/events" element={<Events />} />

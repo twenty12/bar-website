@@ -8,7 +8,6 @@ const About: React.FC = () => {
   const content = websiteCopies.filter((copy) => copy.page === 'About');
   const order = ['Arley', 'Adam', 'Daniel','Sarah', 'Story'];
   const orderedCopy = content.sort((a, b) => order.indexOf(a.section) - order.indexOf(b.section))
-  console.log(orderedCopy);
   return (
     <>
       <div style={{ height: '80vh', width: '100%', overflow: 'hidden' }}>

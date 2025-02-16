@@ -64,11 +64,15 @@ export default async (req: any, res: any) => {
         if (!a.date || !b.date) return 0;
         return moment(a.date).valueOf() - moment(b.date).valueOf();
       })
-    const currentEvents = allEvents
-      .filter((event) => {
+      const currentEvents = allEvents.filter((event) => {
         const now = moment.utc(); // Current time in UTC
         const eventDate = moment(event.date);
-        const cutoffTime = eventDate.clone().utc().hour(9).minute(0).second(0).millisecond(0); // 9:00 AM UTC
+        const cutoffTime = eventDate.clone().utc().hour(9).minute(0).second(0).millisecond(0);
+        
+        const timeRemaining = moment.duration(cutoffTime.diff(now)).humanize();
+      
+        console.log(`Event: ${event.title}, Time remaining to cutoff: ${timeRemaining}`);
+      
         return now.isBefore(cutoffTime);
       });
     const archivedEvents = allEvents.filter((event) => event.isInArchive);
