@@ -2,7 +2,7 @@ import axios from "axios";
 
 const TRIPLESEAT_ENDPOINT = "https://api.tripleseat.com/v1/leads/create.js";
 const LEAD_FORM_ID = "39986"; // Replace with your lead form ID
-const PUBLIC_KEY = "01683b91c20e1a591c21d494b005770328f7b207"; // Replace with your public key
+const PUBLIC_KEY = process.env.TRIPLE_SEAT_API_KEY; // Replace with your public key
 
 export default async function handler(req: any, res: any) {
   if (req.method !== "POST") {

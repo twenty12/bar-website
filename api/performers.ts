@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Performer } from "../src/types";
 
-const apiKey = "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";
+const apiKey = process.env.NOTION_API_KEY;
 const performersDatabaseId = "1578ffc87fdb80c1850dc0747e46e6f3"
 const notionApi = axios.create({
   baseURL: "https://api.notion.com/v1",

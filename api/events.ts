@@ -2,7 +2,7 @@ import axios from "axios";
 import { Event, EventImage } from "../src/types";
 import moment from 'moment';
 
-const apiKey = "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";
+const apiKey = process.env.NOTION_API_KEY;
 const eventsDatabaseId = "14e8ffc87fdb80419951d3dbca333c62";
 const notionApi = axios.create({
   baseURL: "https://api.notion.com/v1",
@@ -69,9 +69,8 @@ export default async (req: any, res: any) => {
         const eventDate = moment(event.date);
         const cutoffTime = eventDate.clone().utc().hour(9).minute(0).second(0).millisecond(0);
         
-        const timeRemaining = moment.duration(cutoffTime.diff(now)).humanize();
-      
-        console.log(`Event: ${event.title}, Time remaining to cutoff: ${timeRemaining}`);
+      // const timeRemaining = moment.duration(cutoffTime.diff(now)).humanize();
+        // console.log(`Event: ${event.title}, Time remaining to cutoff: ${timeRemaining}`);
       
         return now.isBefore(cutoffTime);
       });
