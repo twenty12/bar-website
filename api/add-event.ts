@@ -27,7 +27,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       performers,
       postImageUrl,
     } = req.body;
-    console.log(req.body);
     const notionPayload = {
         parent: { database_id: eventsDatabaseId },
         properties: {
@@ -51,7 +50,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             : undefined,
         },
       };
-    console.log(notionPayload);
 
     const response = await notionApi.post("/pages", notionPayload);
     res.status(201).json({ message: "Event added successfully", data: response.data });

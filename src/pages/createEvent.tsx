@@ -43,7 +43,6 @@ const createEvent: React.FC = () => {
         Back to Events
       </div>
 
-      {/* Event Form */}
       <div style={{ maxWidth: "600px", width: "100%", padding: "20px" }}>
         <EventForm />
       </div>

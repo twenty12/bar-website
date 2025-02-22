@@ -6,59 +6,60 @@ import axios from "axios";
 import { Typography } from "antd";
 import moment from "moment";
 import ImageUploadModal from "../modals/imageUploadModal";
+import AddPerformersModal from "../modals/addPerformersModal";
+import { Performer } from "../types";
 
 const { Title } = Typography;
 
 const EventForm: React.FC = () => {
-    const [form] = Form.useForm();
-    const [imageUrls, setImageUrls] = useState<string[]>([]); // Stores uploaded images
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    const handleSubmit = async (values: any) => {
-        try {
-            // Prepare the payload
-            const payload = {
-                title: values.title,
-                date: values.date ? moment(values.date).format("YYYY-MM-DD") : null,
-                description: values.description,
-                ticketUrl: values.ticketUrl,
-                postImageUrl: 'https://honeys-910f11hj.s3.amazonaws.com/public-image-uploads/1739734330533_464747506_1083951036671660_921351755114542465_n.jpg',
-                // performers: values.performers || [],
-                // displayOnWebsite: values.displayOnWebsite || false,
-                // displayInArchive: values.displayInArchive || false,
-                // smsListId: values.smsListId || null,
-                // eventImages: values.eventImages
-                //   ? values.eventImages.split(",").map((url: string) => ({ url: url.trim() }))
-                //   : [],
-            };
+  const [form] = Form.useForm();
+  const [imageUrls, setImageUrls] = useState<string[]>([]); // Stores uploaded images
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isPerformersModalOpen, setIsPerformersModalOpen] = useState<boolean>(false); // ✅ State for performers modal
+  const [selectedPerformers, setSelectedPerformers] = useState<Performer[]>([]); // ✅ Store selected performers
 
-            // Send the data to the API
-            const response = await axios.post("/api/add-event", payload);
+  const handleSubmit = async (values: any) => {
+    try {
+      // Prepare the payload
+      const payload = {
+        title: values.title,
+        date: values.date ? moment(values.date).format("YYYY-MM-DD") : null,
+        description: values.description,
+        ticketUrl: values.ticketUrl,
+        postImageUrl: values.images[0],
+        performers: selectedPerformers.map((performer) => performer.id),
+        // performers: values.performers || [],
+      };
 
-            if (response.status !== 201) {
-                message.error("Failed to submit the event. Please try again.");
-                return;
-            }
+      // Send the data to the API
+      const response = await axios.post("/api/add-event", payload);
 
-            message.success("Event submitted successfully!");
-            form.resetFields();
-        } catch (error: any) {
-            console.error("Error submitting event:", error);
-            message.error("Failed to submit the event. Please try again.");
-        }
-    };
+      if (response.status !== 201) {
+        message.error("Failed to submit the event. Please try again.");
+        return;
+      }
 
-    return (
-        <>
-            <Title level={1}>Create an Event</Title>
-            <Title level={4} style={{ fontWeight: 400 }}>
-                Fill in the details to add a new event to the database.
-            </Title>
+      message.success("Event submitted successfully!");
+      form.resetFields();
+    } catch (error: any) {
+      console.error("Error submitting event:", error);
+      message.error("Failed to submit the event. Please try again.");
+    }
+  };
 
-            <Form
+  return (
+    <>
+      <Title level={1}>Create an Event</Title>
+      <Title level={4} style={{ fontWeight: 400 }}>
+        Fill in the details to add a new event to the database.
+      </Title>
+
+      <Form
         form={form}
         layout="vertical"
         onFinish={(values) => {
-          values.images = imageUrls; // Attach image URLs
+          values.images = imageUrls; 
+          values.performers = selectedPerformers.map((performer) => performer.id);
           handleSubmit(values);
         }}
         size="large"
@@ -131,6 +132,24 @@ const EventForm: React.FC = () => {
           <Input placeholder="Ticket link" />
         </Form.Item>
 
+        <Form.Item label="Performers & Hosts">
+          <Button icon={<PlusOutlined />} onClick={() => setIsPerformersModalOpen(true)}>
+            Add Hosts & Performers
+          </Button>
+
+          {selectedPerformers.length > 0 && (
+            <div style={{ marginTop: 10 }}>
+              <p>Selected Performers:</p>
+              {selectedPerformers.map((performer: Performer) => (
+                <span key={performer.id} style={{ marginRight: 8 }}>
+                  @{performer.name} ({performer.instagram})
+                </span>
+              ))}
+            </div>
+          )}
+        </Form.Item>
+        <AddPerformersModal isOpen={isPerformersModalOpen} onClose={() => setIsPerformersModalOpen(false)} selectedPerformers={selectedPerformers} setSelectedPerformers={setSelectedPerformers} />
+
         {/* Submit Button */}
         <Form.Item>
           <Button htmlType="submit" type="primary">
@@ -147,7 +166,7 @@ const EventForm: React.FC = () => {
         allowMultiple={false} // Change to false if only one image should be allowed
       />
     </>
-    );
+  );
 };
 
 export default EventForm;
