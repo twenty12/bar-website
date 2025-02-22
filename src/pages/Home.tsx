@@ -1,6 +1,9 @@
 import { Col, Row, Typography } from "antd";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Icon from "../icons/icon";
+
+
 
 
 const Home: React.FC = () => {
@@ -32,10 +35,10 @@ const Home: React.FC = () => {
           }}
         >
           <div
-            className='dark-hover'
+            // className='dark-hover'
             onClick={() => navigate('/calendar')}
             style={{
-              border: "2px solid white",
+              // border: "2px solid white",
               borderRadius: "2px",
               paddingRight: "15px",
               cursor: "pointer",
@@ -43,7 +46,8 @@ const Home: React.FC = () => {
               textAlign: "center",
             }}>
             {/* <Typography.Title level={1} style={{ fontSize: '50px', color: "white", margin: "15px", borderBottom: "1px solid white" }}></Typography.Title> */}
-            <Typography.Title level={1} style={{ fontWeight: 300, color: "white", margin: "15px" }}>93 Scott Ave<br />Brooklyn 11237</Typography.Title>
+            {/* <Typography.Title level={1} style={{ fontWeight: 300, color: "white", margin: "15px" }}>93 Scott Ave<br />Brooklyn 11237</Typography.Title> */}
+            <Icon />
           </div>
         </div>
       </div>
@@ -63,40 +67,49 @@ const Home: React.FC = () => {
           </Col>
           <Col xs={24} md={20}>
             <Typography.Title level={3} style={{ fontWeight: 300 }}>
-            Since 2016, Honey’s has welcomed a wide range of experimental creatives, from chefs and producers to filmmakers and authors. We are deeply committed to creating spaces for free expression through our dynamic programming, private events, rooftop parties, and nightly bar service.
-            <br />
-            <br />
-            We host a wide range of public events, including gardening workshops, chef pop-ups, floral markets, weddings, birthday celebrations, and late-night dance parties in our barrel room and on our rooftop.
+              Honey’s is a cocktail bar and multi-dimensional event space in Brooklyn, New York. Founded in 2016 by artist Arley Marks, Honey’s is a cherished home to New York’s creators. A network of a musicians, artists, designers, filmmakers, and chefs comes to Honey’s for dynamic programming, thoughtful drinks, and great parties.
+              <br />
+              <br />
+              Located on the border between Bushwick and East Williamsburg, Honey’s features three distinct yet complementary spaces.
             </Typography.Title>
           </Col>
           <Col xs={24} md={4} style={{ textAlign: 'left' }}>
             <Typography.Title level={3}>
-              Menu
+              The Bar
             </Typography.Title>
           </Col>
           <Col xs={24} md={20}>
             <Typography.Title level={3} style={{ fontWeight: 300 }}>
-            Our bar menu is guided by both our bar team and the creative vision of Arley Marks, while our natural wine list is curated by Harris Gilbertshper, who is also our in-house cider maker and oversees the barrel room and in-house production facilities.
+              Designed by noted art director Jonathan Mosca, The Bar provides a warm and inviting atmosphere achieved through industrial minimalism and commissioned works from local artists and designers.It features a rotating menu of natural wines and innovative cocktails. Arley Marks and our bar team guide the cocktail selection, while Harris Gilbertshper, our in-house cider and wine maker, curates the natural wine list.
             </Typography.Title>
           </Col>
           <Col xs={24} md={4} style={{ textAlign: 'left' }}>
             <Typography.Title level={3}>
-              Parties
+              The Winery
             </Typography.Title>
           </Col>
           <Col xs={24} md={20}>
             <Typography.Title level={3} style={{ fontWeight: 300 }}>
-            Parties are central to who we are. We welcome a diverse range of DJs and performers who bring an ever-evolving, unique style and vibe. Do you have a public party you’d like to host with us? Send us a note HERE.
+              This dual-use space is not only where we ferment our own wines and ciders but also where we host all types of events, from birthday celebrations and late-night dance parties to chef pop-ups, screenings, floral markets, and wedding receptions.
+              <br></br>
+              <br></br>
+              The beating heart of the space is our custom sound system, which combines the latest in audio science with the artistry of a hand-made object.  The system, a collaboration between local artist Peter Brock and Paris-based audio engineer Nicholas Badey, utilizes some of the highest performing speaker components in the world.
+              <br></br>
+              <br></br>
+              Our fermentation program produces small batch wines and ciders using locally grown fruits as well as herbs from our own rooftop garden.
+              <br></br>
+              <br></br>
+              Opening in summer 2025, the open kitchen will be a place where visiting chefs showcase their unique culinary perspectives.
             </Typography.Title>
           </Col>
           <Col xs={24} md={4} style={{ textAlign: 'left' }}>
             <Typography.Title level={3}>
-              Garden
+              The Rooftop Garden
             </Typography.Title>
           </Col>
           <Col xs={24} md={20}>
             <Typography.Title level={3} style={{ fontWeight: 300 }}>
-            The rooftop garden at Honey’s is managed by herbalist and garden designer Naneh Israelyan of Pioneer Flora. She brings the space to life each summer with her medicinal and culinary plantings, creating a vibrant backdrop for herbalism classes and wedding ceremonies alike.
+              A medicinal herb garden cultivated by Naneh Israelyan, this lush outdoor space with urban views provides a laidback atmosphere for hang outs, dance parties, and wedding ceremonies.
             </Typography.Title>
           </Col>
         </Row>
