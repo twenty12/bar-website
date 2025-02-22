@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo_black from "../assets/images/logo_black.png";
+import { Typography } from "antd";
 
 const Links: React.FC = () => {
   const data: any = [
@@ -50,12 +51,19 @@ const Links: React.FC = () => {
     >
       <img
         src={logo_black}
+        className="hover-text"
+        onClick={() => { navigate('/') }}
         alt="Logo"
         style={{
-          width: "200px",
-          marginBottom: "20px",
+          maxWidth: "400px",
         }}
       />
+      <Typography.Title level={4} style={{ marginBottom: "20px", fontWeight: 300, textAlign: "center" }}>
+      <a href="https://maps.app.goo.gl/GYeJgpVrrJUkouhdA?utm_source=link-in-bio" className="hover-text">
+        Tuesday - Sunday 5pm to late<br></br>
+        93 Scott Ave, Brooklyn NY</a>
+
+      </Typography.Title>
       {data.map((item: any) => {
         const [isHovered, setIsHovered] = useState(false);
 
