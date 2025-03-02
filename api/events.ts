@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Event, EventImage } from "../src/types";
+import { Event } from "../src/types";
 import moment from 'moment';
 
 const apiKey = process.env.NOTION_API_KEY;

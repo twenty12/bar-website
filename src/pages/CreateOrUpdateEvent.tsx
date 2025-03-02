@@ -17,7 +17,6 @@ const CreateOrUpdateEvent: React.FC = () => {
       {/* Only render content if unlocked */}
       {isUnlocked && (
         <div
-          className="shifting-gradient"
           style={{
             display: "flex",
             flexDirection: "column",

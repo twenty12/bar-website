@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import { Form, Input, Button, DatePicker, message } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
@@ -175,8 +175,13 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
         />
 
         {/* Submit Button */}
-        <Form.Item>
-          <Button htmlType="submit" type="primary" loading={loading}>
+        <Form.Item
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+        >
+          <Button htmlType="submit" loading={loading} className="gradient-button">
             {eventId ? "Update Event" : "Create Event"}
           </Button>
         </Form.Item>
