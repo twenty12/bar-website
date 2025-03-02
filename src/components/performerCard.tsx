@@ -9,7 +9,6 @@ interface PerformerCardProps {
 }
 
 const PerformerCard: React.FC<PerformerCardProps> = ({ performer }) => {
-    console.log(performer);
     return (
         <Row
             style={{

@@ -1,8 +1,8 @@
 import axios from "axios";
-import { Event, EventImage } from "../src/types";
+import { Event } from "../src/types";
 import moment from 'moment';
 
-const apiKey = "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";
+const apiKey = process.env.NOTION_API_KEY;
 const eventsDatabaseId = "14e8ffc87fdb80419951d3dbca333c62";
 const notionApi = axios.create({
   baseURL: "https://api.notion.com/v1",
@@ -64,11 +64,14 @@ export default async (req: any, res: any) => {
         if (!a.date || !b.date) return 0;
         return moment(a.date).valueOf() - moment(b.date).valueOf();
       })
-    const currentEvents = allEvents
-      .filter((event) => {
+      const currentEvents = allEvents.filter((event) => {
         const now = moment.utc(); // Current time in UTC
         const eventDate = moment(event.date);
-        const cutoffTime = eventDate.clone().utc().hour(9).minute(0).second(0).millisecond(0); // 9:00 AM UTC
+        const cutoffTime = eventDate.clone().utc().hour(9).minute(0).second(0).millisecond(0);
+        
+      // const timeRemaining = moment.duration(cutoffTime.diff(now)).humanize();
+        // console.log(`Event: ${event.title}, Time remaining to cutoff: ${timeRemaining}`);
+      
         return now.isBefore(cutoffTime);
       });
     const archivedEvents = allEvents.filter((event) => event.isInArchive);

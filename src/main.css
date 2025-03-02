@@ -104,7 +104,7 @@ button {
   }
 }
 
-.layout {
+.layout-calendar {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Crect width='20' height='20' stroke='%23cccccc' fill='%23c4e0f2' stroke-opacity='0.5' fill-opacity='0.05' stroke-width='0.5'/%3E%3C/svg%3E");
   background-color: #ffffff;
   /* White base for the graph paper */

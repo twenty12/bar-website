@@ -5,6 +5,7 @@ import { Event, Performer } from "../types";
 interface NotionContextType {
   events: Event[];
   eventBySlug: Record<string, Event>;
+  performersByInstagram: Record<string, Performer>; // ✅ New dictionary for performers by Instagram
   loading: boolean;
   error: string | null;
 }
@@ -13,6 +14,7 @@ interface NotionContextType {
 const NotionContextDefaultValue: NotionContextType = {
   events: [],
   eventBySlug: {},
+  performersByInstagram: {}, // ✅ Default empty object
   loading: true,
   error: null,
 };
@@ -22,7 +24,7 @@ const NotionContext = createContext<NotionContextType>(NotionContextDefaultValue
 
 // Helper function to fetch events from the API
 const fetchEvents = async (): Promise<Event[]> => {
-  const response = await fetch("/api/events"); // API endpoint for events
+  const response = await fetch("/api/events");
   if (!response.ok) {
     throw new Error(`Error fetching events: ${response.statusText}`);
   }
@@ -31,25 +33,32 @@ const fetchEvents = async (): Promise<Event[]> => {
 
 // Helper function to fetch performers from the API
 const fetchPerformers = async (): Promise<Performer[]> => {
-  const response = await fetch("/api/performers"); // API endpoint for performers
+  const response = await fetch("/api/performers");
   if (!response.ok) {
     throw new Error(`Error fetching performers: ${response.statusText}`);
   }
   return response.json();
 };
 
-// Transform performers list into a dictionary
-const transformPerformersToDict = (performers: Performer[]): Record<string, Performer> => {
-  return performers.reduce<Record<string, Performer>>((acc, performer) => {
-    acc[performer.id] = performer;
-    return acc;
-  }, {});
+// Transform performers list into dictionaries
+const transformPerformersToDict = (performers: Performer[]): { byId: Record<string, Performer>; byInstagram: Record<string, Performer> } => {
+  return performers.reduce<{ byId: Record<string, Performer>; byInstagram: Record<string, Performer> }>(
+    (acc, performer) => {
+      acc.byId[performer.id] = performer;
+      if (performer.instagram) {
+        acc.byInstagram[performer.instagram] = performer; // ✅ Store by Instagram handle
+      }
+      return acc;
+    },
+    { byId: {}, byInstagram: {} }
+  );
 };
 
 // Provider component
 export const NotionDBProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [events, setEvents] = useState<Event[]>([]);
   const [eventBySlug, setEventBySlug] = useState<Record<string, Event>>({});
+  const [performersByInstagram, setPerformersByInstagram] = useState<Record<string, Performer>>({}); // ✅ New state for Instagram lookup
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -59,14 +68,14 @@ export const NotionDBProvider: React.FC<{ children: ReactNode }> = ({ children }
         // Fetch events and performers
         const [eventData, performerList] = await Promise.all([fetchEvents(), fetchPerformers()]);
 
-        // Transform performers into a dictionary
-        const performerData = transformPerformersToDict(performerList);
+        // Transform performers into lookup dictionaries
+        const { byId, byInstagram } = transformPerformersToDict(performerList);
 
         // Map performers to their associated events
         const mappedEvents = eventData.map((event) => ({
           ...event,
           performers: event.performers
-            ? event.performers.map((performerId: any) => performerData[performerId] || null)
+            ? event.performers.map((performerId: any) => byId[performerId] || null)
             : [],
         }));
         const eventDictionaryBySlug = mappedEvents.reduce<Record<string, Event>>((acc, event) => {
@@ -77,7 +86,7 @@ export const NotionDBProvider: React.FC<{ children: ReactNode }> = ({ children }
         // Update state
         setEvents(mappedEvents);
         setEventBySlug(eventDictionaryBySlug);
-        // setEventById(eventDictionaryById);
+        setPerformersByInstagram(byInstagram); // ✅ Store performers by Instagram
       } catch (err: any) {
         setError(err.message || "An unknown error occurred");
       } finally {
@@ -89,7 +98,7 @@ export const NotionDBProvider: React.FC<{ children: ReactNode }> = ({ children }
   }, []);
 
   return (
-    <NotionContext.Provider value={{ events, eventBySlug, loading, error }}>
+    <NotionContext.Provider value={{ events, eventBySlug, performersByInstagram, loading, error }}>
       {children}
     </NotionContext.Provider>
   );
