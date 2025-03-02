@@ -1,15 +1,9 @@
 import React, { useState } from "react";
 import { Modal, Input, Button, Select, Form, Space, message } from "antd";
 import axios from "axios";
+import { Performer } from "../types";
 
 const { Option } = Select;
-
-interface Performer {
-  id?: string; // ✅ ID field to store performer ID
-  name: string;
-  instagram: string;
-  role: string;
-}
 
 interface AddPerformersModalProps {
   isOpen: boolean;
@@ -18,10 +12,12 @@ interface AddPerformersModalProps {
 }
 
 const AddPerformersModal: React.FC<AddPerformersModalProps> = ({ isOpen, onClose, setSelectedPerformers }) => {
-  const [performers, setPerformers] = useState<Performer[]>([{ name: "", instagram: "", role: "Performer" }]);
+  const [performers, setPerformers] = useState<Performer[]>([
+    { id: "", name: "", instagram: "", isHost: false }
+  ]);
 
   // Function to handle input changes
-  const handleInputChange = (index: number, field: string, value: string) => {
+  const handleInputChange = (index: number, field: keyof Performer, value: string | boolean) => {
     const updatedPerformers = [...performers];
     updatedPerformers[index] = { ...updatedPerformers[index], [field]: value };
     setPerformers(updatedPerformers);
@@ -29,12 +25,11 @@ const AddPerformersModal: React.FC<AddPerformersModalProps> = ({ isOpen, onClose
 
   // Function to add a new performer row
   const handleAddPerformer = () => {
-    setPerformers([...performers, { name: "", instagram: "", role: "Performer" }]);
+    setPerformers([...performers, { id: "", name: "", instagram: "", isHost: false }]);
   };
 
   // Function to submit performers
   const handleSubmit = async () => {
-    // Filter out completely empty rows (must have at least a name)
     const validPerformers = performers.filter((p) => p.name.trim() !== "");
 
     if (validPerformers.length === 0) {
@@ -43,18 +38,18 @@ const AddPerformersModal: React.FC<AddPerformersModalProps> = ({ isOpen, onClose
     }
 
     try {
-      // Send performers to Notion and retrieve IDs
       const savedPerformers = await Promise.all(
         validPerformers.map(async (performer) => {
           const response = await axios.post("/api/performers", performer);
-          return { ...performer, id: response.data.id }; // ✅ Store performer ID
+          console.log("Response:", response.data);
+          return { ...performer, id: response.data.data.id }; 
         })
       );
 
       console.log("Saved performers:", savedPerformers);
       setSelectedPerformers(savedPerformers);
       message.success("Performers added successfully!");
-      setPerformers([{ name: "", instagram: "", role: "Performer" }]); // Reset fields
+      setPerformers([{ id: "", name: "", instagram: "", isHost: false }]); // Reset fields
       onClose();
     } catch (error) {
       message.error("Failed to add performers.");
@@ -84,7 +79,10 @@ const AddPerformersModal: React.FC<AddPerformersModalProps> = ({ isOpen, onClose
             </Form.Item>
 
             <Form.Item label="Role">
-              <Select value={performer.role} onChange={(value) => handleInputChange(index, "role", value)}>
+              <Select
+                value={performer.isHost ? "Host" : "Performer"}
+                onChange={(value) => handleInputChange(index, "isHost", value === "Host")}
+              >
                 <Option value="Performer">Performer</Option>
                 <Option value="Host">Host</Option>
               </Select>
