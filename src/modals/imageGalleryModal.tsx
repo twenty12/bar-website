@@ -54,7 +54,7 @@ const GalleryModal: React.FC = () => {
                                     alt={image.title}
                                     style={{
                                         maxHeight: "100%",
-                                        maxWidth: "100%",
+                                        maxWidth: "calc(100% - 60px)",
                                         objectFit: "contain",
                                     }}
                                 />
