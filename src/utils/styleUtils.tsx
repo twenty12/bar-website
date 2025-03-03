@@ -5,7 +5,6 @@ export const generateGradient = (name: string) => {
     // Generate colors based on the hash
     const color1 = `hsl(${hash % 360}, 70%, 70%)`; // Hue from 0-360
     const color2 = `hsl(${(hash + 180) % 360}, 70%, 50%)`; // Opposite hue for contrast
-  
-    // Return the linear gradient
+
     return `linear-gradient(45deg, ${color1}, ${color2})`;
   };

@@ -28,7 +28,7 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSuccess }) => {
       const payload = {
         ...values,
         event_date: values.event_date?.format("YYYY-MM-DD"),
-        start_time: values.start_time?.format("HH:mm"),
+        start_time: values.event_date?.format("HH:mm"),
         end_time: values.end_time?.format("HH:mm"),
       };
 
@@ -110,7 +110,11 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSuccess }) => {
           label="Event Date"
           rules={[{ required: true, message: "Please enter a date" }]}
         >
-          <DatePicker style={{ width: "100%" }} placeholder="Date of event*" />
+          <DatePicker 
+            showTime={{ use12Hours: true, format: "h:mm A" }} 
+            format="YYYY-MM-DD h:mm A" 
+          
+          style={{ width: "100%" }} placeholder="Date of event*" />
         </Form.Item>
         <Form.Item
           name="guest_count"

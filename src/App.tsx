@@ -46,7 +46,12 @@ const App: React.FC = () => {
   // Check if the current route requires a full layout
   const isFullLayout = !location.pathname.includes("/links") && !location.pathname.includes("/event/") && !location.pathname.includes("/createEvent");
   const isEventPage = location.pathname.includes("/event/");
-
+  const isCalendarPage = location.pathname.includes("/calendar");
+  const getLayoutClassName = () => {
+    if (isEventPage) return "layout shifting-gradient-dark";
+    if (isCalendarPage) return "layout-calendar";
+    return "layout";
+  };
   return (
     <ConfigProvider
       theme={theme}
@@ -66,7 +71,7 @@ const App: React.FC = () => {
         <meta name="twitter:image" content='https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/images/logo_black.png' />
       </Helmet>
       <Layout
-        className={isEventPage ? "layout shifting-gradient-dark" : "layout"}
+        className={getLayoutClassName()}
         style={{
           minHeight: "100vh",
           display: "flex",

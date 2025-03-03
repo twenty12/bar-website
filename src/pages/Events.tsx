@@ -60,21 +60,21 @@ const Events: React.FC = () => {
             filter: "grayscale(50%) contrast(140%) brightness(130%)",
           }}
         ></video>
-  <div
-    style={{
-      position: "absolute",
-      bottom: "10px",
-      fontSize: "14px",
-      color: "#fff",
-      textShadow: "1px 1px 4px rgba(0, 0, 0, 0.7)",
-      backgroundColor: "rgba(0, 0, 0, 0.5)",
-      padding: "5px 10px",
-      borderRadius: "4px",
-      zIndex: 1, // Ensures it's above the video
-    }}
-  >
-    Video Credit: Amanda Hamm (IG: @amanda.hamm.events)
-  </div>
+        <div
+          style={{
+            position: "absolute",
+            bottom: "10px",
+            fontSize: "14px",
+            color: "#fff",
+            textShadow: "1px 1px 4px rgba(0, 0, 0, 0.7)",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            padding: "5px 10px",
+            borderRadius: "4px",
+            zIndex: 1, // Ensures it's above the video
+          }}
+        >
+          Video Credit: Amanda Hamm (IG: @amanda.hamm.events)
+        </div>
       </div>
       <div className="full-page-video-body">
         <Row
@@ -89,11 +89,8 @@ const Events: React.FC = () => {
           </Col>
           <Col xs={24} md={20}>
             <Title level={4} style={{ fontWeight: 300 }}>
-              Honey’s offers flexible event space that infuses the neighborhood’s industrial roots with a spirit of
-              creativity. It’s a place where flavor, sound, and movement converge, creating a unique and unforgettable
-              setting for gatherings of all kinds. From private dinners and lively parties to workshops, weddings, and
-              creative projects like photo or film shoots, Honey’s provides a versatile backdrop for your vision.
-
+              We host weddings, private dinners, and parties of all kinds, offering a flexible space, full bar, and catering options to match the occasion. See our{' '}
+              <span style={formTextStyle} onClick={() => showGalleryModal(GalleryTypes.Space)}>gallery for inspiration</span>.
             </Title>
           </Col>
         </Row>
@@ -109,17 +106,17 @@ const Events: React.FC = () => {
           </Col>
           <Col xs={24} md={20}>
             <Title level={4} style={{ fontWeight: 300 }}>
-              To learn more about our special event options and availability, please fillout this <span style={formTextStyle} onClick={showModal}>Event Inquiry Form</span>.
+              To learn more about our special event options and availability, please fillout this <span style={formTextStyle} onClick={showModal}>event inquiry form</span>.
               <br />
               For general inquiries contact{" "}
-              <a href="mailto:manager@honeysbrooklyn.com" style={{textDecoration: 'underline'}}>manager@honeysbrooklyn.com</a>. <br/> For more details about our space and offerings, check out our <a href="https://storm-attention-5ca.notion.site/Honey-s-Rental-Details-1728ffc87fdb804dacc1f8cb0fe6fbad?pvs=4" style={{textDecoration: 'underline'}} target="_blank">rental details page</a>.
+              <a href="mailto:manager@honeysbrooklyn.com" style={{ textDecoration: 'underline' }}>manager@honeysbrooklyn.com</a>. <br /> For more details about our space and offerings, check out our <a href="https://storm-attention-5ca.notion.site/Honey-s-Rental-Details-1728ffc87fdb804dacc1f8cb0fe6fbad?pvs=4" style={{ textDecoration: 'underline' }} target="_blank">rental details page</a>.
             </Title>
 
 
           </Col>
         </Row>
         <Row
-          style={{ ...rowStyle}}
+          style={{ ...rowStyle }}
           gutter={[16, 16]}
           align={'top'}
         >
@@ -156,7 +153,7 @@ const Events: React.FC = () => {
             <Title level={4} style={{ fontWeight: 300 }}>
               Host impactful product launches, brand activations, or PR events in a space that inspires creativity and connection.Honey’s is an authentic platform and amplifying backdrop that will set the stage for introducing your product or concept with clarity and impact.
               Check out our <span style={formTextStyle} onClick={() => showGalleryModal(GalleryTypes.Activation)}>activation gallery</span>.
-            
+
             </Title>
           </Col>
         </Row>
