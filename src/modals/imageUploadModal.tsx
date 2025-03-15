@@ -6,7 +6,7 @@ import axios from "axios";
 interface ImageUploadModalProps {
   isOpen: boolean;
   onClose: () => void;
-  setImageURLs: React.Dispatch<React.SetStateAction<string[]>>;
+  setImageURLs: React.Dispatch<React.SetStateAction<string[]>> | React.Dispatch<React.SetStateAction<string>>;
   allowMultiple?: boolean;
 }
 
@@ -42,7 +42,11 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({ isOpen, onClose, se
     if (uploadedUrls.length > 0) {
       message.success("Images uploaded successfully!");
       console.log("Uploaded URLs:", uploadedUrls);
-      setImageURLs((prev) => [...prev, ...uploadedUrls]); // ✅ Store uploaded image URLs
+      if (allowMultiple) {
+        (setImageURLs as React.Dispatch<React.SetStateAction<string[]>>)((prev) => [...prev, ...uploadedUrls]); 
+      } else {
+        (setImageURLs as React.Dispatch<React.SetStateAction<string>>)(uploadedUrls[0]); 
+      }    
       setFileList([]); // ✅ Clear uploaded files
       onClose(); // ✅ Close modal after successful upload
       console.log("Uploaded URLs:", uploadedUrls);

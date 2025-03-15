@@ -58,33 +58,40 @@ async function createEvent(req: NextApiRequest, res: NextApiResponse) {
 
 // Update an existing event
 async function updateEvent(req: NextApiRequest, res: NextApiResponse) {
+  console.log("Update Event: Received Request");
+
+  console.log("Body as JSON:", JSON.stringify(req.body, null, 2)); // ✅ Convert body to string for visibility
+  
+  const { eventId } = req.body
+  const { title, date, description, ticketUrl, performers, postImageUrl } = req.body;
+
+  if (!eventId) {
+    console.error("❌ Missing Event ID");
+    return res.status(400).json({ error: "Event ID is required" });
+  }
+
   try {
-    const { eventId } = req.query;
-    const { title, date, description, ticketUrl, performers, postImageUrl } = req.body;
-
-    if (!eventId) return res.status(400).json({ error: "Event ID is required" });
-
     const notionPayload = {
-      properties: {
-        Name: { title: [{ text: { content: title } }] },
-        Date: date ? { date: { start: date } } : undefined,
-        Description: description ? { rich_text: [{ text: { content: description } }] } : undefined,
-        "Ticket Link": ticketUrl ? { url: ticketUrl } : undefined,
-        Performers: {
-          relation: performers?.map((id: string) => ({ id })) || [],
-        },
-        Poster: postImageUrl
-          ? {
-              files: [
-                {
-                  type: "external",
-                  external: { url: postImageUrl },
-                  name: postImageUrl.split("/").pop() || "poster-image.jpg",
-                },
-              ],
-            }
-          : undefined,
-      },
+      properties: Object.fromEntries(
+        Object.entries({
+          Name: title ? { title: [{ text: { content: title } }] } : undefined,
+          Date: date ? { date: { start: date } } : undefined,
+          Description: description ? { rich_text: [{ text: { content: description } }] } : undefined,
+          "Ticket Link": ticketUrl ? { url: ticketUrl } : undefined,
+          Performers: performers?.length ? { relation: performers.map((id: string) => ({ id })) } : undefined,
+          Poster: postImageUrl
+            ? {
+                files: [
+                  {
+                    type: "external",
+                    external: { url: postImageUrl },
+                    name: postImageUrl.split("/").pop() || "poster-image.jpg",
+                  },
+                ],
+              }
+            : undefined,
+        }).filter(([_, v]) => v !== undefined)
+      ),
     };
 
     await notionApi.patch(`/pages/${eventId}`, notionPayload);

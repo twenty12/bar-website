@@ -6,6 +6,7 @@ interface NotionContextType {
   events: Event[];
   eventBySlug: Record<string, Event>;
   performersByInstagram: Record<string, Performer>; // ✅ New dictionary for performers by Instagram
+  performersById: Record<string, Performer>; // ✅ New dictionary for performers by ID
   loading: boolean;
   error: string | null;
 }
@@ -15,6 +16,7 @@ const NotionContextDefaultValue: NotionContextType = {
   events: [],
   eventBySlug: {},
   performersByInstagram: {}, // ✅ Default empty object
+  performersById: {}, // ✅ Default empty object
   loading: true,
   error: null,
 };
@@ -59,6 +61,7 @@ export const NotionDBProvider: React.FC<{ children: ReactNode }> = ({ children }
   const [events, setEvents] = useState<Event[]>([]);
   const [eventBySlug, setEventBySlug] = useState<Record<string, Event>>({});
   const [performersByInstagram, setPerformersByInstagram] = useState<Record<string, Performer>>({}); // ✅ New state for Instagram lookup
+  const [performersById, setPerformersById] = useState<Record<string, Performer>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -67,10 +70,10 @@ export const NotionDBProvider: React.FC<{ children: ReactNode }> = ({ children }
       try {
         // Fetch events and performers
         const [eventData, performerList] = await Promise.all([fetchEvents(), fetchPerformers()]);
-
+  
         // Transform performers into lookup dictionaries
         const { byId, byInstagram } = transformPerformersToDict(performerList);
-
+        console.log(byId)
         // Map performers to their associated events
         const mappedEvents = eventData.map((event) => ({
           ...event,
@@ -78,27 +81,29 @@ export const NotionDBProvider: React.FC<{ children: ReactNode }> = ({ children }
             ? event.performers.map((performerId: any) => byId[performerId] || null)
             : [],
         }));
+  
         const eventDictionaryBySlug = mappedEvents.reduce<Record<string, Event>>((acc, event) => {
           acc[event.slug] = event;
           return acc;
         }, {});
-
+  
         // Update state
         setEvents(mappedEvents);
         setEventBySlug(eventDictionaryBySlug);
-        setPerformersByInstagram(byInstagram); // ✅ Store performers by Instagram
+        setPerformersById(byId); // ✅ Fix: Ensure performersById is set
+        setPerformersByInstagram(byInstagram);
       } catch (err: any) {
         setError(err.message || "An unknown error occurred");
       } finally {
         setLoading(false);
       }
     };
-
+  
     fetchData();
   }, []);
 
   return (
-    <NotionContext.Provider value={{ events, eventBySlug, performersByInstagram, loading, error }}>
+    <NotionContext.Provider value={{ events, eventBySlug, performersByInstagram, performersById, loading, error }}>
       {children}
     </NotionContext.Provider>
   );

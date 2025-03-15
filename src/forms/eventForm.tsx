@@ -8,6 +8,8 @@ import { Typography } from "antd";
 import ImageUploadModal from "../modals/imageUploadModal";
 import AddPerformersModal from "../modals/addPerformersModal";
 import { Performer } from "../types";
+import { useNotionDB } from "../providers/CalendarProvider";
+import FullPageSpin from "../components/fullPageSpin";
 
 const { Title } = Typography;
 interface EventFormProps {
@@ -17,20 +19,20 @@ interface EventFormProps {
 const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
-
-  const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const { performersById } = useNotionDB();
+  const [flyerUrl, setFlyerUrl] = useState<string>('');
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isPerformersModalOpen, setIsPerformersModalOpen] = useState<boolean>(false);
   const [selectedPerformers, setSelectedPerformers] = useState<Performer[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-
-  // Fetch event data from the API if editing
+  const [editFormLoading, setEditFormLoading] = useState<boolean>(false);
   useEffect(() => {
     if (eventId) {
+      setEditFormLoading(true);
       axios.get(`/api/event?id=${eventId}`)
         .then((response) => {
           const event = response.data;
-          console.log("Fetched Event:", event);
+
 
           form.setFieldsValue({
             title: event.properties.Name?.title[0]?.text?.content || "",
@@ -39,15 +41,22 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
             ticketUrl: event.properties["Ticket Link"]?.url || "",
           });
 
-          setImageUrls(event.properties.Poster?.files[0]?.file?.url ? [event.properties.Poster.files[0].file.url] : []);
-          setSelectedPerformers(event.properties.Performers?.relation?.map((p: any) => ({ id: p.id })) || []);
+          // setFlyerUrl(event.properties.Poster?.files?.map((file: any) => file.external?.url) || []);
+          setFlyerUrl(event.properties.Poster?.files[0]?.external?.url || '');
+          if (Object.keys(performersById).length > 0) {
+            setSelectedPerformers(
+              event.properties.Performers?.relation.map((performer: any) => performersById[performer.id]) || []
+            );
+            setEditFormLoading(false)
+          }
         })
         .catch((error) => {
           console.error("Error fetching event:", error);
           message.error("Failed to fetch event details.");
+          setEditFormLoading(false);
         });
     }
-  }, [eventId, form]);
+  }, [eventId, form, performersById]);
 
   // Handle form submission
   const handleSubmit = async (values: any) => {
@@ -55,17 +64,18 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
       setLoading(true);
 
       const payload = {
+        eventId: eventId,
         title: values.title,
         date: values.date ? values.date.format("YYYY-MM-DD") : null,
         description: values.description,
         ticketUrl: values.ticketUrl,
-        postImageUrl: imageUrls[0] || null,
+        postImageUrl: flyerUrl || null,
         performers: selectedPerformers.map((performer) => performer.id),
       };
 
       let response;
       if (eventId) {
-        // ✅ Editing an event
+        console.log("Updating event with ID:", eventId);
         response = await axios.put(`/api/event?id=${eventId}`, payload);
       } else {
         // ✅ Creating a new event
@@ -86,7 +96,10 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
       setLoading(false);
     }
   };
-
+  if (editFormLoading) {
+    
+    return <FullPageSpin />;
+  }
   return (
     <>
       <Title level={1}>{eventId ? "Edit Event" : "Create an Event"}</Title>
@@ -98,7 +111,7 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
         form={form}
         layout="vertical"
         onFinish={(values) => {
-          values.images = imageUrls;
+          values.images = flyerUrl;
           values.performers = selectedPerformers.map((performer) => performer.id);
           handleSubmit(values);
         }}
@@ -132,16 +145,13 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
         </Form.Item>
 
         {/* Image Upload Button */}
-        <Form.Item label="Event Poster">
+        <Form.Item label="Upload you event post and any other images to be posted in a instagram carousel">
           <Button icon={<PlusOutlined />} onClick={() => setIsModalOpen(true)}>
-            {imageUrls.length > 0 ? "Change Poster" : "Add Poster"}
+            {flyerUrl.length > 0 ? "Update Flyer" : "Add Flyer"}
           </Button>
-
-          {imageUrls.length > 0 && (
+          {flyerUrl.length > 0 && (
             <div style={{ marginTop: 10, display: "flex", gap: "10px" }}>
-              {imageUrls.map((url, index) => (
-                <img key={index} src={url} alt="Uploaded" style={{ width: "100px", borderRadius: "4px" }} />
-              ))}
+                <img src={flyerUrl} alt="Uploaded" style={{ width: "100px", borderRadius: "4px" }} />
             </div>
           )}
         </Form.Item>
@@ -191,7 +201,7 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
       <ImageUploadModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        setImageURLs={setImageUrls}
+        setImageURLs={setFlyerUrl}
         allowMultiple={false}
       />
     </>
