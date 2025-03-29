@@ -31,6 +31,15 @@ function slugify(string: string) {
     .replace(/^-+|-+$/g, "");
 }
 
+const getThumbnailFromNotion = (posterProperty: any): string | undefined => {
+  if (!posterProperty?.files?.[0]) return undefined;
+  
+  const file = posterProperty.files[0];
+  if (file.file?.url) return file.file.url;
+  if (file.external?.url) return file.external.url;
+  return undefined;
+};
+
 export default async (req: any, res: any) => {
   if (req.method !== "GET") {
     return res.status(405).end();
@@ -38,14 +47,22 @@ export default async (req: any, res: any) => {
 
   try {
     const response = await notionApi.post(`/databases/${eventsDatabaseId}/query`);
-
+    for (const item of response.data.results) {
+      if (item.properties.Name?.title?.[0]?.text?.content?.toLowerCase().includes("test")) {
+        console.log("Found item with 'test' in the title:", item);
+        console.log(item.properties.Poster)
+        console.log(item.properties.Poster?.files?.[0]?.file?.url)
+        console.log(item.properties.Poster?.files?.[0]?.name)
+        console.log(item.properties.Poster?.files?.[0].external?.url)
+      }
+    }
     const events: Event[] = response.data.results.map((event: any): Event | null => {
       // if (!event.properties["Display on Website"]?.checkbox) return null; // Skip events not meant for display
       if (event.properties.Name?.title?.[0]?.text?.content == undefined) return null; // Skip events without a name
       const eventDate = event.properties.Date?.date?.start || null;
       return {
         id: event.id,
-        thumbnail: event.properties.Poster?.files?.[0]?.file?.url || null,
+        thumbnail: getThumbnailFromNotion(event.properties.Poster),
         title: event.properties.Name?.title?.[0]?.text?.content || "Untitled",
         contactEmail: event.properties.Email?.email || null,
         date: eventDate,
