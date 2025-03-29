@@ -70,15 +70,15 @@ export const NotionDBProvider: React.FC<{ children: ReactNode }> = ({ children }
       try {
         // Fetch events and performers
         const [eventData, performerList] = await Promise.all([fetchEvents(), fetchPerformers()]);
-  
         // Transform performers into lookup dictionaries
         const { byId, byInstagram } = transformPerformersToDict(performerList);
-        console.log(byId)
         // Map performers to their associated events
         const mappedEvents = eventData.map((event) => ({
           ...event,
           performers: event.performers
-            ? event.performers.map((performerId: any) => byId[performerId] || null)
+            ? event.performers
+                .map((performerId: any) => byId[performerId] || null)
+                .filter((performer) => performer !== null)
             : [],
         }));
   

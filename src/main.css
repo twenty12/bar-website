@@ -93,7 +93,9 @@ button {
   font-weight: 600;
   font-style: bold;
 }
-
+.admin, .admin * {
+  font-family: 'Roboto Mono', 'IBM Plex Mono', 'Courier New', Courier, monospace !important;
+}
 @keyframes scrollGraphPaper {
   from {
     background-position: 0 0;

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Event } from "../src/types";
+import { Event, Performer } from "../src/types";
 import moment from 'moment';
 
 const apiKey = process.env.NOTION_API_KEY;
@@ -11,6 +11,16 @@ const notionApi = axios.create({
     "Notion-Version": "2022-06-28",
   },
 });
+
+function hasEventPassed(eventDate: string | null): boolean {
+  if (!eventDate) return false; // If no date, assume it hasn't passed
+
+  const now = moment.utc(); // Current time in UTC
+  const eventMoment = moment(eventDate);
+  const cutoffTime = eventMoment.clone().utc().hour(9).minute(0).second(0).millisecond(0);
+
+  return now.isAfter(cutoffTime);
+}
 
 function slugify(string: string) {
   return string
@@ -28,35 +38,33 @@ export default async (req: any, res: any) => {
 
   try {
     const response = await notionApi.post(`/databases/${eventsDatabaseId}/query`);
-    // loop to check if the evnt title has the work "hmmm" in it
-    response.data.results.forEach((event: any) => {
-      if (event.properties.Name?.title[0]?.text?.content.includes("Saturday")) {
-        console.log("hmmm event found", event.properties['Photos for Archive']);
-        console.log("hmmm event found", event.properties['Photos for Archive'].files[0].file.url);
-        console.log(event)
-      }
-    }
-    );
-    // Filter visible events and map after filtering
-    const events: Event[] = response.data.results
-      .filter((event: any) => event.properties["Display on Website"]?.checkbox)
-      .map((event: any) => ({
+
+    const events: Event[] = response.data.results.map((event: any): Event | null => {
+      // if (!event.properties["Display on Website"]?.checkbox) return null; // Skip events not meant for display
+      if (event.properties.Name?.title?.[0]?.text?.content == undefined) return null; // Skip events without a name
+      const eventDate = event.properties.Date?.date?.start || null;
+      return {
         id: event.id,
-        thumbnail: event.properties.Poster?.files[0]?.file?.url || null,
-        title: event.properties.Name?.title[0]?.text?.content || "Untitled",
-        date: event.properties.Date?.date?.start || null,
-        description: event.properties.Description?.rich_text[0]?.plain_text || null,
+        thumbnail: event.properties.Poster?.files?.[0]?.file?.url || null,
+        title: event.properties.Name?.title?.[0]?.text?.content || "Untitled",
+        contactEmail: event.properties.Email?.email || null,
+        date: eventDate,
+        description: event.properties.Description?.rich_text?.[0]?.plain_text || null,
+        hasEventPassed: hasEventPassed(eventDate),
         visible: event.properties["Display on Website"]?.checkbox || false,
         ticketUrl: event.properties["Ticket Link"]?.url || null,
         isInArchive: event.properties["Display in Archive"]?.checkbox || false,
-        slug: slugify(event.properties.Name?.title[0]?.text?.content) || event.id,
-        performers: event.properties.Performers?.relation?.map((performer: any) => performer.id) || [],
-        smsListId: event.properties["SMS List ID"]?.rich_text[0]?.plain_text || null,
-        eventImages: event.properties["Photos for Archive"]?.files?.map((file: any) => ({
-          id: file.id,
-          imageUrl: file.file.url,
-        })) || [],
-      }));
+        slug: slugify(event.properties.Name?.title?.[0]?.text?.content) || event.id,
+        performers: event.properties.Performers?.relation?.map((performer: Performer) => performer.id) || [],
+        smsListId: event.properties["SMS List ID"]?.rich_text?.[0]?.plain_text || null,
+        eventImages:
+          event.properties["Photos for Archive"]?.files?.map((file:any) => ({
+            id: file.id,
+            imageUrl: file.file.url,
+          })) || [],
+      };
+    }).filter(Boolean) as Event[]; // Remove null values from the array
+
 
     const allEvents: Event[] = events
       .filter((event) => event.date) // Ensure event has a date
@@ -64,18 +72,8 @@ export default async (req: any, res: any) => {
         if (!a.date || !b.date) return 0;
         return moment(a.date).valueOf() - moment(b.date).valueOf();
       })
-      const currentEvents = allEvents.filter((event) => {
-        const now = moment.utc(); // Current time in UTC
-        const eventDate = moment(event.date);
-        const cutoffTime = eventDate.clone().utc().hour(9).minute(0).second(0).millisecond(0);
-        
-      // const timeRemaining = moment.duration(cutoffTime.diff(now)).humanize();
-        // console.log(`Event: ${event.title}, Time remaining to cutoff: ${timeRemaining}`);
-      
-        return now.isBefore(cutoffTime);
-      });
-    const archivedEvents = allEvents.filter((event) => event.isInArchive);
-    res.status(200).json([...currentEvents, ...archivedEvents]);
+    
+    res.status(200).json(allEvents);
   } catch (error) {
     console.error("Error fetching events:", error);
     res.status(500).json({ error: "Failed to fetch events" });

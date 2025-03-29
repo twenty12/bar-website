@@ -7,14 +7,11 @@ import PasswordModal from "../modals/passwordModal";
 const CreateOrUpdateEvent: React.FC = () => {
   const { eventId } = useParams<{ eventId?: string }>(); // ✅ Get event ID from URL
   const navigate = useNavigate();
-  const [isUnlocked, setIsUnlocked] = useState(false); // ✅ State to manage locked state
+  const [isUnlocked, setIsUnlocked] = useState(true); // ✅ State to manage locked state
+  const [email, setEmail] = useState(""); // ✅ State to manage email
 
   return (
     <>
-      {/* Password Modal - Only shows if locked */}
-      <PasswordModal isUnlocked={isUnlocked} setIsUnlocked={setIsUnlocked} />
-
-      {/* Only render content if unlocked */}
       {isUnlocked && (
         <div
           style={{

@@ -4,11 +4,13 @@ export type Event = {
   id: string;
   thumbnail?: string;
   title: string;
+  contactEmail?: string;
   date: string;
   performers?: Performer[];
   description?: string;
   slug: string;
   visible: boolean;
+  hasEventPassed: boolean;
   ticketUrl?: string;
   isInArchive?: boolean;
   eventImages?: EventImage[];

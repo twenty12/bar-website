@@ -20,7 +20,6 @@ const EventCard: React.FC<{ event: Event, calendarType: CalendarTypes }> = ({ ev
             navigate(`/event/${event.slug}`);
         }
     }
-    console.log(event)
     const thumbnail = event.thumbnail ? event.thumbnail : 'https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/images/favicon_large.png'
     return (
         <Row

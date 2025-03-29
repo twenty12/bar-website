@@ -17,8 +17,8 @@ import { Helmet } from "react-helmet-async";
 import GalleryModal from "./modals/imageGalleryModal";
 import About from "./pages/About";
 import { CalendarTypes } from "./enums";
-import CreateEvent from "./pages/CreateOrUpdateEvent";
 import CreateOrUpdateEvent from "./pages/CreateOrUpdateEvent";
+import UserEventsPage from "./pages/UserEventList";
 
 ReactGA.initialize("G-YJS7QQW8KP");
 
@@ -44,7 +44,7 @@ const App: React.FC = () => {
   // Log the current pathname
 
   // Check if the current route requires a full layout
-  const isFullLayout = !location.pathname.includes("/links") && !location.pathname.includes("/event/") && !location.pathname.includes("/createEvent");
+  const isFullLayout = !location.pathname.includes("/links") && !location.pathname.includes("/event/") && !location.pathname.includes("/eventEditor") && !location.pathname.includes("/myEvents");
   const isEventPage = location.pathname.includes("/event/");
   const isCalendarPage = location.pathname.includes("/calendar");
   const getLayoutClassName = () => {
@@ -142,8 +142,9 @@ const App: React.FC = () => {
           <GalleryModal />
           <Routes>
             <Route path="/event/:slug" element={<EventDetail />} />
-            <Route path="/createEvent/:eventId" element={<CreateOrUpdateEvent />} />
-            <Route path='/createEvent' element={<CreateEvent />} />
+            <Route path="/myEvents" element={<UserEventsPage />} />
+            <Route path="/eventEditor/:eventId" element={<CreateOrUpdateEvent />} />
+            <Route path="/eventEditor" element={<CreateOrUpdateEvent />} />
             <Route path="/calendar" element={<Calendar calendarType={CalendarTypes.Active}/>} />
             <Route path="/archive" element={<Calendar calendarType={CalendarTypes.Archive}/>} />
             <Route path="/events" element={<Events />} />

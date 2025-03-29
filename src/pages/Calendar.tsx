@@ -8,11 +8,12 @@ import StayAdvisedForm from "../components/stayAdvised";
 import { CalendarTypes } from "../enums";
 import { useNavigate } from "react-router-dom";
 import theme from "../theme.json";
-
+import { Event } from "../types";
 
 
 const Calendar: React.FC<{ calendarType: CalendarTypes }> = ({ calendarType }) => {
   const { events, loading } = useNotionDB();
+
   const navigate = useNavigate();
   const handleArchiveClick = () => {
     navigate(`/archive`);
@@ -38,7 +39,7 @@ const Calendar: React.FC<{ calendarType: CalendarTypes }> = ({ calendarType }) =
           level={1}
           style={{ margin: "30px", marginLeft: "0", marginBottom: '0', fontSize: "50px" }}
         >
-           {calendarType === CalendarTypes.Archive ? "Archive" : "Calendar"}
+          {calendarType === CalendarTypes.Archive ? "Archive" : "Calendar"}
         </Typography.Title>
         <Typography.Title
           level={5}
@@ -79,11 +80,14 @@ const Calendar: React.FC<{ calendarType: CalendarTypes }> = ({ calendarType }) =
         </Typography.Title>
       </div> */}
       <div>
-        {events.filter((event) =>
-          calendarType === CalendarTypes.Active ? !event.isInArchive : event.isInArchive
-        ).map((event) => (
-          <EventCard key={event.id} event={event} calendarType={calendarType} />
-        ))}
+        {events
+          .filter((event: Event) => event.visible)
+          .filter((event: Event) =>
+            calendarType === CalendarTypes.Active ? !event.isInArchive : event.isInArchive
+          ).filter((event: Event) => calendarType === CalendarTypes.Active ? !event.hasEventPassed : event.hasEventPassed).
+          map((event: Event) => (
+            <EventCard key={event.id} event={event} calendarType={calendarType} />
+          ))}
       </div>
       <StayAdvisedForm />
 
