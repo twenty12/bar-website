@@ -22,8 +22,8 @@ async function fetchEvent(eventId: string) {
 // Create a new event
 async function createEvent(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { title, date, description, ticketUrl, performers, postImageUrl } = req.body;
-
+    const { title, date, description, ticketUrl, performers, postImageUrl, additionalImages } = req.body;
+    console.log("additionalImages", additionalImages)
     const notionPayload = {
       parent: { database_id: eventsDatabaseId },
       properties: {
@@ -45,6 +45,15 @@ async function createEvent(req: NextApiRequest, res: NextApiResponse) {
               ],
             }
           : undefined,
+        "Additional Images": additionalImages?.length
+          ? {
+              files: additionalImages.map((url: string) => ({
+                type: "external",
+                external: { url },
+                name: url.split("/").pop() || "additional-image.jpg",
+              })),
+            }
+          : undefined,
       },
     };
 
@@ -63,7 +72,7 @@ async function updateEvent(req: NextApiRequest, res: NextApiResponse) {
   console.log("Body as JSON:", JSON.stringify(req.body, null, 2)); // ✅ Convert body to string for visibility
   
   const { eventId } = req.body
-  const { title, date, description, ticketUrl, performers, postImageUrl } = req.body;
+  const { title, date, description, ticketUrl, performers, postImageUrl, additionalImages } = req.body;
 
   if (!eventId) {
     console.error("❌ Missing Event ID");
@@ -88,6 +97,15 @@ async function updateEvent(req: NextApiRequest, res: NextApiResponse) {
                     name: postImageUrl.split("/").pop() || "poster-image.jpg",
                   },
                 ],
+              }
+            : undefined,
+          "Additional Images": additionalImages?.length
+            ? {
+                files: additionalImages.map((url: string) => ({
+                  type: "external",
+                  external: { url },
+                  name: url.split("/").pop() || "additional-image.jpg",
+                })),
               }
             : undefined,
         }).filter(([_, v]) => v !== undefined)

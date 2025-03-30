@@ -47,7 +47,7 @@ const AddPerformersModal: React.FC<AddPerformersModalProps> = ({ isOpen, onClose
       );
 
       console.log("Saved performers:", savedPerformers);
-      setSelectedPerformers(savedPerformers);
+      setSelectedPerformers(prevPerformers => [...prevPerformers, ...savedPerformers]);
       message.success("Performers added successfully!");
       setPerformers([{ id: "", name: "", instagram: "", isHost: false }]); // Reset fields
       onClose();

@@ -26,6 +26,8 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
   const [selectedPerformers, setSelectedPerformers] = useState<Performer[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [editFormLoading, setEditFormLoading] = useState<boolean>(false);
+  const [additionalImages, setAdditionalImages] = useState<string[]>([]);
+
   useEffect(() => {
     if (eventId) {
       setEditFormLoading(true);
@@ -40,9 +42,9 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
             description: event.properties.Description?.rich_text[0]?.plain_text || "",
             ticketUrl: event.properties["Ticket Link"]?.url || "",
           });
-
-          // setFlyerUrl(event.properties.Poster?.files?.map((file: any) => file.external?.url) || []);
+          console.log("event.properties.additionalImages", event.properties["Additional Images"])
           setFlyerUrl(event.properties.Poster?.files[0]?.external?.url || '');
+          setAdditionalImages(event.properties["Additional Images"]?.files.map((file: any) => file.external?.url) || []);
           if (Object.keys(performersById).length > 0) {
             setSelectedPerformers(
               event.properties.Performers?.relation.map((performer: any) => performersById[performer.id]) || []
@@ -51,6 +53,7 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
           }
         })
         .catch((error) => {
+          
           console.error("Error fetching event:", error);
           message.error("Failed to fetch event details.");
           setEditFormLoading(false);
@@ -58,7 +61,7 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
     }
   }, [eventId, form, performersById]);
 
-  // Handle form submission
+  console.log("additionalImages", additionalImages)
   const handleSubmit = async (values: any) => {
     try {
       setLoading(true);
@@ -71,6 +74,7 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
         ticketUrl: values.ticketUrl,
         postImageUrl: flyerUrl || null,
         performers: selectedPerformers.map((performer) => performer.id),
+        additionalImages: additionalImages,
       };
 
       let response;
@@ -88,7 +92,7 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
       }
 
       message.success(`Event ${eventId ? "updated" : "created"} successfully!`);
-      navigate("/events"); // ✅ Redirect to events list after success
+      navigate("/myEvents"); // ✅ Redirect to events list after success
     } catch (error) {
       console.error("Error submitting event:", error);
       message.error("Failed to save the event. Please try again.");
@@ -116,6 +120,7 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
           handleSubmit(values);
         }}
         size="large"
+        disabled={loading}
       >
         {/* Event Name */}
         <Form.Item
@@ -123,7 +128,7 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
           label="What is the name of your party?"
           rules={[{ required: true, message: "Please enter the party name" }]}
         >
-          <Input placeholder="Event Name" />
+          <Input placeholder="Event Name" disabled={loading} />
         </Form.Item>
 
         {/* Date Picker */}
@@ -132,7 +137,7 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
           label="What is the proposed date and start time of your party?"
           rules={[{ required: true, message: "Please select the event date and time" }]}
         >
-          <DatePicker showTime={{ format: "hh:mm A" }} format="YYYY-MM-DD hh:mm A" style={{ width: "100%" }} />
+          <DatePicker showTime={{ format: "hh:mm A" }} format="YYYY-MM-DD hh:mm A" style={{ width: "100%" }} disabled={loading} />
         </Form.Item>
 
         {/* Event Description */}
@@ -141,12 +146,12 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
           label="Event Description"
           rules={[{ required: true, message: "Please enter a description" }]}
         >
-          <Input.TextArea rows={4} placeholder="Describe the event*" />
+          <Input.TextArea rows={4} placeholder="Describe the event*" disabled={loading} />
         </Form.Item>
 
         {/* Image Upload Button */}
         <Form.Item label="Upload you event post and any other images to be posted in a instagram carousel">
-          <Button icon={<PlusOutlined />} onClick={() => setIsModalOpen(true)}>
+          <Button icon={<PlusOutlined />} onClick={() => setIsModalOpen(true)} disabled={loading}>
             {flyerUrl.length > 0 ? "Update Flyer" : "Add Flyer"}
           </Button>
           {flyerUrl.length > 0 && (
@@ -156,14 +161,28 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
           )}
         </Form.Item>
 
+        {/* Additional Images Upload Button */}
+        <Form.Item label="Upload additional images for the event">
+          <Button icon={<PlusOutlined />} onClick={() => setIsModalOpen(true)} disabled={loading}>
+            {additionalImages.length > 0 ? "Update Additional Images" : "Add Additional Images"}
+          </Button>
+          {additionalImages.length > 0 && (
+            <div style={{ marginTop: 10, display: "flex", gap: "10px" }}>
+              {additionalImages.map((url, index) => (
+                <img key={index} src={url} alt="Additional" style={{ width: "100px", borderRadius: "4px" }} />
+              ))}
+            </div>
+          )}
+        </Form.Item>
+
         {/* Ticket URL */}
         <Form.Item name="ticketUrl" label="Ticket Link (if using RA, Partiful, etc.)">
-          <Input placeholder="Ticket link" />
+          <Input placeholder="Ticket link" disabled={loading} />
         </Form.Item>
 
         {/* Performers & Hosts */}
         <Form.Item label="Performers & Hosts">
-          <Button icon={<PlusOutlined />} onClick={() => setIsPerformersModalOpen(true)}>
+          <Button icon={<PlusOutlined />} onClick={() => setIsPerformersModalOpen(true)} disabled={loading}>
             {selectedPerformers.length > 0 ? "Edit Performers" : "Add Hosts & Performers"}
           </Button>
 
@@ -203,6 +222,14 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
         onClose={() => setIsModalOpen(false)}
         setImageURLs={setFlyerUrl}
         allowMultiple={false}
+      />
+
+      {/* Image Upload Modal for Additional Images */}
+      <ImageUploadModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        setImageURLs={setAdditionalImages}
+        allowMultiple={true}
       />
     </>
   );

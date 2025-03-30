@@ -36,7 +36,7 @@ const CreateOrUpdateEvent: React.FC = () => {
 
           {/* Navigation Links */}
           <div
-            onClick={() => navigate("/events")}
+            onClick={() => navigate("/myEvents")}
             style={{
               cursor: "pointer",
               marginBottom: "20px",
@@ -44,7 +44,7 @@ const CreateOrUpdateEvent: React.FC = () => {
               textDecoration: "underline",
             }}
           >
-            Back to Events
+            Back to My Events
           </div>
 
           {/* Event Form */}

@@ -47,17 +47,7 @@ export default async (req: any, res: any) => {
 
   try {
     const response = await notionApi.post(`/databases/${eventsDatabaseId}/query`);
-    for (const item of response.data.results) {
-      if (item.properties.Name?.title?.[0]?.text?.content?.toLowerCase().includes("test")) {
-        console.log("Found item with 'test' in the title:", item);
-        console.log(item.properties.Poster)
-        console.log(item.properties.Poster?.files?.[0]?.file?.url)
-        console.log(item.properties.Poster?.files?.[0]?.name)
-        console.log(item.properties.Poster?.files?.[0].external?.url)
-      }
-    }
     const events: Event[] = response.data.results.map((event: any): Event | null => {
-      // if (!event.properties["Display on Website"]?.checkbox) return null; // Skip events not meant for display
       if (event.properties.Name?.title?.[0]?.text?.content == undefined) return null; // Skip events without a name
       const eventDate = event.properties.Date?.date?.start || null;
       return {
@@ -79,6 +69,11 @@ export default async (req: any, res: any) => {
             id: file.id,
             imageUrl: file.file.url,
           })) || [],
+        additionalImages:
+          event.properties["Additional Images"]?.files?.map((file: any) => ({
+            id: file.id,
+            imageUrl: file.file.url,
+          })) || [],
       };
     }).filter(Boolean) as Event[]; // Remove null values from the array
 
@@ -88,7 +83,7 @@ export default async (req: any, res: any) => {
       .sort((a, b) => {
         if (!a.date || !b.date) return 0;
         return moment(a.date).valueOf() - moment(b.date).valueOf();
-      })
+      });
     
     res.status(200).json(allEvents);
   } catch (error) {

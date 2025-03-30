@@ -15,6 +15,7 @@ export type Event = {
   isInArchive?: boolean;
   eventImages?: EventImage[];
   smsListId?: string;
+  additionalImages?: EventImage[];
 };
 
 export type EventImage = {

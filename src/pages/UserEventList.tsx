@@ -9,7 +9,7 @@ import { Event } from "../types";
 
 const UserEventsPage: React.FC = () => {
   const [isUnlocked, setIsUnlocked] = useState<boolean>(false);
-  const [userEmail, setUserEmail] = useState<string>("");
+  const [userEmail, setUserEmail] = useState<string>("test@test.com");
   const { events, loading } = useNotionDB();
   const navigate = useNavigate();
 
@@ -40,11 +40,11 @@ const UserEventsPage: React.FC = () => {
 
   return (
     <>
-      <PasswordModal
+      {/* <PasswordModal
         isUnlocked={isUnlocked}
         setIsUnlocked={setIsUnlocked}
         setEmail={setUserEmail}
-      />
+      /> */}
       <div style={{ textAlign: "center" }}>
         <img
           src={logo_black}
