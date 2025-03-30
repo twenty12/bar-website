@@ -9,7 +9,7 @@ import { Event } from "../types";
 import moment from "moment";
 const UserEventsPage: React.FC = () => {
   const [isUnlocked, setIsUnlocked] = useState<boolean>(false);
-  const [userEmail, setUserEmail] = useState<string>("test@honeysbrooklyn.com");
+  const [userEmail, setUserEmail] = useState<string>("");
   const { events, loading } = useNotionDB();
   const navigate = useNavigate();
 
