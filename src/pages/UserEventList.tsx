@@ -6,18 +6,20 @@ import { useNotionDB } from "../providers/CalendarProvider";
 import FullPageSpin from "../components/fullPageSpin";
 import logo_black from "../assets/images/logo_black.png";
 import { Event } from "../types";
-
+import moment from "moment";
 const UserEventsPage: React.FC = () => {
   const [isUnlocked, setIsUnlocked] = useState<boolean>(false);
-  const [userEmail, setUserEmail] = useState<string>("test@test.com");
+  const [userEmail, setUserEmail] = useState<string>("test@honeysbrooklyn.com");
   const { events, loading } = useNotionDB();
   const navigate = useNavigate();
 
   if (loading) {
     return <FullPageSpin />;
   }
-  const userEvents: Event[] = events.filter((event: Event) => event.contactEmail === userEmail);
-  userEvents.forEach(event => console.log("Event thumbnail:", event));
+  const userEvents: Event[] = (userEmail.endsWith("@honeysbrooklyn.com")
+    ? events
+    : events.filter((event: Event) => event.contactEmail === userEmail)
+  )
 
   const columns = [
     {
@@ -29,22 +31,23 @@ const UserEventsPage: React.FC = () => {
       title: "Date",
       dataIndex: "date",
       key: "date",
+      render: (date: string) => moment(date).format("MM/DD/YYYY"),
     },
     {
       title: "Poster",
       dataIndex: "thumbnail",
       key: "thumbnail",
-      render: (thumbnail: string) => <img src={thumbnail} alt="Event Poster" style={{ width: "50px" }} />,
+      render: (thumbnail: string) => thumbnail ? <img src={thumbnail} alt="Event Poster" style={{ width: "50px" }} /> : null,
     },
   ];
 
   return (
     <>
-      {/* <PasswordModal
+      <PasswordModal
         isUnlocked={isUnlocked}
         setIsUnlocked={setIsUnlocked}
         setEmail={setUserEmail}
-      /> */}
+      />
       <div style={{ textAlign: "center" }}>
         <img
           src={logo_black}
@@ -61,15 +64,15 @@ const UserEventsPage: React.FC = () => {
         <Typography.Title level={2} style={{ textAlign: "center" }}>
           Welcome, {userEmail}!
         </Typography.Title>
-        <Button 
-          style={{ marginBottom: "20px" }} 
+        <Button
+          style={{ marginBottom: "20px" }}
           onClick={() => navigate("/eventEditor")}
         >
           Add Event
         </Button>
         {userEvents.length > 0 ? (
           <Table
-            dataSource={userEvents.map(event => ({ ...event, key: event.id }))}
+            dataSource={userEvents.map(event => ({ ...event, key: event.id })).reverse()}
             columns={columns}
             onRow={(record) => ({
               onClick: () => navigate(`/eventEditor/${record.id}`),
@@ -77,7 +80,9 @@ const UserEventsPage: React.FC = () => {
             })}
           />
         ) : (
-          <Typography.Text>No events found for your email.</Typography.Text>
+          <div style={{ textAlign: "center" }}>
+            <Typography.Text>No events found for your email.</Typography.Text>
+          </div>
         )}
       </div>
     </>

@@ -17,12 +17,13 @@ const PasswordModal: React.FC<PasswordModalProps> = ({
   const [email, setEmailState] = useState("");
   const [isFadingOut, setIsFadingOut] = useState(false);
   const expectedPassword = "93Scott";
+  const adminPassword = "Z>@0391/S'eW"; // Replace with a secure random hash
 
   useEffect(() => {
-    if (password === expectedPassword) {
+    if (password === expectedPassword || (email.endsWith("@honeysbrooklyn.com") && password === adminPassword)) {
       handleUnlock();
     }
-  }, [password]);
+  }, [password, email]);
 
   const setCookie = (name: string, value: string, days: number) => {
     const expires = new Date(Date.now() + days * 86400000).toUTCString();
@@ -30,7 +31,6 @@ const PasswordModal: React.FC<PasswordModalProps> = ({
   };
 
   const getCookie = (name: string) => {
-    return true
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop()?.split(";").shift();
@@ -60,7 +60,7 @@ const PasswordModal: React.FC<PasswordModalProps> = ({
   };
 
   const handleUnlock = () => {
-    if (password === expectedPassword) {
+    if (password === expectedPassword || (email.endsWith("@honeysbrooklyn.com") && password === adminPassword)) {
       setIsFadingOut(true);
       setTimeout(() => {
         setIsUnlocked(true);

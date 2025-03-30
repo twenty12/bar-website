@@ -65,15 +65,21 @@ export default async (req: any, res: any) => {
         performers: event.properties.Performers?.relation?.map((performer: Performer) => performer.id) || [],
         smsListId: event.properties["SMS List ID"]?.rich_text?.[0]?.plain_text || null,
         eventImages:
-          event.properties["Photos for Archive"]?.files?.map((file:any) => ({
-            id: file.id,
-            imageUrl: file.file.url,
-          })) || [],
+          event.properties["Photos for Archive"]?.files?.map((file: any) => {
+            if (!file || !file.file || !file.file.url) return null;
+            return {
+              id: file.id,
+              imageUrl: file.file.url,
+            };
+          }).filter(Boolean) || [],
         additionalImages:
-          event.properties["Additional Images"]?.files?.map((file: any) => ({
-            id: file.id,
-            imageUrl: file.file.url,
-          })) || [],
+          event.properties["Additional Images"]?.files?.map((file: any) => {
+            if (!file || !file.file || !file.file.url) return null;
+            return {
+              id: file.id,
+              imageUrl: file.file.url,
+            };
+          }).filter(Boolean) || [],
       };
     }).filter(Boolean) as Event[]; // Remove null values from the array
 
