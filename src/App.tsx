@@ -44,7 +44,8 @@ const App: React.FC = () => {
   // Log the current pathname
 
   // Check if the current route requires a full layout
-  const isFullLayout = !location.pathname.includes("/links") && !location.pathname.includes("/event/") && !location.pathname.includes("/eventEditor") && !location.pathname.includes("/myEvents");
+  const isFullLayout = !location.pathname.includes("/links") && !location.pathname.includes("/event/") && !location.pathname.includes("/eventEditor") && !decodeURIComponent(location.pathname).includes("my-party");
+  console.log(location.pathname);
   const isEventPage = location.pathname.includes("/event/");
   const isCalendarPage = location.pathname.includes("/calendar");
   const getLayoutClassName = () => {
@@ -142,7 +143,7 @@ const App: React.FC = () => {
           <GalleryModal />
           <Routes>
             <Route path="/event/:slug" element={<EventDetail />} />
-            <Route path="/myEvents" element={<UserEventsPage />} />
+            <Route path="/my-party" element={<UserEventsPage />} />
             <Route path="/eventEditor/:eventId" element={<CreateOrUpdateEvent />} />
             <Route path="/eventEditor" element={<CreateOrUpdateEvent />} />
             <Route path="/calendar" element={<Calendar calendarType={CalendarTypes.Active}/>} />

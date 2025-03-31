@@ -10,7 +10,6 @@ import AddPerformersModal from "../modals/addPerformersModal";
 import { Performer } from "../types";
 import { useNotionDB } from "../providers/CalendarProvider";
 import FullPageSpin from "../components/fullPageSpin";
-
 const { Title } = Typography;
 interface EventFormProps {
   eventId?: string;
@@ -92,7 +91,7 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
       }
 
       message.success(`Event ${eventId ? "updated" : "created"} successfully!`);
-      navigate("/myEvents"); // ✅ Redirect to events list after success
+      navigate("/my-party"); // ✅ Redirect to events list after success
     } catch (error) {
       console.error("Error submitting event:", error);
       message.error("Failed to save the event. Please try again.");
@@ -134,10 +133,11 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
         {/* Date Picker */}
         <Form.Item
           name="date"
-          label="What is the proposed date and start time of your party?"
-          rules={[{ required: true, message: "Please select the event date and time" }]}
+
+          // label="What is the proposed date and start time of your party?"
+          // rules={[{ required: true, message: "Please select the event date and time" }]}
         >
-          <DatePicker showTime={{ format: "hh:mm A" }} format="YYYY-MM-DD hh:mm A" style={{ width: "100%" }} disabled={loading} />
+          <DatePicker showTime={{ format: "hh:mm A" }} format="YYYY-MM-DD hh:mm A" style={{ width: "100%" }} disabled={true} />
         </Form.Item>
 
         {/* Event Description */}
@@ -162,7 +162,7 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
         </Form.Item>
 
         {/* Additional Images Upload Button */}
-        <Form.Item label="Upload additional images for the event">
+        <Form.Item label="Upload press photos">
           <Button icon={<PlusOutlined />} onClick={() => setIsModalOpen(true)} disabled={loading}>
             {additionalImages.length > 0 ? "Update Additional Images" : "Add Additional Images"}
           </Button>
@@ -190,9 +190,9 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
             <div style={{ marginTop: 10 }}>
               <p>Selected Performers:</p>
               {selectedPerformers.map((performer: Performer) => (
-                <span key={performer.id} style={{ marginRight: 8 }}>
-                  @{performer.name} ({performer.instagram})
-                </span>
+                <div key={performer.id} style={{ marginRight: 8, border: "1px solid #ccc", padding: 8, backgroundColor: "rgba(0, 0, 0, 0.1)", borderRadius: 2, width: "100%", marginBottom: "15px" }}>
+                  {performer.name} <br/> <a  href={`https://www.instagram.com/${performer.instagram}`} target="_blank" rel="noreferrer">@{performer.instagram}</a>
+                </div>
               ))}
             </div>
           )}

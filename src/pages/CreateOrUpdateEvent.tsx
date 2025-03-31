@@ -32,7 +32,7 @@ const CreateOrUpdateEvent: React.FC = () => {
 
         {/* Navigation Links */}
         <div
-          onClick={() => navigate("/myEvents")}
+          onClick={() => navigate("/my-party")}
           style={{
             cursor: "pointer",
             marginBottom: "20px",

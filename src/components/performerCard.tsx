@@ -7,7 +7,28 @@ import { generateGradient } from "../utils/styleUtils";
 interface PerformerCardProps {
     performer: Performer;
 }
-
+export const performerPlaceholder = (performer: Performer) => {
+   return <div
+    style={{
+        width: "100%",
+        height: "100%",
+        aspectRatio: "1 / 1", // Ensures the div remains square
+        borderRadius: "2px",
+        background: generateGradient(performer.name || performer.instagram),
+        border: "1px solid white",
+        display: "flex",
+        justifyContent: "center", // Center icon horizontally
+        alignItems: "center",    // Center icon vertically
+    }}
+>
+    <UserOutlined
+        style={{
+            fontSize: "42px", // Adjust icon size for the larger square
+            color: "white",   // Icon color for contrast
+        }}
+    />
+</div>
+}
 const PerformerCard: React.FC<PerformerCardProps> = ({ performer }) => {
     return (
         <Row
@@ -44,28 +65,7 @@ const PerformerCard: React.FC<PerformerCardProps> = ({ performer }) => {
                             border: "1px solid white",
                         }}
                     />
-                ) : (
-                    <div
-                        style={{
-                            width: "100%",
-                            height: "100%",
-                            aspectRatio: "1 / 1", // Ensures the div remains square
-                            borderRadius: "2px",
-                            background: generateGradient(performer.name || performer.instagram),
-                            border: "1px solid white",
-                            display: "flex",
-                            justifyContent: "center", // Center icon horizontally
-                            alignItems: "center",    // Center icon vertically
-                        }}
-                    >
-                        <UserOutlined
-                            style={{
-                                fontSize: "42px", // Adjust icon size for the larger square
-                                color: "white",   // Icon color for contrast
-                            }}
-                        />
-                    </div>
-                )}
+                ) : performerPlaceholder(performer) }
             </Col>
             <Col xs={20}>
                 <Typography.Title

@@ -7,9 +7,11 @@ import FullPageSpin from "../components/fullPageSpin";
 import logo_black from "../assets/images/logo_black.png";
 import { Event } from "../types";
 import moment from "moment";
+import { getCookie } from "../utils/cookieUtils";
+
 const UserEventsPage: React.FC = () => {
   const [isUnlocked, setIsUnlocked] = useState<boolean>(false);
-  const [userEmail, setUserEmail] = useState<string>("");
+  const [userEmail, setUserEmail] = useState<string>(getCookie("honeysEmail") || "");
   const { events, loading } = useNotionDB();
   const navigate = useNavigate();
 

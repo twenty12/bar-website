@@ -15,6 +15,7 @@ const AddPerformersModal: React.FC<AddPerformersModalProps> = ({ isOpen, onClose
   const [performers, setPerformers] = useState<Performer[]>([
     { id: "", name: "", instagram: "", isHost: false }
   ]);
+  const [isSaving, setIsSaving] = useState<boolean>(false);
 
   // Function to handle input changes
   const handleInputChange = (index: number, field: keyof Performer, value: string | boolean) => {
@@ -38,6 +39,7 @@ const AddPerformersModal: React.FC<AddPerformersModalProps> = ({ isOpen, onClose
     }
 
     try {
+      setIsSaving(true);
       const savedPerformers = await Promise.all(
         validPerformers.map(async (performer) => {
           const response = await axios.post("/api/performers", performer);
@@ -54,12 +56,14 @@ const AddPerformersModal: React.FC<AddPerformersModalProps> = ({ isOpen, onClose
     } catch (error) {
       message.error("Failed to add performers.");
       console.error(error);
+    } finally {
+      setIsSaving(false);
     }
   };
 
   return (
     <Modal title="Add Hosts & Performers" open={isOpen} onCancel={onClose} footer={null}>
-      <Form layout="vertical">
+      <Form layout="vertical" disabled={isSaving}>
         {performers.map((performer, index) => (
           <Space key={index} style={{ display: "flex", marginBottom: 10 }} align="start">
             <Form.Item label="Name" required>

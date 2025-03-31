@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Input, Button, Typography, message } from "antd";
 import { LockOutlined } from "@ant-design/icons";
+import { getCookie, setCookie } from "../utils/cookieUtils";
 
 interface PasswordModalProps {
   isUnlocked: boolean;
@@ -25,20 +26,10 @@ const PasswordModal: React.FC<PasswordModalProps> = ({
     }
   }, [password, email]);
 
-  const setCookie = (name: string, value: string, days: number) => {
-    const expires = new Date(Date.now() + days * 86400000).toUTCString();
-    document.cookie = `${name}=${value}; expires=${expires}; path=/`;
-  };
-
-  const getCookie = (name: string) => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop()?.split(";").shift();
-    return null;
-  };
+  
 
   useEffect(() => {
-    const passwordCookie = getCookie("passwordAccepted");
+    const passwordCookie = getCookie("honeysPasswordAccepted");
     if (passwordCookie === "true") {
       setIsUnlocked(true);
     }
@@ -64,7 +55,8 @@ const PasswordModal: React.FC<PasswordModalProps> = ({
       setIsFadingOut(true);
       setTimeout(() => {
         setIsUnlocked(true);
-        setCookie("passwordAccepted", "true", 30);
+        setCookie("honeysEmail", email, 30);
+        setCookie("honeysPasswordAccepted", "true", 30);
       }, 500);
     } else {
       message.error("Incorrect password");
