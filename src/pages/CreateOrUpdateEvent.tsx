@@ -27,7 +27,9 @@ const CreateOrUpdateEvent: React.FC = () => {
           style={{
             width: "200px",
             marginBottom: "20px",
+            cursor: "pointer"
           }}
+          onClick={() => navigate("/")}
         />
 
         {/* Navigation Links */}

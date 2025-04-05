@@ -20,7 +20,8 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
   const [form] = Form.useForm();
   const { performersById } = useNotionDB();
   const [flyerUrl, setFlyerUrl] = useState<string>('');
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isFlyerModalOpen, setIsFlyerModalOpen] = useState<boolean>(false);
+  const [isAdditionalImagesModalOpen, setIsAdditionalImagesModalOpen] = useState<boolean>(false);
   const [isPerformersModalOpen, setIsPerformersModalOpen] = useState<boolean>(false);
   const [selectedPerformers, setSelectedPerformers] = useState<Performer[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -151,7 +152,7 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
 
         {/* Image Upload Button */}
         <Form.Item label="Upload you event post and any other images to be posted in a instagram carousel">
-          <Button icon={<PlusOutlined />} onClick={() => setIsModalOpen(true)} disabled={loading}>
+          <Button icon={<PlusOutlined />} onClick={() => setIsFlyerModalOpen(true)} disabled={loading}>
             {flyerUrl.length > 0 ? "Update Flyer" : "Add Flyer"}
           </Button>
           {flyerUrl.length > 0 && (
@@ -163,7 +164,7 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
 
         {/* Additional Images Upload Button */}
         <Form.Item label="Upload press photos">
-          <Button icon={<PlusOutlined />} onClick={() => setIsModalOpen(true)} disabled={loading}>
+          <Button icon={<PlusOutlined />} onClick={() => setIsAdditionalImagesModalOpen(true)} disabled={loading}>
             {additionalImages.length > 0 ? "Update Additional Images" : "Add Additional Images"}
           </Button>
           {additionalImages.length > 0 && (
@@ -218,16 +219,16 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
 
       {/* Image Upload Modal */}
       <ImageUploadModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        isOpen={isFlyerModalOpen}
+        onClose={() => setIsFlyerModalOpen(false)}
         setImageURLs={setFlyerUrl}
         allowMultiple={false}
       />
 
       {/* Image Upload Modal for Additional Images */}
       <ImageUploadModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        isOpen={isAdditionalImagesModalOpen}
+        onClose={() => setIsAdditionalImagesModalOpen(false)}
         setImageURLs={setAdditionalImages}
         allowMultiple={true}
       />

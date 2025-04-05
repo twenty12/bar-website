@@ -42,13 +42,16 @@ const AddPerformersModal: React.FC<AddPerformersModalProps> = ({ isOpen, onClose
       setIsSaving(true);
       const savedPerformers = await Promise.all(
         validPerformers.map(async (performer) => {
-          const response = await axios.post("/api/performers", performer);
+          const cleanedPerformer = {
+            ...performer,
+            name: performer.name.replace('@', '')
+          };
+          const response = await axios.post("/api/performers", cleanedPerformer);
           console.log("Response:", response.data);
-          return { ...performer, id: response.data.data.id }; 
+          return { ...cleanedPerformer, id: response.data.data.id }; 
         })
       );
 
-      console.log("Saved performers:", savedPerformers);
       setSelectedPerformers(prevPerformers => [...prevPerformers, ...savedPerformers]);
       message.success("Performers added successfully!");
       setPerformers([{ id: "", name: "", instagram: "", isHost: false }]); // Reset fields

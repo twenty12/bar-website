@@ -51,26 +51,53 @@ const Menu: React.FC = () => {
 
   return (
     <div style={{
-      marginTop: '30px', marginBottom: '30px', padding: "15x", maxWidth: '800px',
-      backgroundColor: 'rgba(255, 255, 255, 0.9)', border: '1px solid rgba(0, 0, 0, 0.1)'
+      marginTop: '30px',
+      marginBottom: '30px',
+      marginLeft: '30px',
+      marginRight: '30px',
+      padding: "15px",
+      maxWidth: '800px',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '30px',
+      backgroundColor: 'rgba(255, 255, 255, 0.9)',
+      border: '1px solid rgba(0, 0, 0, 0.1)',
+      borderRadius: '2px',
     }}>
-      {menuSections.map((section, index) => (
-        <div key={index} style={{ marginBottom: "40px" }}>
-          <Title style={{ marginLeft: '15px' }} level={2}>{section.title}</Title>
+      {menuSections.map((section) => (
+        <>
+          <Title 
+            level={2} 
+            style={{ 
+              marginBottom: '20px',
+              borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
+              paddingBottom: '10px'
+            }}
+          >
+            {section.title}
+          </Title>
           <List
             grid={{ column: 2 }}
             dataSource={section.items}
             renderItem={(item) => (
               <List.Item
-                style={{ marginLeft: '15px' }}>
-                <Text strong>{item.name}</Text><br />
-                <Text>{item.description}</Text>
-                <br />
-                <Text strong>{item.price}</Text>
+                style={{ 
+                  marginBottom: '15px',
+                  padding: '10px',
+                  backgroundColor: 'rgba(255, 255, 255, 0.5)',
+                  borderRadius: '1px'
+                }}
+              >
+                <div>
+                  <Text strong style={{ fontSize: '16px' }}>{item.name}</Text><br />
+                  <Text style={{ color: '#666' }}>{item.description}</Text>
+                  <br />
+                  <Text strong>{item.price}</Text>
+                </div>
               </List.Item>
             )}
           />
-        </div>
+</>
       ))}
     </div>
   );

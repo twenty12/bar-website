@@ -14,14 +14,14 @@ const UserEventsPage: React.FC = () => {
   const [userEmail, setUserEmail] = useState<string>(getCookie("honeysEmail") || "");
   const { events, loading } = useNotionDB();
   const navigate = useNavigate();
-
+  const isStaff = userEmail.endsWith("@honeysbrooklyn.com");
   if (loading) {
     return <FullPageSpin />;
   }
-  const userEvents: Event[] = (userEmail.endsWith("@honeysbrooklyn.com")
+  const userEvents: Event[] = isStaff
     ? events
     : events.filter((event: Event) => event.contactEmail === userEmail)
-  )
+  
 
   const columns = [
     {
@@ -66,12 +66,14 @@ const UserEventsPage: React.FC = () => {
         <Typography.Title level={2} style={{ textAlign: "center" }}>
           Welcome, {userEmail}!
         </Typography.Title>
+        {isStaff && (
         <Button
           style={{ marginBottom: "20px" }}
           onClick={() => navigate("/eventEditor")}
         >
           Add Event
-        </Button>
+          </Button>
+        )}
         {userEvents.length > 0 ? (
           <Table
             dataSource={userEvents.map(event => ({ ...event, key: event.id })).reverse()}
