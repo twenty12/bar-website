@@ -27,6 +27,8 @@ const About: React.FC = () => {
           }}
         />
       </div>
+      <button onClick={() => {throw new Error("This is your first error!");}}>Break the world</button>;
+
 
       <Row gutter={[16, 16]}
         style={{
