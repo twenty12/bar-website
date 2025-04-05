@@ -12,7 +12,7 @@ import { WebsiteCopyProvider } from "./providers/websiteCopyProvider";
 import * as Sentry from "@sentry/react";
 
 
-if (window.location.hostname === "honeys.nyc") {
+if (window.location.hostname.includes("honeys.nyc")) {
   Sentry.init({
     dsn: "https://12cd852129ca17573b42d88728d9f7b1@o4509101155483648.ingest.us.sentry.io/4509101177831424",
   });
