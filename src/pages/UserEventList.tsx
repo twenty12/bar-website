@@ -20,7 +20,7 @@ const UserEventsPage: React.FC = () => {
   }
   const userEvents: Event[] = isStaff
     ? events
-    : events.filter((event: Event) => event.contactEmail === userEmail)
+    : events.filter((event: Event) => event.contactEmail?.toLocaleLowerCase() === userEmail.toLocaleLowerCase())
   
 
   const columns = [
