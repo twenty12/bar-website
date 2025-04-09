@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Event, Performer } from "../src/types";
-import moment from 'moment-timezone';
+import moment from 'moment';
 
 const apiKey = process.env.NOTION_API_KEY;
 const eventsDatabaseId = "14e8ffc87fdb80419951d3dbca333c62";
@@ -13,14 +13,11 @@ const notionApi = axios.create({
 });
 
 function hasEventPassed(eventDate: string | null): boolean {
-  if (!eventDate) return false;
+  if (!eventDate) return false; // If no date, assume it hasn't passed
 
-  // Always work in Eastern Time for comparison
-  const now = moment.tz('America/New_York');
-  const eventMoment = moment.tz(eventDate, 'America/New_York');
-
-  // Cutoff is 9:00am local time on the day of the event (or that specific datetime if present)
-  const cutoffTime = eventMoment.clone().hour(9).minute(0).second(0).millisecond(0);
+  const now = moment.utc(); // Current time in UTC
+  const eventMoment = moment(eventDate);
+  const cutoffTime = eventMoment.clone().utc().hour(9).minute(0).second(0).millisecond(0);
 
   return now.isAfter(cutoffTime);
 }
@@ -43,24 +40,6 @@ const getThumbnailFromNotion = (posterProperty: any): string | undefined => {
   return undefined;
 };
 
-const getEventDate = (event: any): string | null => {
-  let rawDate = event.properties.Date?.date?.start || null;
-  if (!rawDate) return null;
-
-  const hasTime = rawDate.includes('T');
-
-  if (hasTime) {
-    // Use it as-is — maybe parse and reformat to ISO just to be safe
-    const dt = moment(rawDate);
-    return dt.isValid() ? dt.toISOString() : null;
-  } else {
-    // Add 11pm Eastern time
-    const dt = moment.tz(rawDate, 'YYYY-MM-DD', 'America/New_York')
-      .hour(21).minute(0).second(0).millisecond(0);
-    return dt.toISOString(); // Convert to UTC ISO string
-  }
-};
-
 export default async (req: any, res: any) => {
   if (req.method !== "GET") {
     return res.status(405).end();
@@ -70,13 +49,13 @@ export default async (req: any, res: any) => {
     const response = await notionApi.post(`/databases/${eventsDatabaseId}/query`);
     const events: Event[] = response.data.results.map((event: any): Event | null => {
       if (event.properties.Name?.title?.[0]?.text?.content == undefined) return null; // Skip events without a name
-      const eventDate = getEventDate(event);
+      const eventDate = event.properties.Date?.date?.start || null;
       return {
         id: event.id,
         thumbnail: getThumbnailFromNotion(event.properties.Poster),
         title: event.properties.Name?.title?.[0]?.text?.content || "Untitled",
         contactEmail: event.properties.Email?.email || null,
-        date: eventDate || "",
+        date: eventDate,
         description: event.properties.Description?.rich_text?.[0]?.plain_text || null,
         hasEventPassed: hasEventPassed(eventDate),
         visible: event.properties["Display on Website"]?.checkbox || false,
