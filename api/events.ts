@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Event, Performer } from "../src/types";
-import moment from 'moment-timezone';
+import moment from 'moment';
 
 const apiKey = process.env.NOTION_API_KEY;
 const eventsDatabaseId = "14e8ffc87fdb80419951d3dbca333c62";
@@ -43,9 +43,9 @@ const getThumbnailFromNotion = (posterProperty: any): string | undefined => {
 const getEventDate = (event: any): string | null => {
   let eventDate = event.properties.Date?.date?.start || null;
   if (eventDate) {
-    const eventDateObject = moment.tz(eventDate, 'America/New_York'); // Adjust to your desired timezone
+    const eventDateObject = moment(eventDate);
     if (eventDateObject.isValid()) {
-      eventDate = eventDateObject.hour(21).minute(0).second(0).millisecond(0).toISOString();
+      eventDate = eventDateObject.hour(23).minute(0).second(0).millisecond(0).toISOString();
     }
   }
   return eventDate;
