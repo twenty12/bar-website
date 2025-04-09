@@ -40,6 +40,18 @@ const getThumbnailFromNotion = (posterProperty: any): string | undefined => {
   return undefined;
 };
 
+const getEventDate = (event: any): string | null => {
+  let eventDate = event.properties.Date?.date?.start || null;
+  if (eventDate) {
+    const eventDateObject = moment(eventDate);
+    if (eventDateObject.isValid()) {
+      eventDate = eventDateObject.hour(21).minute(0).second(0).millisecond(0).toISOString();
+    }
+  }
+  return eventDate;
+};
+
+
 export default async (req: any, res: any) => {
   if (req.method !== "GET") {
     return res.status(405).end();
@@ -49,13 +61,17 @@ export default async (req: any, res: any) => {
     const response = await notionApi.post(`/databases/${eventsDatabaseId}/query`);
     const events: Event[] = response.data.results.map((event: any): Event | null => {
       if (event.properties.Name?.title?.[0]?.text?.content == undefined) return null; // Skip events without a name
-      const eventDate = event.properties.Date?.date?.start || null;
+      // if event name is test print date
+      if (event.properties.Name?.title?.[0]?.text?.content?.includes("test")) {
+        console.log(event.properties.Date?.date?.start);
+      }
+      const eventDate = getEventDate(event);
       return {
         id: event.id,
         thumbnail: getThumbnailFromNotion(event.properties.Poster),
         title: event.properties.Name?.title?.[0]?.text?.content || "Untitled",
         contactEmail: event.properties.Email?.email || null,
-        date: eventDate,
+        date: eventDate || "",
         description: event.properties.Description?.rich_text?.[0]?.plain_text || null,
         hasEventPassed: hasEventPassed(eventDate),
         visible: event.properties["Display on Website"]?.checkbox || false,
