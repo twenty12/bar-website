@@ -13,11 +13,14 @@ const notionApi = axios.create({
 });
 
 function hasEventPassed(eventDate: string | null): boolean {
-  if (!eventDate) return false; // If no date, assume it hasn't passed
+  if (!eventDate) return false;
 
-  const now = moment.utc(); // Current time in UTC
-  const eventMoment = moment(eventDate);
-  const cutoffTime = eventMoment.clone().utc().hour(9).minute(0).second(0).millisecond(0);
+  // Always work in Eastern Time for comparison
+  const now = moment.tz('America/New_York');
+  const eventMoment = moment.tz(eventDate, 'America/New_York');
+
+  // Cutoff is 9:00am local time on the day of the event (or that specific datetime if present)
+  const cutoffTime = eventMoment.clone().hour(9).minute(0).second(0).millisecond(0);
 
   return now.isAfter(cutoffTime);
 }
