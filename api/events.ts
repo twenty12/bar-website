@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Event, Performer } from "../src/types";
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 const apiKey = process.env.NOTION_API_KEY;
 const eventsDatabaseId = "14e8ffc87fdb80419951d3dbca333c62";
@@ -41,16 +41,22 @@ const getThumbnailFromNotion = (posterProperty: any): string | undefined => {
 };
 
 const getEventDate = (event: any): string | null => {
-  let eventDate = event.properties.Date?.date?.start || null;
-  if (eventDate) {
-    const eventDateObject = moment(eventDate);
-    if (eventDateObject.isValid()) {
-      eventDate = eventDateObject.hour(23).minute(0).second(0).millisecond(0).toISOString();
-    }
-  }
-  return eventDate;
-};
+  let rawDate = event.properties.Date?.date?.start || null;
+  if (!rawDate) return null;
 
+  const hasTime = rawDate.includes('T');
+
+  if (hasTime) {
+    // Use it as-is — maybe parse and reformat to ISO just to be safe
+    const dt = moment(rawDate);
+    return dt.isValid() ? dt.toISOString() : null;
+  } else {
+    // Add 11pm Eastern time
+    const dt = moment.tz(rawDate, 'YYYY-MM-DD', 'America/New_York')
+      .hour(21).minute(0).second(0).millisecond(0);
+    return dt.toISOString(); // Convert to UTC ISO string
+  }
+};
 
 export default async (req: any, res: any) => {
   if (req.method !== "GET") {
