@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import AWS from "aws-sdk";
-import formidable, { IncomingForm, File } from "formidable";
+import { IncomingForm, File } from "formidable";
 import fs from "fs";
 
 export const config = {
