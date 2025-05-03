@@ -21,7 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const performers: Performer[] = response.data.results.map((performer: any) => ({
         id: performer.id,
         name: performer.properties.Name?.title[0]?.text?.content,
-        instagram: performer.properties.Instagram?.rich_text[0]?.plain_text,
+        instagram: performer.properties.Instagram?.rich_text[0]?.plain_text.replace("@", ""),
         imageUrl: performer.properties.Image?.files[0]?.file?.url || null,
         isHost: performer.properties["Is a host"].checkbox,
       }));
