@@ -78,10 +78,6 @@ const Events: React.FC = () => {
                 <span style={{ fontStyle: 'italic' }}>"My favorite birthday party ever"</span><br /><a href="https://www.instagram.com/alexwcrowder/" style={instagramTextStyle}>Alex Crowder</a>
               </Title>
             </Col>
-
-              {/* <Title level={4} style={{ fontWeight: 300 }}>
-                Looking to host your wedding at Honey's?Visit our <Link to="/weddings" style={formTextStyle}>weddings page</Link> for more information.
-              </Title> */}
           </Row>
         </Col>
       </Row>

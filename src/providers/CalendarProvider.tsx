@@ -5,20 +5,22 @@ import { Event, Performer } from "../types";
 interface NotionContextType {
   events: Event[];
   eventBySlug: Record<string, Event>;
-  performersByInstagram: Record<string, Performer>; // ✅ New dictionary for performers by Instagram
-  performersById: Record<string, Performer>; // ✅ New dictionary for performers by ID
+  performersByInstagram: Record<string, Performer>;
+  performersById: Record<string, Performer>;
   loading: boolean;
   error: string | null;
+  refetch: () => Promise<void>;
 }
 
 // Default context value
 const NotionContextDefaultValue: NotionContextType = {
   events: [],
   eventBySlug: {},
-  performersByInstagram: {}, // ✅ Default empty object
-  performersById: {}, // ✅ Default empty object
+  performersByInstagram: {},
+  performersById: {},
   loading: true,
   error: null,
+  refetch: async () => {},
 };
 
 // Create the context
@@ -48,7 +50,7 @@ const transformPerformersToDict = (performers: Performer[]): { byId: Record<stri
     (acc, performer) => {
       acc.byId[performer.id] = performer;
       if (performer.instagram) {
-        acc.byInstagram[performer.instagram] = performer; // ✅ Store by Instagram handle
+        acc.byInstagram[performer.instagram] = performer;
       }
       return acc;
     },
@@ -60,50 +62,68 @@ const transformPerformersToDict = (performers: Performer[]): { byId: Record<stri
 export const NotionDBProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [events, setEvents] = useState<Event[]>([]);
   const [eventBySlug, setEventBySlug] = useState<Record<string, Event>>({});
-  const [performersByInstagram, setPerformersByInstagram] = useState<Record<string, Performer>>({}); // ✅ New state for Instagram lookup
+  const [performersByInstagram, setPerformersByInstagram] = useState<Record<string, Performer>>({});
   const [performersById, setPerformersById] = useState<Record<string, Performer>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  const fetchData = async () => {
+    if (loading && isInitialized) return; // Prevent multiple simultaneous fetches
+    
+    try {
+      setLoading(true);
+      // Fetch events and performers
+      const [eventData, performerList] = await Promise.all([fetchEvents(), fetchPerformers()]);
+      
+      // Transform performers into lookup dictionaries
+      const { byId, byInstagram } = transformPerformersToDict(performerList);
+      
+      // Map performers to their associated events
+      const mappedEvents = eventData.map((event) => ({
+        ...event,
+        performers: event.performers
+          ? event.performers
+              .map((performerId: any) => byId[performerId] || null)
+              .filter((performer) => performer !== null)
+          : [],
+      }));
+
+      const eventDictionaryBySlug = mappedEvents.reduce<Record<string, Event>>((acc, event) => {
+        acc[event.slug] = event;
+        return acc;
+      }, {});
+
+      // Update state
+      setEvents(mappedEvents);
+      setEventBySlug(eventDictionaryBySlug);
+      setPerformersById(byId);
+      setPerformersByInstagram(byInstagram);
+      setError(null);
+    } catch (err: any) {
+      setError(err.message || "An unknown error occurred");
+    } finally {
+      setLoading(false);
+      setIsInitialized(true);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Fetch events and performers
-        const [eventData, performerList] = await Promise.all([fetchEvents(), fetchPerformers()]);
-        // Transform performers into lookup dictionaries
-        const { byId, byInstagram } = transformPerformersToDict(performerList);
-        // Map performers to their associated events
-        const mappedEvents = eventData.map((event) => ({
-          ...event,
-          performers: event.performers
-            ? event.performers
-                .map((performerId: any) => byId[performerId] || null)
-                .filter((performer) => performer !== null)
-            : [],
-        }));
-  
-        const eventDictionaryBySlug = mappedEvents.reduce<Record<string, Event>>((acc, event) => {
-          acc[event.slug] = event;
-          return acc;
-        }, {});
-  
-        // Update state
-        setEvents(mappedEvents);
-        setEventBySlug(eventDictionaryBySlug);
-        setPerformersById(byId); // ✅ Fix: Ensure performersById is set
-        setPerformersByInstagram(byInstagram);
-      } catch (err: any) {
-        setError(err.message || "An unknown error occurred");
-      } finally {
-        setLoading(false);
-      }
-    };
-  
-    fetchData();
-  }, []);
+    if (!isInitialized) {
+      fetchData();
+    }
+  }, [isInitialized]);
 
   return (
-    <NotionContext.Provider value={{ events, eventBySlug, performersByInstagram, performersById, loading, error }}>
+    <NotionContext.Provider value={{ 
+      events, 
+      eventBySlug, 
+      performersByInstagram, 
+      performersById, 
+      loading, 
+      error,
+      refetch: fetchData 
+    }}>
       {children}
     </NotionContext.Provider>
   );
