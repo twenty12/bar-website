@@ -1,21 +1,43 @@
 import React, { createContext, useState, useContext, ReactNode, useEffect } from "react";
-import { GalleryImage } from "../types";
+import { GalleryObject } from "../types";
 import { GalleryTypes } from "../enums";
 
+const HARDCODED_IMAGES: GalleryObject[] = Object.values({
+  [GalleryTypes.Home]: [
+    {
+      id: "home-1",
+      imageUrl: "https://public-images-47f0123de2752612014ec25dc867190a.s3.us-east-1.amazonaws.com/DRAFT+Curves+(1).png",
+      title: "Bar Home",
+      galleryType: GalleryTypes.Home,
+      description: "Our home"
+    },
+  ]
+}).flat();
+
 type GalleryContextType = {
-  images: GalleryImage[];
+  images: GalleryObject[];
   isGalleryModalVisible: boolean;
   showGalleryModal: (galleryType: GalleryTypes) => void;
   hideGalleryModal: () => void;
   fetchGalleryImages: () => Promise<void>;
 };
 
-const GalleryContext = createContext<GalleryContextType | undefined>(undefined);
+const defaultContextValue: GalleryContextType = {
+  images: [],
+  isGalleryModalVisible: false,
+  showGalleryModal: () => {},
+  hideGalleryModal: () => {},
+  fetchGalleryImages: async () => {},
+};
+
+const GalleryContext = createContext<GalleryContextType>(defaultContextValue);
 
 export const GalleryProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [filteredImages, setFilteredImages] = useState<GalleryImage[]>([]);
-  const [allImages, setAllImages] = useState<GalleryImage[]>([]); // To keep original data
+  const [filteredImages, setFilteredImages] = useState<GalleryObject[]>(HARDCODED_IMAGES);
+  const [allImages, setAllImages] = useState<GalleryObject[]>(HARDCODED_IMAGES);
   const [isGalleryModalVisible, setGalleryModalVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const showGalleryModal = (galleryType: GalleryTypes) => {
     const filteredImages = allImages.filter(image => image.galleryType === galleryType);
@@ -25,8 +47,7 @@ export const GalleryProvider: React.FC<{ children: ReactNode }> = ({ children })
 
   const hideGalleryModal = () => {
     setGalleryModalVisible(false);
-    setFilteredImages([]);
-
+    setFilteredImages(HARDCODED_IMAGES);
   };
 
   useEffect(() => {
@@ -35,28 +56,32 @@ export const GalleryProvider: React.FC<{ children: ReactNode }> = ({ children })
 
   const fetchGalleryImages = async () => {
     try {
-      const response = await fetch(`/api/gallery-images`);
+      setIsLoading(true);
+      setError(null);
+      const response = await fetch('/api/gallery-images');
       if (!response.ok) {
-        throw new Error(`Error fetching gallery images: ${response.statusText}`);
+        throw new Error('Failed to fetch gallery images');
       }
-      const data: GalleryImage[] = await response.json();
-      setAllImages(data); // Save all images
-      setFilteredImages(data); // Initialize current images
-    } catch (error) {
-      console.error("Failed to fetch gallery images:", error);
+      const fetchedImages: GalleryObject[] = await response.json();
+      setAllImages([...HARDCODED_IMAGES, ...fetchedImages]);
+      setFilteredImages([...HARDCODED_IMAGES, ...fetchedImages]);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+    } finally {
+      setIsLoading(false);
     }
   };
 
+  const value = {
+    images: allImages,
+    isGalleryModalVisible,
+    showGalleryModal,
+    hideGalleryModal,
+    fetchGalleryImages,
+  };
+
   return (
-    <GalleryContext.Provider
-      value={{
-        images: filteredImages,
-        isGalleryModalVisible,
-        showGalleryModal,
-        hideGalleryModal,
-        fetchGalleryImages,
-      }}
-    >
+    <GalleryContext.Provider value={value}>
       {children}
     </GalleryContext.Provider>
   );

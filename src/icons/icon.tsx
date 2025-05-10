@@ -4,7 +4,7 @@ interface MySvgProps extends React.SVGProps<SVGSVGElement> {
     maxWidth?: string | number; // Allow string (e.g., "200px") or number (e.g., 200)
 }
 
-const Icon: React.FC<MySvgProps> = ({ maxWidth = "200px", ...props }) => (
+const Icon: React.FC<MySvgProps> = ({ maxWidth = "100px", ...props }) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="-0.5 -0.5 672 465"

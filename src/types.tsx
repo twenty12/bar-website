@@ -30,18 +30,19 @@ export type Performer = {
   isHost: boolean;
 };
 
-export type GalleryImage = {
+export type GalleryObject = {
   id: string;
   imageUrl: string;
   title: string;
   galleryType: GalleryTypes;
   description?: string;
-}
+};
 
 export type WebsiteCopy = {
   id: string;
   page: string;
-  section: string;
-  content: string;
+  section?: string;
+  title?: string;
+  content: string | React.ReactNode;
   image?: string;
 }

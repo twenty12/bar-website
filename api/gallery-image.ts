@@ -1,6 +1,6 @@
 import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
-import { GalleryImage } from "../src/types";
+import { GalleryObject } from "../src/types";
 
 const apiKey = process.env.NOTION_API_KEY;
 const imagesDatabaseId = "1688ffc87fdb8003b046f41efae38386"
@@ -46,7 +46,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                     },
                 ],
             },
-            Gallery: {
+            GalleryType: {
                 select: { name: galleryType },
             },
         }
@@ -59,12 +59,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         });
 
         const page = response.data;
-        const newImage: GalleryImage = {
+        const newImage: GalleryObject = {
             id: page.id,
             title: page.properties.Title.title[0].text.content,
             description: page.properties.Description.rich_text[0]?.text.content || "",
             imageUrl: page.properties.Image.files[0]?.external.url,
-            galleryType: page.properties.Gallery.select.name,
+            galleryType: page.properties.GalleryType.select.name,
         };
 
         return res.status(201).json(newImage);

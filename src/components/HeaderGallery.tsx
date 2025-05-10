@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Carousel, Grid } from 'antd';
 import { GalleryTypes } from '../enums';
 import { useGallery } from '../providers/GalleryProvider';
-import { GalleryImage } from '../types';
+import { GalleryObject } from '../types';
 
 interface HeaderGalleryProps {
   galleryType: GalleryTypes;
@@ -10,13 +10,13 @@ interface HeaderGalleryProps {
 
 const HeaderGallery: React.FC<HeaderGalleryProps> = ({ galleryType }) => {
   const { images } = useGallery();
-  const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
+  const [galleryImages, setGalleryImages] = useState<GalleryObject[]>([]);
   const carouselRef = useRef<any>(null);
   const { useBreakpoint } = Grid;
   const screens = useBreakpoint();
 
   useEffect(() => {
-    const filtered = images.filter(img => img.galleryType === galleryType);
+    const filtered = images.filter(image => image.galleryType === galleryType);
     setGalleryImages(filtered);
   }, [images, galleryType]);
 
