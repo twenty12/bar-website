@@ -307,3 +307,8 @@ button {
   color: lightgray; /* Subtle color change on focus */
   opacity: 0.8; /* Slightly dim the placeholder when focused */
 }
+
+.right-arrow-hover:hover {
+  /* east-pointing arrow */
+  cursor: e-resize;
+}

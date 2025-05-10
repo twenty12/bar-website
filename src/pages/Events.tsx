@@ -1,29 +1,19 @@
-import { Row, Col, Typography, Modal } from "antd";
+import { Row, Col, Typography, Modal, Grid } from "antd";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import LeadForm from "../forms/leadForm";
 import theme from "../theme.json";
-import { useGallery } from "../providers/GalleryProvider";
 import { GalleryTypes } from "../enums";
-import { Link } from "react-router-dom";
+import HeaderGallery from "../components/HeaderGallery";
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
+const { useBreakpoint } = Grid;
 
-const eventTypes = [
-  "Corporate Events",
-  "Private Parties",
-  "Birthday Celebrations",
-  "Anniversary Parties",
-  "Networking Events",
-  "Product Launches",
-  "Team Building Events",
-  "Holiday Parties"
-];
 
 const Events: React.FC = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [searchParams] = useSearchParams();
-  const { showGalleryModal } = useGallery();
+  const screens = useBreakpoint();
 
   useEffect(() => {
     const openModal = searchParams.get("openModal")?.toLowerCase() === "true";
@@ -46,92 +36,55 @@ const Events: React.FC = () => {
     textDecoration: 'underline',
     cursor: 'pointer'
   }
-
-  const rowStyle = { maxWidth: '990px', margin: 'auto', marginTop: '30px' }
+  const instagramTextStyle = {
+    cursor: 'pointer'
+  }
+  const height = screens.md ? 'calc(100vh - 64px)' : 'auto';
 
   return (
     <>
-      <div className="full-page-video-wrapper">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          poster="https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/videos/dance_floor_3.jpg"
-          src="https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/videos/dance_floor_3.mov"
-          style={{
-            width: "100%",
-            objectFit: "cover",
-            filter: "grayscale(50%) contrast(110%) brightness(90%)",
-          }}
-        ></video>
-        <div
-          style={{
-            position: "absolute",
-            bottom: "10px",
-            fontSize: "14px",
-            color: "#fff",
-            textShadow: "1px 1px 4px rgba(0, 0, 0, 0.7)",
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-            padding: "5px 10px",
-            borderRadius: "4px",
-            zIndex: 1,
-          }}
-        >
-          Video Credit: Amanda Hamm (IG: @amanda.hamm.events)
-        </div>
-      </div>
-      <div className="full-page-video-body">
-        <Row style={rowStyle} gutter={[16, 16]} align={'top'}>
-          <Col xs={24} md={4} style={{ textAlign: 'left' }}>
-            <Typography.Title level={3}>
-              Contact
-            </Typography.Title>
-          </Col>
-          <Col xs={24} md={20}>
-            <Title level={4} style={{ fontWeight: 300 }}>
-              To learn more about our event options and availability, please fill out this <span style={formTextStyle} onClick={showModal}>event inquiry form</span>.
-              <br />
-              <br />
-              See our{' '}
-              <span style={formTextStyle} onClick={() => showGalleryModal(GalleryTypes.Space)}>gallery for inspiration</span>.
-            </Title>
-          </Col>
-        </Row>
+      <Row style={{ width: '100%', margin: 0, height: height }}>
+        <Col xs={24} md={12} style={{
+          width: screens.md ? '50vw' : '100vw',
+          padding: 0,
+          margin: 0
+        }}>
+          <HeaderGallery galleryType={GalleryTypes.Space} />
+        </Col>
+        <Col xs={24} md={12} style={{
+          height: height,
+          overflowY: 'auto',
+          backgroundColor: 'white',
+          overscrollBehavior: 'auto'
+        }}>
+          <Row gutter={[16, 16]} style={{ margin: '15px' }}>
+            <Col span={24}>
+              <Typography.Title level={3}>
+                Host with Us
+              </Typography.Title>
+              <Title level={4} style={{ fontWeight: 300, marginBottom: '20px' }}>
+                Honey's bar, winery, and rooftop garden are all available for private events. With a full kitchen onsite, we can host everything from intimate sit-down dinners to abundant banquet-style feasts.
+                <br />
+                <br />
+                More than the spaces, it's our people who tie everything together. Beyond our experienced in-house team, we bring the deep  Honey's network of thoughtful hospitality partners - florists, DJs, caterers, and more.
+                <br />
+                <br />
+                Every event we help create reflects the spirit and personality of it's host. We welcome brand activations, fundraisers, galas, wedding after-parties, and of course, birthday celebrations.
+                <br />
+                <br />
+                To learn more and discuss availability, please use our <span style={formTextStyle} onClick={showModal}>event inquiry form</span>.
+                <br />
+                <br />
+                <span style={{ fontStyle: 'italic' }}>"My favorite birthday party ever"</span><br /><a href="https://www.instagram.com/alexwcrowder/" style={instagramTextStyle}>Alex Crowder</a>
+              </Title>
+            </Col>
 
-        <Row style={rowStyle} gutter={[16, 16]} align={'top'}>
-          <Col xs={24} md={4} style={{ textAlign: 'left' }}>
-            <Typography.Title level={3}>
-              Host with Us
-            </Typography.Title>
-          </Col>
-          <Col xs={24} md={20}>
-            <Title level={4} style={{ fontWeight: 300, marginBottom: '20px' }}>
-              Honey's is the perfect setting for events that are creative, authentic, and unforgettable. 
-            </Title>
-            <div>
-              {eventTypes.map((event, index) => (
-                <Text key={index} style={{ display: 'block', marginBottom: '10px', fontSize: '16px' }}>
-                  {event}
-                </Text>
-              ))}
-            </div>
-          </Col>
-        </Row>
-
-        <Row style={rowStyle} gutter={[16, 16]} align={'top'}>
-          <Col xs={24} md={4} style={{ textAlign: 'left' }}>
-            <Typography.Title level={3}>
-              Weddings
-            </Typography.Title>
-          </Col>
-          <Col xs={24} md={20}>
-            <Title level={4} style={{ fontWeight: 300 }}>
-              Looking to host your wedding at Honey's? Visit our <Link to="/weddings" style={formTextStyle}>weddings page</Link> for more information.
-            </Title>
-          </Col>
-        </Row>
-      </div>
+              {/* <Title level={4} style={{ fontWeight: 300 }}>
+                Looking to host your wedding at Honey's?Visit our <Link to="/weddings" style={formTextStyle}>weddings page</Link> for more information.
+              </Title> */}
+          </Row>
+        </Col>
+      </Row>
       <Modal open={isModalVisible} onCancel={handleCancel} footer={null} width={600}>
         <LeadForm onSuccess={() => setIsModalVisible(false)} />
       </Modal>
