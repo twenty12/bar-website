@@ -14,6 +14,13 @@ const notionApi = axios.create({
   },
 });
 
+function cleanInstagramHandle(handle: string): string {
+  if (!handle) return "";
+  handle = handle.replace(/(https?:\/\/)?(www\.)?(instagram\.com\/|ig\.me\/|instagr\.am\/)/i, "");
+  handle = handle.split(/[/?#]/)[0];
+  return handle.replace("@", "").trim();
+}
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {
     try {
@@ -21,7 +28,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const performers: Performer[] = response.data.results.map((performer: any) => ({
         id: performer.id,
         name: performer.properties.Name?.title[0]?.text?.content,
-        instagram: performer.properties.Instagram?.rich_text[0]?.plain_text.replace("@", ""),
+        instagram: cleanInstagramHandle(performer.properties.Instagram?.rich_text[0]?.plain_text || ""),
         imageUrl: performer.properties.Image?.files[0]?.file?.url || null,
         isHost: performer.properties["Is a host"].checkbox,
       }));
@@ -41,11 +48,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(400).json({ error: "Name is required" });
       }
 
+      const cleanedInstagram = instagram ? cleanInstagramHandle(instagram) : "";
+
       const notionPayload = {
         parent: { database_id: performersDatabaseId },
         properties: {
           Name: { title: [{ text: { content: name } }] },
-          Instagram: instagram ? { rich_text: [{ text: { content: instagram } }] } : undefined,
+          Instagram: cleanedInstagram ? { rich_text: [{ text: { content: cleanedInstagram } }] } : undefined,
         },
       };
 
