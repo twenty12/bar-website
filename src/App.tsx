@@ -19,7 +19,6 @@ import { CalendarTypes } from "./enums";
 import CreateOrUpdateEvent from "./pages/CreateOrUpdateEvent";
 import UserEventsPage from "./pages/UserEventList";
 import AddImage from "./pages/AddImage";
-import Weddings from "./pages/Weddings";
 
 ReactGA.initialize("G-YJS7QQW8KP");
 
@@ -153,7 +152,6 @@ const App: React.FC = () => {
             <Route path="/links" element={<Links />} />
             <Route path="/menu" element={<Menu />} />
             <Route path="/add-image" element={<AddImage />} />
-            <Route path="/weddings" element={<Weddings />} />
             <Route path="/" element={<Home />} />
           </Routes>
         </Content>

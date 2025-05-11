@@ -1,9 +1,12 @@
-import { Col, Typography } from "antd";
-import React from "react";
+import { Col, Divider, Typography } from "antd";
+import React, { useState } from "react";
+import LeadForm from "../../forms/leadForm";
 
 const { Title } = Typography;
 
 const WeddingsSection: React.FC = () => {
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
   return (
     <Col span={24}>
       <Typography.Title level={3}>
@@ -34,6 +37,19 @@ const WeddingsSection: React.FC = () => {
           <span style={{ fontSize: '16px' }}>— Groom</span>
         </div>
       </Title>
+      <Divider style={{ margin: '30px 0' }} />
+      
+      <div style={{ marginTop: '30px' }}>
+        {!isSubmitted ? (
+          <LeadForm onSuccess={() => setIsSubmitted(true)} isWedding />
+        ) : (
+          <div style={{ textAlign: 'center', padding: '40px 0' }}>
+            <Typography.Title level={4} style={{ fontWeight: 300 }}>
+              Thank you for your inquiry! We'll be in touch soon.
+            </Typography.Title>
+          </div>
+        )}
+      </div>
     </Col>
   );
 };

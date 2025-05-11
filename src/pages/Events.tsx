@@ -13,7 +13,7 @@ const { useBreakpoint } = Grid;
 
 const Events: React.FC = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const screens = useBreakpoint();
   const [selectedMenuKey, setSelectedMenuKey] = useState('about');
 
@@ -21,6 +21,13 @@ const Events: React.FC = () => {
     const openModal = searchParams.get("openModal")?.toLowerCase() === "true";
     if (openModal) {
       setIsModalVisible(true);
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
+    const section = searchParams.get("section");
+    if (section && ['about', 'weddings', 'specs'].includes(section)) {
+      setSelectedMenuKey(section);
     }
   }, [searchParams]);
 
@@ -34,6 +41,7 @@ const Events: React.FC = () => {
 
   const handleMenuSelect = (key: string) => {
     setSelectedMenuKey(key);
+    setSearchParams({ section: key });
   };
 
   const height = screens.md ? 'calc(100vh - 64px)' : 'auto';
