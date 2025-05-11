@@ -6,9 +6,6 @@ const { Title } = Typography;
 const SpecsSection: React.FC = () => {
   return (
     <Col span={24}>
-      <Typography.Title level={3}>
-        Specs
-      </Typography.Title>
       <Title level={4} style={{ fontWeight: 300, marginBottom: '20px' }}>
         <div style={{ marginBottom: '30px' }}>
           <Typography.Title level={4} style={{ fontWeight: 600, marginBottom: '10px' }}>

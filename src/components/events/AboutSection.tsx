@@ -22,9 +22,6 @@ const AboutSection: React.FC<AboutSectionProps> = ({ showModal }) => {
 
   return (
     <Col span={24}>
-      <Typography.Title level={3}>
-        Host with Us
-      </Typography.Title>
       <Title level={4} style={{ fontWeight: 300, marginBottom: '20px' }}>
         Honey's bar, winery, and rooftop garden are all available for private events. With a full kitchen onsite, we can host everything from intimate sit-down dinners to abundant banquet-style feasts.
         <br />

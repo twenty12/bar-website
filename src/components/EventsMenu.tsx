@@ -1,6 +1,18 @@
 import { Menu, Row } from "antd";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Icon from "../icons/icon";
+
+const iconContainerStyle = {
+  display: 'flex',
+  justifyContent: 'flex-end',
+  width: '100%',
+};
+
+const iconStyle = {
+  paddingRight: "15px",
+  margin: '15px'
+};
 
 interface EventsMenuProps {
   selectedKey: string;
@@ -16,7 +28,7 @@ const EventsMenu: React.FC<EventsMenuProps> = ({ selectedKey, onSelect }) => {
   };
 
   return (
-    <Row
+    <> <Row
       style={{
         width: "100%",
         borderBottom: "1px solid black"
@@ -52,6 +64,15 @@ const EventsMenu: React.FC<EventsMenuProps> = ({ selectedKey, onSelect }) => {
         ]}
       />
     </Row>
+      <div style={iconContainerStyle}>
+        <div
+          onClick={() => navigate('/events?section=about')}
+          style={iconStyle}
+        >
+          <Icon maxWidth={75} />
+        </div>
+      </div>
+    </>
   );
 };
 

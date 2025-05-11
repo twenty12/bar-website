@@ -9,9 +9,6 @@ const WeddingsSection: React.FC = () => {
 
     return (
         <Col span={24}>
-            <Typography.Title level={3}>
-                Weddings
-            </Typography.Title>
             <Title level={4} style={{ fontWeight: 300, marginBottom: '20px' }}>
 
                 <div style={{ marginBottom: '30px' }}>
