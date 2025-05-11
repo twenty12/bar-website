@@ -15,7 +15,6 @@ import Menu from "./pages/Menu";
 import EventDetail from "./pages/EventDetail";
 import { Helmet } from "react-helmet-async";
 import GalleryModal from "./modals/imageGalleryModal";
-import About from "./pages/About";
 import { CalendarTypes } from "./enums";
 import CreateOrUpdateEvent from "./pages/CreateOrUpdateEvent";
 import UserEventsPage from "./pages/UserEventList";
@@ -151,7 +150,6 @@ const App: React.FC = () => {
             <Route path="/calendar" element={<Calendar calendarType={CalendarTypes.Active}/>} />
             <Route path="/archive" element={<Calendar calendarType={CalendarTypes.Archive}/>} />
             <Route path="/events" element={<Events />} />
-            <Route path="/about" element={<About />} />
             <Route path="/links" element={<Links />} />
             <Route path="/menu" element={<Menu />} />
             <Route path="/add-image" element={<AddImage />} />

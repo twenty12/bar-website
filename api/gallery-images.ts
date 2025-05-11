@@ -23,5 +23,7 @@ export default async (req: any, res: any) => {
     imageUrl: imageFromDb.properties.Image?.files[0]?.file?.url ? imageFromDb.properties.Image?.files[0]?.file?.url : imageFromDb.properties.Image?.files[0]['external']?.url,
     galleryType: imageFromDb.properties.Gallery?.select?.name,
   }))
-  res.status(200).json(galleryObjects);
+  res.status(200).json(galleryObjects
+    
+  );
 };

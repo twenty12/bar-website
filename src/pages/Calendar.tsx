@@ -27,7 +27,7 @@ const Calendar: React.FC<{ calendarType: CalendarTypes }> = ({ calendarType }) =
     return <FullPageSpin />;
   }
   return (
-    <div style={{ maxWidth: "1200px" }}>
+    <div style={{ maxWidth: "1200px", margin: "15px" }}>
       <Row
         style={{
           display: "flex",

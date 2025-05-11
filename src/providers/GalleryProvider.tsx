@@ -5,17 +5,43 @@ import { GalleryTypes } from "../enums";
 const HARDCODED_IMAGES: GalleryObject[] = Object.values({
   [GalleryTypes.Home]: [
     {
-      id: "home-1",
-      imageUrl: "https://public-images-47f0123de2752612014ec25dc867190a.s3.us-east-1.amazonaws.com/DRAFT+Curves+(1).png",
+      id: "cocktails-1",
+      imageUrl: "https://public-images-47f0123de2752612014ec25dc867190a.s3.us-east-1.amazonaws.com/DSCF7980.jpg",
       title: "Bar Home",
       galleryType: GalleryTypes.Home,
       description: "Our home"
     },
+    {
+      id: "home-1",
+      imageUrl: "https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/videos/dance_floor_3.jpg",
+      videoUrl: "https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/splash_vid_1.mp4",
+      title: "Bar Home",
+      galleryType: GalleryTypes.Home,
+      description: "Our home"
+    },
+    {
+      id: "home-2",
+      imageUrl: "https://public-images-47f0123de2752612014ec25dc867190a.s3.us-east-1.amazonaws.com/DSCF8063.jpg",
+      title: "Bar Home",
+      galleryType: GalleryTypes.Home,
+      description: "Our home"
+    },
+    {
+      id: "home-3",
+      imageUrl: "https://public-images-47f0123de2752612014ec25dc867190a.s3.us-east-1.amazonaws.com/DSCF8045.jpg",
+      title: "Bar Home",
+      galleryType: GalleryTypes.Home,
+      description: "Our home"
+    },
+
   ]
 }).flat();
 
 type GalleryContextType = {
   images: GalleryObject[];
+  isLoading: boolean;
+  filteredImages: GalleryObject[];
+  error: string | null;
   isGalleryModalVisible: boolean;
   showGalleryModal: (galleryType: GalleryTypes) => void;
   hideGalleryModal: () => void;
@@ -24,6 +50,9 @@ type GalleryContextType = {
 
 const defaultContextValue: GalleryContextType = {
   images: [],
+  isLoading: false,
+  filteredImages: [],
+  error: null,
   isGalleryModalVisible: false,
   showGalleryModal: () => {},
   hideGalleryModal: () => {},
@@ -74,6 +103,9 @@ export const GalleryProvider: React.FC<{ children: ReactNode }> = ({ children })
 
   const value = {
     images: allImages,
+    isLoading,
+    filteredImages,
+    error,
     isGalleryModalVisible,
     showGalleryModal,
     hideGalleryModal,

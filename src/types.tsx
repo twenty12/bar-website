@@ -36,6 +36,7 @@ export type GalleryObject = {
   title: string;
   galleryType: GalleryTypes;
   description?: string;
+  videoUrl?: string;
 };
 
 export type WebsiteCopy = {
