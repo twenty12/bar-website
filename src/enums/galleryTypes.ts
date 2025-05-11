@@ -1,5 +1,6 @@
 export enum GalleryTypes {
   MAIN = "main",
   EVENTS = "events",
-  PERFORMERS = "performers"
+  PERFORMERS = "performers",
+  WEDDINGS = "weddings"
 } 

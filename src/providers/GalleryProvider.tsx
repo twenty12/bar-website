@@ -2,40 +2,45 @@ import React, { createContext, useState, useContext, ReactNode, useEffect } from
 import { GalleryObject } from "../types";
 import { GalleryTypes } from "../enums";
 
-const HARDCODED_IMAGES: GalleryObject[] = Object.values({
-  [GalleryTypes.Home]: [
-    {
-      id: "cocktails-1",
-      imageUrl: "https://public-images-47f0123de2752612014ec25dc867190a.s3.us-east-1.amazonaws.com/DSCF7980.jpg",
-      title: "Bar Home",
-      galleryType: GalleryTypes.Home,
-      description: "Our home"
-    },
-    {
-      id: "home-1",
-      imageUrl: "https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/videos/dance_floor_3.jpg",
-      videoUrl: "https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/splash_vid_1.mp4",
-      title: "Bar Home",
-      galleryType: GalleryTypes.Home,
-      description: "Our home"
-    },
-    {
-      id: "home-2",
-      imageUrl: "https://public-images-47f0123de2752612014ec25dc867190a.s3.us-east-1.amazonaws.com/DSCF8063.jpg",
-      title: "Bar Home",
-      galleryType: GalleryTypes.Home,
-      description: "Our home"
-    },
-    {
-      id: "home-3",
-      imageUrl: "https://public-images-47f0123de2752612014ec25dc867190a.s3.us-east-1.amazonaws.com/DSCF8045.jpg",
-      title: "Bar Home",
-      galleryType: GalleryTypes.Home,
-      description: "Our home"
-    },
-
-  ]
-}).flat();
+const HARDCODED_IMAGES: GalleryObject[] = [
+  {
+    id: 'wedding-video-1',
+    title: 'Wedding Celebration',
+    description: 'A magical wedding celebration at Honey\'s',
+    imageUrl: 'https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/videos/wedding_1_poster.jpg',
+    videoUrl: 'https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/videos/wedding_outside_1.mp4',
+    galleryType: GalleryTypes.Wedding
+  },
+  {
+    id: "cocktails-1",
+    imageUrl: "https://public-images-47f0123de2752612014ec25dc867190a.s3.us-east-1.amazonaws.com/DSCF7980.jpg",
+    title: "Bar Home",
+    galleryType: GalleryTypes.Home,
+    description: "Our home"
+  },
+  {
+    id: "home-1",
+    imageUrl: "https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/videos/dance_floor_3.jpg",
+    videoUrl: "https://public-static-e253a58a8402e8730d26261c6f3457ce.s3.us-east-1.amazonaws.com/splash_vid_1.mp4",
+    title: "Bar Home",
+    galleryType: GalleryTypes.Home,
+    description: "Our home"
+  },
+  {
+    id: "home-2",
+    imageUrl: "https://public-images-47f0123de2752612014ec25dc867190a.s3.us-east-1.amazonaws.com/DSCF8063.jpg",
+    title: "Bar Home",
+    galleryType: GalleryTypes.Home,
+    description: "Our home"
+  },
+  {
+    id: "home-3",
+    imageUrl: "https://public-images-47f0123de2752612014ec25dc867190a.s3.us-east-1.amazonaws.com/DSCF8045.jpg",
+    title: "Bar Home",
+    galleryType: GalleryTypes.Home,
+    description: "Our home"
+  },
+].flat();
 
 type GalleryContextType = {
   images: GalleryObject[];

@@ -45,10 +45,11 @@ const AppMenu = () => {
         <Menu
           style={{
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "flex-end",
             alignItems: "center",
             minWidth: "300px",
             backgroundColor: "rgb(255, 255, 255, 0)",
+            marginLeft: "auto"
           }}
           mode="horizontal"
           defaultSelectedKeys={["1"]}
