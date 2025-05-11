@@ -62,7 +62,7 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSuccess, isWedding = false }) => 
       )}
       {isWedding && (
         <>
-          <Title level={3}>Let's plan a wedding.</Title>
+          <Title level={3}>Let's plan a wedding</Title>
         </>
       )}
       <Form
