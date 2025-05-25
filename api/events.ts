@@ -13,15 +13,12 @@ const notionApi = axios.create({
 });
 
 function hasEventPassed(eventDate: string | null): boolean {
-  if (!eventDate) return false; // If no date, assume it hasn't passed
+  if (!eventDate) return false;
 
-  const now = moment.utc(); // Current time in UTC
-  const eventMoment = moment(eventDate);
-  const cutoffTime = eventMoment.clone().utc().hour(9).minute(0).second(0).millisecond(0);
-
-  return now.isAfter(cutoffTime);
+  const today = moment.utc().startOf('day');
+  const eventDay = moment.utc(eventDate).startOf('day');
+  return today.isAfter(eventDay);
 }
-
 function slugify(string: string) {
   return string
     .toLowerCase()
@@ -90,7 +87,13 @@ export default async (req: any, res: any) => {
         if (!a.date || !b.date) return 0;
         return moment(a.date).valueOf() - moment(b.date).valueOf();
       });
-    
+    for (const event of allEvents) {
+      // if event has the word honey trap in title
+      if (event.title.toLowerCase().includes("rooftop honey trap")) {
+        console.log(event.title);
+        console.log(event.date);
+      }
+    }
     res.status(200).json(allEvents);
   } catch (error) {
     console.error("Error fetching events:", error);
