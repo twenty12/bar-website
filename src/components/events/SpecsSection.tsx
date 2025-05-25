@@ -70,19 +70,11 @@ const SpecsSection: React.FC = () => {
           <Typography.Title level={4} style={{ fontWeight: 600, marginBottom: '10px' }}>
             The Spaces
           </Typography.Title>
-          
-          <div style={{ marginBottom: '20px' }}>
-            <Typography.Title level={5} style={{ fontWeight: 600, marginBottom: '5px' }}>
-              Bar
-            </Typography.Title>
-            <div>Seated Capacity: 30</div>
-          </div>
 
           <div style={{ marginBottom: '20px' }}>
             <Typography.Title level={5} style={{ fontWeight: 600, marginBottom: '5px' }}>
               Winery
             </Typography.Title>
-            <div>Seated Capacity: 70</div>
             <div style={{ marginTop: '5px' }}>Available Equipment:</div>
             <ul style={{ paddingLeft: '20px' }}>
               <li>In-house speaker system</li>
@@ -96,7 +88,6 @@ const SpecsSection: React.FC = () => {
             <Typography.Title level={5} style={{ fontWeight: 600, marginBottom: '5px' }}>
               Roof
             </Typography.Title>
-            <div>Seated Capacity: 50</div>
             <div style={{ marginTop: '5px' }}>Available Equipment:</div>
             <ul style={{ paddingLeft: '20px' }}>
               <li>In-house speaker</li>
