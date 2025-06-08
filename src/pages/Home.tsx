@@ -62,7 +62,7 @@ const Home: React.FC = () => {
               </div>
             </div>
             <Title level={4} style={bodyTextStyle}>
-              Honey's is a cocktail bar and multi-dimensional event space in Brooklyn, New York. Founded in 2016 by artist Arley Marks, Honey's is a cherished home to New York's creators. A network of a musicians, artists, designers, filmmakers, and chefs comes to Honey's for dynamic programming, thoughtful drinks, and great parties.
+              Honey's is a cocktail bar and multi-dimensional event space in Brooklyn, New York. Founded in 2016 by artist Arley Marks, Honey's is a cherished home to New York's creators. A network of a musicians, artists, designers, filmmakers, and chefs comes to Honey's for diverse programming, thoughtful drinks, and dynamic dance floors.
               <br />
               <br />
               Located on the border between Bushwick and East Williamsburg, Honey's features three distinct yet complementary spaces.
