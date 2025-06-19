@@ -4,7 +4,7 @@ import logo_black from "../assets/images/logo_black.png";
 import EventForm from "../forms/eventForm";
 
 const CreateOrUpdateEvent: React.FC = () => {
-  const { eventId } = useParams<{ eventId?: string }>(); // ✅ Get event ID from URL
+  const { eventId } = useParams<{ eventId?: string }>(); 
   const navigate = useNavigate();
 
   return (
