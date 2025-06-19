@@ -40,6 +40,7 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
             title: event.properties.Name?.title[0]?.text?.content || "",
             date: event.properties.Date?.date?.start ? dayjs(event.properties.Date.date.start) : null,
             description: event.properties.Description?.rich_text[0]?.plain_text || "",
+            additionalInformation: event.properties["Additional Information"]?.rich_text[0]?.plain_text || "",
             ticketUrl: event.properties["Ticket Link"]?.url || "",
           });
           console.log("event.properties.additionalImages", event.properties["Additional Images"])
@@ -71,6 +72,7 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
         title: values.title,
         date: values.date ? values.date.format("YYYY-MM-DD") : null,
         description: values.description,
+        additionalInformation: values.additionalInformation,
         ticketUrl: values.ticketUrl,
         postImageUrl: flyerUrl || null,
         performers: selectedPerformers.map((performer) => performer.id),
@@ -107,10 +109,6 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
   return (
     <>
       <Title level={1}>{eventId ? "Edit Event" : "Create an Event"}</Title>
-      <Title level={4} style={{ fontWeight: 400 }}>
-        {eventId ? "Modify the details of your event." : "Fill in the details to add a new event to the database."}
-      </Title>
-
       <Form
         form={form}
         layout="vertical"
@@ -131,16 +129,14 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
           <Input placeholder="Event Name" disabled={loading} />
         </Form.Item>
 
-        {/* Date Picker */}
         <Form.Item
           name="date"
-
-          // label="What is the proposed date and start time of your party?"
-          // rules={[{ required: true, message: "Please select the event date and time" }]}
         >
           <DatePicker showTime={{ format: "hh:mm A" }} format="YYYY-MM-DD hh:mm A" style={{ width: "100%" }} disabled={true} />
         </Form.Item>
-
+        <Form.Item name="ticketUrl" label="Ticket Link (if using RA, Partiful, etc.)">
+          <Input placeholder="Ticket link" disabled={loading} />
+        </Form.Item>
         {/* Event Description */}
         <Form.Item
           name="description"
@@ -148,6 +144,14 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
           rules={[{ required: true, message: "Please enter a description" }]}
         >
           <Input.TextArea rows={4} placeholder="Describe the event*" disabled={loading} />
+        </Form.Item>
+
+        {/* Additional Information */}
+        <Form.Item
+          name="additionalInformation"
+          label="Instructions for our social media team "
+        >
+          <Input.TextArea rows={4} placeholder="Enter additional information" disabled={loading} />
         </Form.Item>
 
         {/* Image Upload Button */}
@@ -176,10 +180,7 @@ const EventForm: React.FC<EventFormProps> = ({ eventId }) => {
           )}
         </Form.Item>
 
-        {/* Ticket URL */}
-        <Form.Item name="ticketUrl" label="Ticket Link (if using RA, Partiful, etc.)">
-          <Input placeholder="Ticket link" disabled={loading} />
-        </Form.Item>
+
 
         {/* Performers & Hosts */}
         <Form.Item label="Performers & Hosts">

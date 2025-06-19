@@ -89,7 +89,7 @@ export default async (req: any, res: any) => {
       });
     for (const event of allEvents) {
       // if event has the word honey trap in title
-      if (event.title.toLowerCase().includes("rooftop honey trap")) {
+      if (event.title.toLowerCase().includes("the out")) {
         console.log(event.title);
         console.log(event.date);
       }

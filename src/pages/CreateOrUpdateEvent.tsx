@@ -29,21 +29,8 @@ const CreateOrUpdateEvent: React.FC = () => {
             marginBottom: "20px",
             cursor: "pointer"
           }}
-          onClick={() => navigate("/")}
-        />
-
-        {/* Navigation Links */}
-        <div
           onClick={() => navigate("/my-party")}
-          style={{
-            cursor: "pointer",
-            marginBottom: "20px",
-            fontSize: "18px",
-            textDecoration: "underline",
-          }}
-        >
-          Back to My Events
-        </div>
+        />
 
         {/* Event Form */}
         <div style={{ maxWidth: "600px", width: "100%", padding: "20px" }}>

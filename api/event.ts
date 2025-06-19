@@ -22,14 +22,14 @@ async function fetchEvent(eventId: string) {
 // Create a new event
 async function createEvent(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { title, date, description, ticketUrl, performers, postImageUrl, additionalImages } = req.body;
-    console.log("additionalImages", additionalImages)
+    const { title, date, description, additionalInformation, ticketUrl, performers, postImageUrl, additionalImages } = req.body;
     const notionPayload = {
       parent: { database_id: eventsDatabaseId },
       properties: {
         Name: { title: [{ text: { content: title } }] },
         Date: date ? { date: { start: date } } : undefined,
         Description: description ? { rich_text: [{ text: { content: description } }] } : undefined,
+        "Additional Information": additionalInformation ? { rich_text: [{ text: { content: additionalInformation } }] } : undefined,
         "Ticket Link": ticketUrl ? { url: ticketUrl } : undefined,
         Performers: {
           relation: performers?.map((id: string) => ({ id })) || [],
@@ -72,7 +72,7 @@ async function updateEvent(req: NextApiRequest, res: NextApiResponse) {
   console.log("Body as JSON:", JSON.stringify(req.body, null, 2)); // ✅ Convert body to string for visibility
   
   const { eventId } = req.body
-  const { title, date, description, ticketUrl, performers, postImageUrl, additionalImages } = req.body;
+  const { title, date, description, additionalInformation, ticketUrl, performers, postImageUrl, additionalImages } = req.body;
 
   if (!eventId) {
     console.error("❌ Missing Event ID");
@@ -87,6 +87,7 @@ async function updateEvent(req: NextApiRequest, res: NextApiResponse) {
           Date: date ? { date: { start: date } } : undefined,
           Description: description ? { rich_text: [{ text: { content: description } }] } : undefined,
           "Ticket Link": ticketUrl ? { url: ticketUrl } : undefined,
+          "Additional Information": additionalInformation ? { rich_text: [{ text: { content: additionalInformation } }] } : undefined,
           Performers: performers?.length ? { relation: performers.map((id: string) => ({ id })) } : undefined,
           Poster: postImageUrl
             ? {
